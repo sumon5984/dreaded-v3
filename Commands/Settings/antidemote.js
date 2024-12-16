@@ -27,7 +27,7 @@ module.exports = async (context) => {
         const isBotAdmin = userAdmins.includes(Myself);
 
         if (value === 'on' && !isBotAdmin) {
-            return await m.reply('I need admin privileges to handle antidemote.');
+            return await m.reply('I need admin privileges to handle antidemote feature.');
         }
 
 
