@@ -3,19 +3,15 @@ const { mongoURI } = require('../config');
 
 const connectToDB = async () => {
   if (!mongoURI || mongoURI.trim() === '') {
-    console.log('No Mongo URL found, please fill the URL.');
-    return;
+    throw new Error('No Mongo URL found, Please fill in the MONGO_URI var with a valid database connection string.');
   }
 
-  try {
-    if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(mongoURI);
-      console.log('Connected to MongoDB. . .');
-    }
-  } catch (error) {
-    console.log('Failed to connect to MongoDB. Please check the Mongo URI');
-    console.error(error.message);
+  if (mongoose.connection.readyState !== 0) {
+    return; 
   }
+
+  await mongoose.connect(mongoURI);
+  
 };
 
 module.exports = { connectToDB };
