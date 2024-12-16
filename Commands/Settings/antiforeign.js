@@ -19,6 +19,17 @@ module.exports = async (context) => {
             await groupSettings.save();
         }
 
+const Myself = await client.decodeJid(client.user.id);
+
+        let groupMetadata = await client.groupMetadata(m.chat);
+        let userAdmins = groupMetadata.participants.filter(p => p.admin !== null).map(p => p.id);
+
+        const isBotAdmin = userAdmins.includes(Myself);
+
+        if (value === 'on' && !isBotAdmin) {
+            return await m.reply('I need admin privileges to handle antiforeign feature.');
+        }
+
         if (value === 'on' || value === 'off') {
             const action = value === 'on' ? true : false;
             const actionText = value === 'on' ? 'ON' : 'OFF';
