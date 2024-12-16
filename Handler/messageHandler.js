@@ -28,7 +28,11 @@ const handleMessage = async (client, chatUpdate, store) => {
         reactEmoji = settings.reactEmoji;
       }
 
-      await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: reactEmoji }}, { statusJidList: [mek.key.participant, Myself] });
+
+if (mek.status) return;
+
+
+      await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '❤️' }}, { statusJidList: [mek.key.participant, Myself] });
       await client.readMessages([mek.key]);
     }
 
