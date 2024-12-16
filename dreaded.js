@@ -10,9 +10,8 @@ const path = require('path');
 const { commands, totalCommands } = require('./Handler/commandHandler');
 
 const status_saver = require('./Functions/status_saver');
-const eval2 = require('./Functions/eval2');
-const eval = require('./Functions/eval');
-const antiviewonce = require('./Functions/antiviewonce');
+
+const antiviewonce = require('./Functions/antionce');
 const gcPresence = require('./Functions/gcpresence');
 const antilink = require('./Functions/antilink');
 const antidel = require('./Functions/antidelete');
