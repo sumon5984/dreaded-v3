@@ -15,20 +15,18 @@ const getSettings = async () => {
 const getGroupSettings = async (jid) => {
   try {
     if (!jid.endsWith('@g.us')) {
-      console.log(`Not a group JID: ${jid}`);
-      return null; // Return null or handle non-group cases differently
+      
+      return null; 
     }
 
     await connectToDB();
     let groupSettings = await GroupSettings.findOne({ jid });
 
     if (!groupSettings) {
-      console.log(`Group settings not found for ${jid}, creating new settings.`);
+      
       groupSettings = new GroupSettings({ jid });
       await groupSettings.save();
-      console.log(`Created new group settings for ${jid}`);
-    } else {
-      console.log(`Fetched group settings for ${jid}`);
+      
     }
 
     return groupSettings;
