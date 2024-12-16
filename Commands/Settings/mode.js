@@ -15,6 +15,9 @@ module.exports = async (context) => {
         }
 
         if (value === 'public' || value === 'private') {
+            if (settings.mode === value) {
+                return await m.reply(`✅ Bot is already in ${value} mode.`);
+            }
             settings.mode = value;
             await settings.save();
             await m.reply(`✅ Bot is now: ${value}`);
