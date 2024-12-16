@@ -1,4 +1,5 @@
 const { getGroupSettings } = require('../Mongodb/Settingsdb');
+const { getGroupSettings, getSettings } = require('../Mongodb/Settingsdb');
 
 module.exports = async (client, m) => {
   const userId = m.sender;
@@ -20,7 +21,11 @@ module.exports = async (client, m) => {
 
 if (botId.includes(userId)) return;
     
-  
+    let settings = await getSettings();
+  const currentDevs = settings.dev.split(',').map((num) => num.trim());
+
+  if (currentDevs.includes(checkdev)) return;
+
 
 
   if (groupAdmins.includes(userId)) {
