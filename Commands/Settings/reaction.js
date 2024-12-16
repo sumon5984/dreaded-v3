@@ -33,7 +33,7 @@ module.exports = async (context) => {
                 await m.reply(`✅ Status react emoji has been updated to: ${newEmoji}`);
             }
         } else {
-            await m.reply(`📄 Current react emoji: ${settings.reactEmoji || 'No react emoji set.'}\n\nUse 'reactEmoji random' to set it to random or 'reactEmoji <emoji>' to set a specific emoji.`);
+            await m.reply(`📄 Current Status reaction emoji: ${settings.reactEmoji || 'No react emoji set.'}\n\nUse 'reaction random' to set it to random or 'reaction <emoji>' to set a specific emoji.`);
         }
     });
 };
