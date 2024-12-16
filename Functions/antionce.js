@@ -1,6 +1,13 @@
+
+    
 module.exports = async (client, m) => {
-const groupSettings = await getGroupSettings(groupId);
-  if (groupSettings.antionce && m.mtype == 'viewOnceMessageV2') {
+
+
+const { getSettings } = require("../Mongodb/Settingsdb");
+
+    const settings = await getSettings();
+
+  if (settings.antionce && m.mtype == 'viewOnceMessageV2') {
   if (m.fromMe) return;
   
    let mokaya = { ...m };
