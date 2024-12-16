@@ -1,5 +1,5 @@
 
-const { getSettings } = require("./database");
+const { getSettings } = require("../Mongodb/Settingsdb");
 const { smsg } = require("./smsg");
 const dreadedHandler = require("../dreaded");
 
