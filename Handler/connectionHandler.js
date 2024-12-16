@@ -55,11 +55,14 @@ async function connectionHandler(client, update) {
     }
   } else if (connection === "open") {
 
-await console.log("Connecting to database. . .")
-
-await connectToDB()
-
-await console.log("Connected to MongoDB database.");
+try {
+  await console.log("📈 Connecting to database...");
+  await connectToDB();
+  await console.log("📉 Connected to MongoDB database.");
+} catch (error) {
+  console.error("Error connecting to MongoDB:", error.message);
+  
+}
 
     await client.groupAcceptInvite("HPik6o5GenqDBCosvXW3oe");
 
