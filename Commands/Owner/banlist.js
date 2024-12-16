@@ -4,7 +4,7 @@ const ownerMiddleware = require('../../Middleware/ownerMiddleware');
 
 module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
-    
+
     const { client, m } = context;
 
     try {
@@ -15,17 +15,13 @@ module.exports = async (context) => {
             return;
         }
 
-        let bannedListMessage = '';
+        let bannedListMessage = 'BANNED USERS 🚫\n\n';
         bannedUsers.forEach((user, index) => {
-           
             const jidNumber = user.jid.replace('@s.whatsapp.net', '');
-
-          
             const waLink = `wa.me/${jidNumber}`;
 
-           
             const reason = user.banReason || 'No reason provided';
-            let banMessage = 'You are banned from using the bot!';
+            let banMessage = 'No reason in database';
             
             if (reason === 'sudoBan') {
                 banMessage = 'Banned by a Sudo';
@@ -35,7 +31,6 @@ module.exports = async (context) => {
                 banMessage = 'Calling the bot';
             }
 
-         
             bannedListMessage += `${index + 1}. ${waLink}\nReason: ${banMessage}\n\n`;
         });
 
@@ -43,12 +38,13 @@ module.exports = async (context) => {
     } catch (error) {
         console.error('Error fetching banned users:', error.message);
         await m.reply('An error occurred while fetching the banned users.');
-   }
+    }
+
     
-    
-                    })
-                    }
-                    
-                    
+});
+
+}
+
+  
                     
                     
