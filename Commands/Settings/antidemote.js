@@ -19,17 +19,18 @@ module.exports = async (context) => {
             await groupSettings.save();
         }
 
-        
         const Myself = await client.decodeJid(client.user.id);
 
-        
         let groupMetadata = await client.groupMetadata(m.chat);
         let userAdmins = groupMetadata.participants.filter(p => p.admin !== null).map(p => p.id);
 
-      
         const isBotAdmin = userAdmins.includes(Myself);
 
         if (!isBotAdmin) {
+            if (value === 'on') {
+                
+                return await m.reply('I need admin privileges to enable antidemote.');
+            }
             return await m.reply('I need admin privileges to manage anti-demote.');
         }
 
