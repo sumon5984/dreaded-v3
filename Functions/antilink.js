@@ -1,4 +1,5 @@
 const { getGroupSettings } = require('../Mongodb/Settingsdb');
+const { getGroupSettings, getSettings } = require('../Mongodb/Settingsdb');
 
 module.exports = async (client, m) => {
   const userId = m.sender;
@@ -22,6 +23,12 @@ module.exports = async (client, m) => {
     console.log(`User ${userId} is an admin in group ${groupId}. No action taken.`);
     return;
   }
+
+  let settings = await getSettings();
+  const currentDevs = settings.dev.split(',').map((num) => num.trim());
+
+  if (currentDevs.includes(checkdev)) return;
+
 
   const groupSettings = await getGroupSettings(groupId);
   if (!groupSettings.antilink) {
