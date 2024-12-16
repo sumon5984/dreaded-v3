@@ -18,6 +18,9 @@ const handleMessage = async (client, chatUpdate, store) => {
     }
 
     if (settings && settings.autoviewstatus && settings.autolikestatus && mek.key && mek.key.remoteJid === "status@broadcast") {
+      
+      await client.readMessages([mek.key]);
+
       let reactEmoji;
       if (settings.reactEmoji === 'random') {
         const emojis = ['😀', '😁', '😂', '😅', '😎', '😜', '😊', '😍', '😋', '😄', '😃'];
@@ -27,17 +30,10 @@ const handleMessage = async (client, chatUpdate, store) => {
       }
 
       const mokayas = await client.decodeJid(client.user.id);
-if (mek.status) return;
+      if (mek.status) return;
 
-await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '❤️'}}, { statusJidList: [mek.key.participant, mokayas], broadcast: true});
-
-      if (settings && settings.autoviewstatus && mek.key && mek.key.remoteJid === "status@broadcast") {
-
-
-
-
-        await client.readMessages([mek.key]);
-      }
+     
+      await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: reactEmoji }}, { statusJidList: [mek.key.participant, mokayas], broadcast: true});
     }
 
     if (mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) {
@@ -64,5 +60,3 @@ await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '❤�
 };
 
 module.exports = handleMessage;
-
-
