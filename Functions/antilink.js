@@ -44,7 +44,7 @@ module.exports = async (client, m) => {
     await client.sendMessage(
       groupId,
       {
-        text: `@${userId.split("@")[0]} has been removed for sending a link.\nAntilink is active!`,
+        text: `@${userId.split("@")[0]}, sending links is prohibited.\nAntilink is active!`,
         contextInfo: {
           mentionedJid: [userId],
         },
