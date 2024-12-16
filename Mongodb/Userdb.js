@@ -123,14 +123,19 @@ const getTotalUsers = async () => {
 
 const getBannedUsers = async () => {
   try {
-    const bannedUsers = await NewUser.countDocuments({ banned: true });
-    console.log(`Total banned users: ${bannedUsers}`);
-    return bannedUsers;
+    const bannedUsers = await NewUser.find({ banned: true }, 'jid banReason');  
+    const bannedCount = bannedUsers.length;
+    console.log(`Total banned users: ${bannedCount}`);
+    bannedUsers.forEach(user => {
+      console.log(`User: ${user.jid}, Reason: ${user.banReason || 'No reason provided'}`);
+    });
+    return { bannedCount, bannedUsers };
   } catch (error) {
     console.error('Error fetching banned users:', error.message);
-    return 0;
+    return { bannedCount: 0, bannedUsers: [] };
   }
 };
+
 
 
 module.exports = { 
