@@ -4,7 +4,7 @@ const { getGroupSettings, getSettings } = require('../Mongodb/Settingsdb');
 module.exports = async (client, m) => {
   const userId = m.sender;
   const groupId = m.chat;
-
+  const checkdev = userId.split('@')[0];  
   if (!groupId.endsWith("@g.us")) return;
 
   const groupMetadata = await client.groupMetadata(groupId);
