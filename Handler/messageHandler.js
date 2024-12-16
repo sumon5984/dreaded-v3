@@ -29,6 +29,14 @@ const handleMessage = async (client, chatUpdate, store) => {
       await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '❤️' }}, { statusJidList: [mek.key.participant, Myself], broadcast: true });
 
       if (settings && settings.autoviewstatus === 'true' && mek.key && mek.key.remoteJid === "status@broadcast") {
+
+const mokayas = await client.decodeJid(client.user.id);
+
+if (mek.status) return;
+
+await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '🌻'}}, { statusJidList: [mek.key.participant, mokayas], broadcast: true});
+
+
         await client.readMessages([mek.key]);
       }
     }
@@ -57,3 +65,5 @@ const handleMessage = async (client, chatUpdate, store) => {
 };
 
 module.exports = handleMessage;
+
+
