@@ -36,6 +36,6 @@ module.exports = async (context) => {
     settings.dev = currentDevs.join(',');
     await settings.save();
 
-    await m.reply(`✅ ${numberToAdd} has been added as a Sudo User.`);
+    await m.reply(`✅ ${numberToAdd} is now a Sudo User!`);
   });
 };
