@@ -26,34 +26,28 @@ module.exports = async (context) => {
 
         const isBotAdmin = userAdmins.includes(Myself);
 
-        // If the value is 'off', we turn it off regardless of whether the bot is an admin
-        if (value === 'off') {
-            groupSettings.antidemote = false;
-            await groupSettings.save();
-            return await m.reply('❌ Antidemote has been turned OFF for this group.');
+        // If bot is not admin, return early when trying to enable antidemote
+        if (value === 'on' && !isBotAdmin) {
+            return await m.reply('❌ I need admin privileges to turn on antidemote.');
         }
 
-        // If bot is not admin and user tries to turn antidemote on
-        if (!isBotAdmin && value === 'on') {
-            return await m.reply('❌ I need admin privileges to enable antidemote.');
-        }
+        // Handling antidemote settings for both 'on' and 'off'
+        if (value === 'on' || value === 'off') {
+            const action = value === 'on' ? true : false;
+            const actionText = value === 'on' ? 'ON' : 'OFF';
+            const actionMsg = value === 'on' ? 'turned ON' : 'turned OFF';
 
-        // If the bot is admin, proceed with updating the group setting
-        if (isBotAdmin) {
-            if (value === 'on') {
-                groupSettings.antidemote = true;
-                await groupSettings.save();
-                await m.reply(`✅ Antidemote has been turned ON for this group. Bot will now detect demotes and restrict some!`);
-            } else if (value === 'off') {
-                groupSettings.antidemote = false;
-                await groupSettings.save();
-                await m.reply(`❌ Antidemote has been turned OFF for this group.`);
-            } else {
-                // Invalid or no argument, reply with current setting
-                await m.reply(`📄 Current antidemote setting for this group: ${groupSettings.antidemote ? 'ON' : 'OFF'}\n\n Use "antidemote on" or "antidemote off".`);
+            // If the setting is already in the desired state, inform the user
+            if (groupSettings.antidemote === action) {
+                return await m.reply(`✅ Antidemote was already ${actionText}.`);
             }
+
+            // Update the setting and save it to the database
+            groupSettings.antidemote = action;
+            await groupSettings.save();
+            await m.reply(`✅ Antidemote has been ${actionMsg} for this group.`);
         } else {
-            // Invalid or no argument, reply with current setting regardless of admin status
+            // If no valid argument or invalid argument, return the current status
             await m.reply(`📄 Current antidemote setting for this group: ${groupSettings.antidemote ? 'ON' : 'OFF'}\n\n Use "antidemote on" or "antidemote off".`);
         }
     });
