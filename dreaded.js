@@ -105,7 +105,7 @@ const context = {
     client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants, mycode,
     pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
     packname, author, generateProfilePicture, groupMetadata, dreadedspeed,
-    fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, getGroupAdmins, antionce, uploadtoimgur
+    fetchJson, exec, getRandom, prefix, cmd, botname, mode, gcpresence, getGroupAdmins, antionce, uploadtoimgur
 };
 if (cmd && settings.mode === 'private' && !itsMe && !Owner) {
 return;
