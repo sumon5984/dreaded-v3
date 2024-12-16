@@ -1,4 +1,4 @@
-const { getGroupSettings } = require('../../Mongodb/Settingsdb'); 
+const { getGroupSettings } = require('../../Mongodb/Settingsdb');
 const ownerMiddleware = require('../../Middleware/ownerMiddleware');
 
 module.exports = async (context) => {
@@ -41,7 +41,12 @@ module.exports = async (context) => {
 
             groupSettings.antispam = action;
             await groupSettings.save();
-            await m.reply(`✅ Anti-spam has been ${actionMsg} for this group.`);
+
+            if (value === 'on') {
+                await m.reply(`✅ Anti-spam has been ${actionMsg}, Bot will try to detect and remove spammers. This feature is in testing.`);
+            } else {
+                await m.reply(`❌ Anti-spam has been ${actionMsg} for this group.`);
+            }
         } else {
             await m.reply(`📄 Current anti-spam setting for this group: ${groupSettings.antispam ? 'ON' : 'OFF'}\n\n Use "antispam on" or "antispam off".`);
         }
