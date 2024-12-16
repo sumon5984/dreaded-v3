@@ -1,4 +1,4 @@
-const { getGroupSettings, settings} = require('../Mongodb/Settingsdb');
+const { getGroupSettings, getSettings} = require('../Mongodb/Settingsdb');
 const botname = process.env.BOTNAME || 'DREADED';
 
 
@@ -11,6 +11,9 @@ const Events = async (client, Fortu) => {
         let metadata = await client.groupMetadata(Fortu.id);
         let participants = Fortu.participants;
         let desc = metadata.desc || "No Description";
+
+
+const settings = await getSettings();
 
       
         const currentDevs = settings.dev.split(',').map((nums) => nums.trim()).map(num => `${num}@s.whatsapp.net`);
