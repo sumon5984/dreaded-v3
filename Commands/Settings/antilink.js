@@ -41,7 +41,12 @@ module.exports = async (context) => {
 
             groupSettings.antilink = action;
             await groupSettings.save();
-            await m.reply(`✅ Antilink has been ${actionMsg} for this group.`);
+
+            if (value === 'on') {
+                await m.reply(`✅ Antilink has been ${actionMsg} for this group. Bot will now remove link senders.`);
+            } else {
+                await m.reply(`❌ Antilink has been ${actionMsg} for this group.`);
+            }
         } else {
             await m.reply(`_📄 Current antilink setting for this group: ${groupSettings.antilink ? 'ON' : 'OFF'}\n\nUse "antilink on" or "antilink off"._`);
         }
