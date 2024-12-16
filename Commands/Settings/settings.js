@@ -16,6 +16,7 @@ module.exports = async (context) => {
     response += `🔘 *Autoread*: ${settings.autoread ? '✅ ON' : '❌ OFF'}\n`;
     response += `🔘 *Autoview Status*: ${settings.autoviewstatus ? '✅ ON' : '❌ OFF'}\n`;
     response += `🔘 *Autolike Status*: ${settings.autolikestatus ? '✅ ON' : '❌ OFF'}\n`;
+response += `🔘 *React Emoji*: ${settings.reactEmoji}\n`;
     response += `🔘 *Autobio*: ${settings.autobio ? '✅ ON' : '❌ OFF'}\n`;
     response += `🔘 *Anticall*: ${settings.anticall ? '✅ ON' : '❌ OFF'}\n`;
     response += `🔘 *Antionce*: ${settings.antionce ? '✅ ON' : '❌ OFF'}\n`;
