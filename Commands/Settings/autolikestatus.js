@@ -4,6 +4,7 @@ const ownerMiddleware = require('../../Middleware/ownerMiddleware');
 module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
         const { m, args } = context;
+        const value = args[0]?.toLowerCase();
 
         let settings = await getSettings();
 
@@ -13,13 +14,17 @@ module.exports = async (context) => {
             await settings.save();
         }
 
-        const value = args[0]?.toLowerCase();
-
         if (value === 'on') {
+            if (settings.autolikestatus) {
+                return await m.reply('✅ Autolikestatus is already ON.');
+            }
             settings.autolikestatus = true;
             await settings.save();
             await m.reply('✅ Autolikestatus has been turned ON. Bot will now like status with a custom emoji.');
         } else if (value === 'off') {
+            if (!settings.autolikestatus) {
+                return await m.reply('❌ Autolikestatus is already OFF.');
+            }
             settings.autolikestatus = false;
             await settings.save();
             await m.reply('❌ Autolikestatus has been turned OFF.');
