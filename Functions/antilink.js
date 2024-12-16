@@ -44,19 +44,6 @@ module.exports = async (client, m) => {
     await client.sendMessage(
       groupId,
       {
-        text: `@${userId.split("@")[0]}, sharing links is not allowed in this group!`,
-        contextInfo: {
-          mentionedJid: [userId],
-        },
-      },
-      { quoted: m }
-    );
-
-    await client.groupParticipantsUpdate(groupId, [userId], "remove");
-
-    await client.sendMessage(
-      groupId,
-      {
         text: `@${userId.split("@")[0]} has been removed for sending a link.\nAntilink is active!`,
         contextInfo: {
           mentionedJid: [userId],
@@ -64,5 +51,18 @@ module.exports = async (client, m) => {
       },
       { quoted: m }
     );
+
+await client.sendMessage(m.chat, {
+            delete: {
+                remoteJid: m.chat,
+                fromMe: false,
+                id: m.key.id,
+                participant: userId
+            }
+        });
+
+    await client.groupParticipantsUpdate(groupId, [userId], "remove");
+
+    
   }
 }; 
