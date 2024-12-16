@@ -1,23 +1,9 @@
 const mongoose = require('mongoose');
 const NewUser = require('./Schemas/Userschema');
-const { mongoURI } = require('../settings');
+const { connectToDB } = require('./loadDb');
 
-const connectToDB = async () => {
-  if (!mongoURI || mongoURI.trim() === '') {
-    console.error('No Mongo URL found, please fill the URL.');
-    return;
-  }
+connectToDB();
 
-  try {
-    if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(mongoURI);
-      console.log('Connected to MongoDB');
-    }
-  } catch (error) {
-    console.error('Failed to connect to MongoDB. Please check the Mongo URI');
-    console.error(error.message);
-  }
-};
 
 const createUser = async (userId) => {
   if (!userId || userId.trim() === '') {
@@ -28,7 +14,7 @@ const createUser = async (userId) => {
   console.log(`Attempting to create user with userId: ${userId}`);
 
   try {
-    await connectToDB();
+    
 
     const existingUser = await NewUser.findOne({ jid: userId });
     if (existingUser) {
