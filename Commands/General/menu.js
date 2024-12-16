@@ -66,7 +66,7 @@ module.exports = async (context) => {
         };
 
         for (const category of categories) {
-            const commandFiles = fs.readdirSync(`./cmds/${category.name}`).filter((file) => file.endsWith('.js'));
+            const commandFiles = fs.readdirSync(`./Commands/${category.name}`).filter((file) => file.endsWith('.js'));
 
             const fancyCategory = toVisibleUppercaseFont(category.name.toUpperCase());
 
