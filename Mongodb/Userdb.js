@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const NewUser = require('./Schemas/userSchema');
+const NewUser = require('./Schemas/Userschema');
 const { mongoURI } = require('../settings');
 
 const connectToDB = async () => {
