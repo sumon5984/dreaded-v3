@@ -27,7 +27,7 @@ module.exports = async (context) => {
         const isBotAdmin = userAdmins.includes(Myself);
 
         if (value === 'on' && !isBotAdmin) {
-            return await m.reply('❌ I need admin privileges to handle antitag.');
+            return await m.reply('I need admin privileges to handle antitag feature.');
         }
 
         if (value === 'on' || value === 'off') {
