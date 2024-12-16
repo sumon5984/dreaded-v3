@@ -30,7 +30,7 @@ const handleMessage = async (client, chatUpdate, store) => {
 
 */
 
-      if (settings && settings.autoviewstatus === 'true' && mek.key && mek.key.remoteJid === "status@broadcast") {
+      if (settings && settings.autoviewstatus && mek.key && mek.key.remoteJid === "status@broadcast") {
 
 const mokayas = await client.decodeJid(client.user.id);
 
