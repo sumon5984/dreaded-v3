@@ -78,7 +78,10 @@ const emojis = [
 await tagCheck(client, m);
 await linkCheck(client, m);
 await presenceCheck(client, m);
-await userCheck(client, m);
+const proceed = await userCheck(client, m);
+if (!proceed) {
+    return;
+}
 
     dreadedHandler(client, m, chatUpdate, store);
 
