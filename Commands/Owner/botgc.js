@@ -1,4 +1,4 @@
-const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
+const ownerMiddleware = require('../../Middleware/ownerMiddleware'); 
 
 module.exports = async (context) => {
   await ownerMiddleware(context, async () => {
