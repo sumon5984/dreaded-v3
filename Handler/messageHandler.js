@@ -22,7 +22,7 @@ const handleMessage = async (client, chatUpdate, store) => {
     }
 
     // Log the reactEmoji to the console
-    console.log("React Emoji: ", reactEmoji);
+    console.log("React Emoji: ", emoji);
 
     if (settings && settings.autoread && mek.key && mek.key.remoteJid.endsWith("@s.whatsapp.net")) {
       await client.readMessages([mek.key]);
