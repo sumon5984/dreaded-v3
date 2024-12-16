@@ -34,6 +34,10 @@ const settingsSchema = new mongoose.Schema({
     type: String,
     default: '.'
   },
+reactEmoji: {
+    type: String,
+    default: '❤️'
+  },
   author: {
     type: String,
     default: 'fortunatus'
