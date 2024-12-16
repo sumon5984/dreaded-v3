@@ -4,7 +4,7 @@ const ownerMiddleware = require('../../Middleware/ownerMiddleware');
 module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
         const { m, args } = context;
-        const newPrefix = args[0];
+        const newPrefix = args.length > 0 ? args.join(" ") : null; // Ensure the entire prefix with spaces is considered
 
         let settings = await getSettings();
 
@@ -14,7 +14,7 @@ module.exports = async (context) => {
             await settings.save();
         }
 
-        if (newPrefix) {
+        if (newPrefix !== null) {
             if (newPrefix === 'null') {
                 if (!settings.prefix) {
                     return await m.reply(`✅ The bot was already prefixless.`);
