@@ -3,6 +3,7 @@ const { smsg } = require("./smsg");
 const dreadedHandler = require("../dreaded");
 const spamCheck = require('../Functions/antispamm');
 const linkCheck = require('../Functions/antilink');
+const tagCheck = require('../Functions/antitag');
 
 const handleMessage = async (client, chatUpdate, store) => {
   try {
@@ -72,6 +73,7 @@ const emojis = [
 
     const m = smsg(client, mek, store);
     await spamCheck(client, m);
+await tagCheck(client, m);
 await linkCheck(client, m);
 
     dreadedHandler(client, m, chatUpdate, store);
