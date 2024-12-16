@@ -4,13 +4,13 @@ const ownerMiddleware = require('../../Middleware/ownerMiddleware');
 module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
         const { client, m, args } = context;
-        const jid = m.chat; 
+        const value = args[0]?.toLowerCase();
+        const jid = m.chat;
 
         if (!jid.endsWith('@g.us')) {
             return await m.reply('❌ This command can only be used in groups.');
         }
 
-        
         let groupSettings = await getGroupSettings(jid);
 
         if (!groupSettings) {
@@ -19,21 +19,31 @@ module.exports = async (context) => {
             await groupSettings.save();
         }
 
-        const value = args[0]?.toLowerCase();
+        const Myself = await client.decodeJid(client.user.id);
 
-        if (value === 'on') {
-           
-            groupSettings.antispam = true;
+        let groupMetadata = await client.groupMetadata(m.chat);
+        let userAdmins = groupMetadata.participants.filter(p => p.admin !== null).map(p => p.id);
+
+        const isBotAdmin = userAdmins.includes(Myself);
+
+        if (value === 'on' && !isBotAdmin) {
+            return await m.reply('I need admin privileges to handle spam.');
+        }
+
+        if (value === 'on' || value === 'off') {
+            const action = value === 'on' ? true : false;
+            const actionText = value === 'on' ? 'ON' : 'OFF';
+            const actionMsg = value === 'on' ? 'turned ON' : 'turned OFF';
+
+            if (groupSettings.antispam === action) {
+                return await m.reply(`✅ Anti-spam was already ${actionText}.`);
+            }
+
+            groupSettings.antispam = action;
             await groupSettings.save();
-            await m.reply('✅ Anti-spam has been turned ON. Bot will now remove spammers, however note that this feature might not work as expected yet!');
-        } else if (value === 'off') {
-           
-            groupSettings.antispam = false;
-            await groupSettings.save();
-            await m.reply('❌ Anti-spam has been turned OFF.');
+            await m.reply(`✅ Anti-spam has been ${actionMsg} for this group.`);
         } else {
-           
-            await m.reply(`📄 Current anti-spam setting: ${groupSettings.antispam ? 'ON' : 'OFF'}\n\n Use "antispam on" or "antispam off".`);
+            await m.reply(`📄 Current anti-spam setting for this group: ${groupSettings.antispam ? 'ON' : 'OFF'}\n\n Use "antispam on" or "antispam off".`);
         }
     });
 };
