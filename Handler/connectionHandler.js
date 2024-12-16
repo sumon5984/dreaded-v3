@@ -57,7 +57,7 @@ async function connectionHandler(client, update) {
 
     
     const Myself = await client.decodeJid(client.user.id);
-    const botNumber = Myself.split('@')[0];  // Extract the number part
+    const botNumber = Myself.split('@')[0];  
 
     
     const set = await getSettings();
