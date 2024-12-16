@@ -1,4 +1,4 @@
-const { getSettings } = require("../Mongodb/settingDb"); 
+const { getSettings } = require("../Mongodb/Settingsdb"); 
 
 const { commands, totalCommands } = require('./commandHandler');
 const { DateTime } = require("luxon");
