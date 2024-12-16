@@ -50,7 +50,7 @@ const handleMessage = async (client, chatUpdate, store) => {
 
 const m = smsg(client, mek, store);
 
-         
+         await spamCheck(client, m);
     
 
     dreadedHandler(client, m, chatUpdate, store);
