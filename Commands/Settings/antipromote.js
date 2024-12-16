@@ -41,7 +41,12 @@ module.exports = async (context) => {
 
             groupSettings.antipromote = action;
             await groupSettings.save();
-            await m.reply(`✅ Antipromote has been ${actionMsg} for this group.`);
+
+            if (value === 'on') {
+                await m.reply(`✅ Antipromote has been ${actionMsg} for this group. Bot will now monitor and handle promotions.`);
+            } else {
+                await m.reply(`❌ Antipromote has been ${actionMsg} for this group.`);
+            }
         } else {
             await m.reply(`📄 Current antipromote setting for this group: ${groupSettings.antipromote ? 'ON' : 'OFF'}\n\nUse "antipromote on" or "antipromote off".`);
         }
