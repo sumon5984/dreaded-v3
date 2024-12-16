@@ -1,7 +1,7 @@
 const { Boom } = require("@hapi/boom");
 
 const { getSettings } = require("../Mongodb/Settingsdb"); 
-const { connectToDB } = require('../loadDb');
+const { connectToDB } = require('../Mongodb/loadDb');
 const { commands, totalCommands } = require('./commandHandler');
 const { DateTime } = require("luxon");
 
