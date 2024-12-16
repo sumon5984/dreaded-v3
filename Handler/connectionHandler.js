@@ -1,3 +1,5 @@
+const { Boom } = require("@hapi/boom");
+
 const { getSettings } = require("../Mongodb/Settingsdb"); 
 
 const { commands, totalCommands } = require('./commandHandler');
