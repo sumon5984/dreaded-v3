@@ -20,10 +20,16 @@ module.exports = async (context) => {
         }
 
         if (value === 'on') {
+            if (groupSettings.gcpresence) {
+                return await m.reply(`✅ Presence is already ON for this group.`);
+            }
             groupSettings.gcpresence = true;
             await groupSettings.save();
             await m.reply(`✅ Presence has been turned ON for this group. Bot will now simulate typing or recording.`);
         } else if (value === 'off') {
+            if (!groupSettings.gcpresence) {
+                return await m.reply(`❌ Presence is already OFF for this group.`);
+            }
             groupSettings.gcpresence = false;
             await groupSettings.save();
             await m.reply(`❌ Presence has been turned OFF for this group.`);
