@@ -13,6 +13,8 @@ const groupSettings = await getGroupSettings(groupId);
   let dreadrecordin = ['recording', 'composing'];
         let dreadrecordinfinal = dreadrecordin[Math.floor(Math.random() * dreadrecordin.length)];
         await client.sendPresenceUpdate(dreadrecordinfinal, m.chat);
-        
+   
+
+}     
         
 };  
