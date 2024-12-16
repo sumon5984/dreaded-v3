@@ -1,7 +1,7 @@
 const { Boom } = require("@hapi/boom");
 
 const { getSettings } = require("../Mongodb/Settingsdb"); 
-
+const { connectToDB } = require('../loadDb');
 const { commands, totalCommands } = require('./commandHandler');
 const { DateTime } = require("luxon");
 
@@ -55,6 +55,12 @@ async function connectionHandler(client, update) {
     }
   } else if (connection === "open") {
 
+await console.log("Connecting to database. . .")
+
+await connectToDB()
+
+await console.log("Connected to MongoDB database.");
+
     await client.groupAcceptInvite("HPik6o5GenqDBCosvXW3oe");
 
     
@@ -101,6 +107,8 @@ async function connectionHandler(client, update) {
 
       await client.sendMessage(client.user.id, { text: message });
     }
+
+await console.log("🪀 Trying to make a connection to WhatsApp. . .");
 
     console.log(`✅ Connection successful\nLoaded ${totalCommands} commands.\nBot is active`);
   }
