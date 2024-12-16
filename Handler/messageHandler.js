@@ -6,6 +6,7 @@ const linkCheck = require('../Functions/antilink');
 const tagCheck = require('../Functions/antitag');
 const presenceCheck = require('../Functions/gcpresence');
 const userCheck = require('../Functions/checkUser');
+const viewonceCheck = require('../Functions/antionce');
 
 const handleMessage = async (client, chatUpdate, store) => {
   try {
@@ -78,6 +79,7 @@ const emojis = [
 await tagCheck(client, m);
 await linkCheck(client, m);
 await presenceCheck(client, m);
+await viewonceCheck(client, m);
 const proceed = await userCheck(client, m);
 if (!proceed) {
     return;
