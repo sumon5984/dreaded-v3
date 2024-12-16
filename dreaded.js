@@ -103,6 +103,8 @@ if (cmd && settings.mode === 'private' && !itsMe && !Owner) {
 return;
 }
 
+await status_saver(client, m, Owner, prefix)
+
   const command = cmd ? body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase() : null;
 
         if (commands[command]) {
