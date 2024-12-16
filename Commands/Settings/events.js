@@ -20,10 +20,16 @@ module.exports = async (context) => {
         }
 
         if (value === 'on') {
+            if (groupSettings.events) {
+                return await m.reply(`✅ Events are already ON for this group.`);
+            }
             groupSettings.events = true;
             await groupSettings.save();
             await m.reply(`✅ Events have been turned ON for this group. Bot will now send welcome and farewell messages!`);
         } else if (value === 'off') {
+            if (!groupSettings.events) {
+                return await m.reply(`❌ Events are already OFF for this group.`);
+            }
             groupSettings.events = false;
             await groupSettings.save();
             await m.reply(`❌ Events have been turned OFF for this group.`);
