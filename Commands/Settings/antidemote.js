@@ -22,7 +22,7 @@ module.exports = async (context) => {
         if (value === 'on') {
             groupSettings.antidemote = true;
             await groupSettings.save();
-            await m.reply(`✅ Antidemote has been turned ON for this group. Bot will now restrict demotes!`);
+            await m.reply(`✅ Antidemote has been turned ON for this group. Bot will now detect denotes and restrict some!`);
         } else if (value === 'off') {
             groupSettings.antidemote = false;
             await groupSettings.save();
