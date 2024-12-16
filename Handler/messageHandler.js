@@ -13,12 +13,12 @@ const handleMessage = async (client, chatUpdate, store) => {
 
     const settings = await getSettings();
 
-    let reactEmoji; 
+    let emoji; 
     if (settings && settings.reactEmoji === 'random') {
       const emojis = ['😀', '😁', '😂', '😅', '😎', '😜', '😊', '😍', '😋', '😄', '😃'];
-      reactEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji = emojis[Math.floor(Math.random() * emojis.length)];
     } else if (settings && settings.reactEmoji) {
-      reactEmoji = settings.reactEmoji;
+      emoji = settings.reactEmoji;
     }
 
     // Log the reactEmoji to the console
@@ -34,7 +34,7 @@ const handleMessage = async (client, chatUpdate, store) => {
       const mokayas = await client.decodeJid(client.user.id);
       if (mek.status) return;
 
-      await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '💚' }}, { statusJidList: [mek.key.participant, mokayas], broadcast: true});
+      await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: emoji }}, { statusJidList: [mek.key.participant, mokayas], broadcast: true});
     }
 
     if (mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) {
