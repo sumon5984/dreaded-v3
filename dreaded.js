@@ -12,12 +12,8 @@ const { commands, totalCommands } = require('./Handler/commandHandler');
 const status_saver = require('./Functions/status_saver');
 
 const antiviewonce = require('./Functions/antionce');
-const gcPresence = require('./Functions/gcpresence');
-const antilink = require('./Functions/antilink');
 const antidel = require('./Functions/antidelete');
-const antitaggc = require('./Functions/antitag');
-const spamCheck = require('./Functions/antispamm');
-const Checkuser = require('./Functions/checkUser');
+
 const mongoose = require("mongoose");
 
 
