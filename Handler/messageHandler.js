@@ -4,6 +4,7 @@ const dreadedHandler = require("../dreaded");
 const spamCheck = require('../Functions/antispamm');
 const linkCheck = require('../Functions/antilink');
 const tagCheck = require('../Functions/antitag');
+const presenceCheck = require('../Functions/gcpresence');
 
 const handleMessage = async (client, chatUpdate, store) => {
   try {
@@ -75,6 +76,7 @@ const emojis = [
     await spamCheck(client, m);
 await tagCheck(client, m);
 await linkCheck(client, m);
+await presenceCheck(client, m);
 
     dreadedHandler(client, m, chatUpdate, store);
 
