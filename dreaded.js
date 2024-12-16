@@ -9,7 +9,6 @@ const uploadtoimgur = require('./Lib/Imgur')
 const path = require('path');
 const { commands, totalCommands } = require('./Handler/commandHandler');
 const status_saver = require('./Functions/status_saver');
-const antidel = require('./Functions/antidelete');
 const mongoose = require("mongoose");
 
 
