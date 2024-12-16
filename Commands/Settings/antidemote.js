@@ -49,10 +49,12 @@ module.exports = async (context) => {
                 await groupSettings.save();
                 await m.reply(`❌ Antidemote has been turned OFF for this group.`);
             } else {
+                // Invalid or no argument, reply with current setting
                 await m.reply(`📄 Current antidemote setting for this group: ${groupSettings.antidemote ? 'ON' : 'OFF'}\n\n Use "antidemote on" or "antidemote off".`);
             }
         } else {
-            await m.reply('❌ I need admin privileges to manage anti-demote.');
+            // Invalid or no argument, reply with current setting regardless of admin status
+            await m.reply(`📄 Current antidemote setting for this group: ${groupSettings.antidemote ? 'ON' : 'OFF'}\n\n Use "antidemote on" or "antidemote off".`);
         }
     });
 };
