@@ -9,30 +9,31 @@ const handleMessage = async (client, chatUpdate, store) => {
     if (!mek.message) return;
 
     const Myself = await client.decodeJid(client.user.id);
-    // const Chat = mek.key.remoteJid;
+   
 
     const settings = await getSettings();
+
+    let reactEmoji; 
+    if (settings && settings.reactEmoji === 'random') {
+      const emojis = ['😀', '😁', '😂', '😅', '😎', '😜', '😊', '😍', '😋', '😄', '😃'];
+      reactEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+    } else if (settings && settings.reactEmoji) {
+      reactEmoji = settings.reactEmoji;
+    }
+
+    // Log the reactEmoji to the console
+    console.log("React Emoji: ", reactEmoji);
 
     if (settings && settings.autoread && mek.key && mek.key.remoteJid.endsWith("@s.whatsapp.net")) {
       await client.readMessages([mek.key]);
     }
 
     if (settings && settings.autoviewstatus && settings.autolikestatus && mek.key && mek.key.remoteJid === "status@broadcast") {
-      
       await client.readMessages([mek.key]);
-
-      let reactEmoji;
-      if (settings.reactEmoji === 'random') {
-        const emojis = ['😀', '😁', '😂', '😅', '😎', '😜', '😊', '😍', '😋', '😄', '😃'];
-        reactEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-      } else {
-        reactEmoji = settings.reactEmoji;
-      }
 
       const mokayas = await client.decodeJid(client.user.id);
       if (mek.status) return;
 
-     
       await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '💚' }}, { statusJidList: [mek.key.participant, mokayas], broadcast: true});
     }
 
