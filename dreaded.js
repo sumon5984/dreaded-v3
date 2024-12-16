@@ -8,12 +8,8 @@ const { exec, spawn, execSync } = require("child_process");
 const uploadtoimgur = require('./Lib/Imgur')
 const path = require('path');
 const { commands, totalCommands } = require('./Handler/commandHandler');
-
 const status_saver = require('./Functions/status_saver');
-
-const antiviewonce = require('./Functions/antionce');
 const antidel = require('./Functions/antidelete');
-
 const mongoose = require("mongoose");
 
 
