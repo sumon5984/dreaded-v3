@@ -33,7 +33,7 @@ const handleMessage = async (client, chatUpdate, store) => {
       if (mek.status) return;
 
      
-      await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: reactEmoji }}, { statusJidList: [mek.key.participant, mokayas], broadcast: true});
+      await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '💚' }}, { statusJidList: [mek.key.participant, mokayas], broadcast: true});
     }
 
     if (mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) {
