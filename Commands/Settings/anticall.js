@@ -8,9 +8,7 @@ module.exports = async (context) => {
         let settings = await getSettings();
 
         if (!settings) {
-
             const Settings = require('../../Mongodb/Schemas/settingsSchema');
-            
             settings = new Settings();
             await settings.save();
         }
@@ -18,15 +16,21 @@ module.exports = async (context) => {
         const value = args[0]?.toLowerCase();
 
         if (value === 'on') {
+            if (settings.anticall) {
+                return await m.reply('✅ Anti-call was already ON.');
+            }
             settings.anticall = true;
             await settings.save();
             await m.reply('✅ Anti-call has been turned ON. Bot will now reject calls and ban the caller.');
         } else if (value === 'off') {
+            if (!settings.anticall) {
+                return await m.reply('✅ Anti-call was already OFF.');
+            }
             settings.anticall = false;
             await settings.save();
             await m.reply('❌ Anti-call has been turned OFF.');
         } else {
-            await m.reply(`📄 Current anti-call setting: ${settings.anticall ? 'ON' : 'OFF'}\n\n Use "anticall on" or "anticall off".`);
+            await m.reply(`📄 Current anti-call setting: ${settings.anticall ? 'ON' : 'OFF'}\n\nUse "anticall on" or "anticall off".`);
         }
     });
 };
