@@ -41,7 +41,12 @@ module.exports = async (context) => {
 
             groupSettings.antitag = action;
             await groupSettings.save();
-            await m.reply(`✅ Antitag has been ${actionMsg} for this group.`);
+
+            if (value === 'on') {
+                await m.reply(`✅ Antitag has been ${actionMsg} for this group. Bot will now remove members tagging and hidetagging.`);
+            } else {
+                await m.reply(`❌ Antitag has been ${actionMsg} for this group.`);
+            }
         } else {
             await m.reply(`📄 Current Antitag setting for this group: ${groupSettings.antitag ? 'ON' : 'OFF'}\n\nUse "antitag on" or "antitag off".`);
         }
