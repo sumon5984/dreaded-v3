@@ -2,7 +2,6 @@ const { getSettings } = require('../../Mongodb/Settingsdb');
 const ownerMiddleware = require('../../Middleware/ownerMiddleware');
 
 
-const emojiRegex = /(\p{Emoji_Presentation}|\p{Extended_Pictographic})/gu;
 
 module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
@@ -19,9 +18,7 @@ module.exports = async (context) => {
 
         if (newEmoji) {
            
-            if (!emojiRegex.test(newEmoji)) {
-                return await m.reply(`❌ Invalid emoji. Please provide a valid emoji.`);
-            }
+            
 
             if (newEmoji === 'random') {
                 if (settings.reactEmoji === 'random') {
