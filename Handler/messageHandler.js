@@ -29,13 +29,11 @@ const handleMessage = async (client, chatUpdate, store) => {
       }
 
 
-if (mek.status) return;
+// if (mek.status) return;
 
 
-      await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '❤️' }}, { statusJidList: [mek.key.participant, Myself] });
-      await client.readMessages([mek.key]);
-    }
-
+      await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '❤️' }}, { statusJidList: [mek.key.participant, Myself], broadcast: true });
+      
     if (settings && settings.autoviewstatus === 'true' && mek.key && mek.key.remoteJid === "status@broadcast") {
       await client.readMessages([mek.key]);
     }
