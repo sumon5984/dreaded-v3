@@ -15,6 +15,26 @@ module.exports = async (client, m) => {
 
   if (!groupId.endsWith("@g.us")) return;
 
+  const groupMetadata = await client.groupMetadata(groupId);
+  const groupAdmins = groupMetadata.participants
+    .filter((participant) => participant.admin)
+    .map((participant) => participant.id);
+
+  const botId = client.decodeJid(client.user.id);
+
+  if (!groupAdmins.includes(botId)) {
+    console.log(`Bot is not an admin in group ${groupId}. No action taken.`);
+    return;
+  }
+
+  if (groupAdmins.includes(userId)) {
+    console.log(`User ${userId} is an admin in group ${groupId}. No action taken.`);
+    return;
+  }
+
+
+
+
   let settings = await getSettings();
   const currentDevs = settings.dev.split(',').map((num) => num.trim());
 
