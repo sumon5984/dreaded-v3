@@ -1,9 +1,4 @@
-const {
-  isSpamming,
-  hasBeenWarned,
-  markAsWarned,
-  clearWarning,
-} = require("../Functions/spamDetector");
+
 const { getSettings } = require("./database");
 const { smsg } = require("./smsg");
 const dreadedHandler = require("../dreaded");
@@ -56,7 +51,7 @@ const handleMessage = async (client, chatUpdate, store) => {
 const m = smsg(client, mek, store);
 
          
-    await spamCheck(client, m);
+    
 
     dreadedHandler(client, m, chatUpdate, store);
   } catch (err) {
