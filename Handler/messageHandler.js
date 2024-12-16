@@ -4,7 +4,7 @@ const dreadedHandler = require("../dreaded");
 const spamCheck = require('../Functions/antispamm');
 
 const handleMessage = async (client, chatUpdate, store) => {
-  try {
+  
     const mek = chatUpdate.messages[0];
     if (!mek.message) return;
 
@@ -58,9 +58,7 @@ const handleMessage = async (client, chatUpdate, store) => {
 
     dreadedHandler(client, m, chatUpdate, store);
 
-  } catch (err) {
-    console.error(err);
-  }
+  
 };
 
 module.exports = handleMessage;
