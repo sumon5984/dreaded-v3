@@ -20,15 +20,21 @@ module.exports = async (context) => {
         }
 
         if (value === 'on') {
+            if (groupSettings.antidelete) {
+                return await m.reply('✅ Antidelete is already ON for this group.');
+            }
             groupSettings.antidelete = true;
             await groupSettings.save();
-            await m.reply(`✅ Antidelete has been turned ON for this group. Deleted messages will be forwarded to your inbox.`);
+            await m.reply('✅ Antidelete has been turned ON for this group. Deleted messages will be forwarded to your inbox.');
         } else if (value === 'off') {
+            if (!groupSettings.antidelete) {
+                return await m.reply('✅ Antidelete is already OFF for this group.');
+            }
             groupSettings.antidelete = false;
             await groupSettings.save();
-            await m.reply(`❌ Antidelete has been turned OFF for this group.`);
+            await m.reply('❌ Antidelete has been turned OFF for this group.');
         } else {
-            await m.reply(`📄 Current Antidelete setting for this group: ${groupSettings.antidelete ? 'ON' : 'OFF'}\n\n Use "antidelete on" or "antidelete off".`);
+            await m.reply(`📄 Current Antidelete setting for this group: ${groupSettings.antidelete ? 'ON' : 'OFF'}\n\nUse "antidelete on" or "antidelete off".`);
         }
     });
 };
