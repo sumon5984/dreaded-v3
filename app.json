@@ -9,8 +9,8 @@
     "baileys",
     "md-bot"
   ],
-  "website": "https://github.com/Fortunatusmokaya/mokayax#readme",
-  "repository": "https://github.com/Fortunatusmokaya/mokayax.git",
+  "website": "https://github.com/Fortunatusmokaya/dreaded-v3#readme",
+  "repository": "https://github.com/Fortunatusmokaya/dreaded-v3",
   "logo": "https://telegra.ph/file/d6dab955fbaa42fce2280.jpg",
   "success_url": "/",
   "env": {
@@ -28,7 +28,7 @@
     },
     "BOTNAME": {
       "description": "Enter the name for your bot.",
-      "required": false
+      "required": true
     }
   },
   "buildpacks": [
