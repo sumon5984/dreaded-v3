@@ -27,8 +27,10 @@ module.exports = async (context) => {
         const isBotAdmin = userAdmins.includes(Myself);
 
         if (value === 'on' && !isBotAdmin) {
-            return await m.reply('❌ I need admin privileges to turn on antidemote.');
+            return await m.reply('I need admin privileges to handle antidemote.');
         }
+
+
 
         if (value === 'on' || value === 'off') {
             const action = value === 'on' ? true : false;
@@ -43,7 +45,7 @@ module.exports = async (context) => {
             await groupSettings.save();
 
             if (value === 'on') {
-                await m.reply(`✅ Antidemote has been ${actionMsg} for this group. Bot will monitor and handle demotes.`);
+                await m.reply(`✅ Antidemote has been ${actionMsg} for this group. Bot will monitor and handle demotions.`);
             } else {
                 await m.reply(`❌ Antidemote has been ${actionMsg} for this group.`);
             }
