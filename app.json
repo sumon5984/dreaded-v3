@@ -1,1 +1,45 @@
- 
+{
+  "name": "DREADED BOT",
+  "description": "This is a simple WhatsApp bot built with Node.js and Baileys with MD support.",
+  "keywords": [
+    "bot",
+    "whatsapp",
+    "dreaded",
+    "whatsapp-bot",
+    "baileys",
+    "md-bot"
+  ],
+  "website": "https://github.com/Fortunatusmokaya/mokayax#readme",
+  "repository": "https://github.com/Fortunatusmokaya/mokayax.git",
+  "logo": "https://telegra.ph/file/d6dab955fbaa42fce2280.jpg",
+  "success_url": "/",
+  "env": {
+    "SESSION": {
+      "description": "Paste the session id that you received in WhatsApp after linking the bot. It's used for authentication.",
+      "required": true
+    },
+    "MONGO_URI": {
+      "description": "Enter the MongoDB URI connection string for the bot's database.",
+      "required": true
+    },
+    "CODE": {
+      "description": "Enter your country code without +. Example: 254 for Kenya. This will allow the bot to detect and remove foreigners if commanded.",
+      "required": true
+    },
+    "BOTNAME": {
+      "description": "Enter the name for your bot.",
+      "required": false
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+    }
+  ]
+} 
