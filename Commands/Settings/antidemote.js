@@ -5,7 +5,7 @@ module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
         const { client, m, args } = context;
         const value = args[0]?.toLowerCase();
-        const jid = m.chat; 
+        const jid = m.chat;
 
         if (!jid.endsWith('@g.us')) {
             return await m.reply('❌ This command can only be used in groups.');
@@ -26,24 +26,33 @@ module.exports = async (context) => {
 
         const isBotAdmin = userAdmins.includes(Myself);
 
-        if (!isBotAdmin) {
-            if (value === 'on') {
-                
-                return await m.reply('I need admin privileges to enable antidemote.');
-            }
-            return await m.reply('I need admin privileges to manage anti-demote.');
-        }
-
-        if (value === 'on') {
-            groupSettings.antidemote = true;
-            await groupSettings.save();
-            await m.reply(`✅ Antidemote has been turned ON for this group. Bot will now detect demotes and restrict some!`);
-        } else if (value === 'off') {
+        // If the value is 'off', we turn it off regardless of whether the bot is an admin
+        if (value === 'off') {
             groupSettings.antidemote = false;
             await groupSettings.save();
-            await m.reply(`❌ Antidemote has been turned OFF for this group.`);
+            return await m.reply('❌ Antidemote has been turned OFF for this group.');
+        }
+
+        // If bot is not admin and user tries to turn antidemote on
+        if (!isBotAdmin && value === 'on') {
+            return await m.reply('❌ I need admin privileges to enable antidemote.');
+        }
+
+        // If the bot is admin, proceed with updating the group setting
+        if (isBotAdmin) {
+            if (value === 'on') {
+                groupSettings.antidemote = true;
+                await groupSettings.save();
+                await m.reply(`✅ Antidemote has been turned ON for this group. Bot will now detect demotes and restrict some!`);
+            } else if (value === 'off') {
+                groupSettings.antidemote = false;
+                await groupSettings.save();
+                await m.reply(`❌ Antidemote has been turned OFF for this group.`);
+            } else {
+                await m.reply(`📄 Current antidemote setting for this group: ${groupSettings.antidemote ? 'ON' : 'OFF'}\n\n Use "antidemote on" or "antidemote off".`);
+            }
         } else {
-            await m.reply(`📄 Current antidemote setting for this group: ${groupSettings.antidemote ? 'ON' : 'OFF'}\n\n Use "antidemote on" or "antidemote off".`);
+            await m.reply('❌ I need admin privileges to manage anti-demote.');
         }
     });
 };
