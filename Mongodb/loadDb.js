@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { mongoURI } = require('./settings');
+const { mongoURI } = require('../config');
 
 const connectToDB = async () => {
   if (!mongoURI || mongoURI.trim() === '') {
