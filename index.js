@@ -34,7 +34,7 @@ const eventHandler = require("./Handler/eventHandler.js");
 const eventHandler2= require("./Handler/eventHandler2.js");
 const connectionHandler = require("./Handler/connectionHandler.js");
 const { smsg } = require('/Handler/smsg.js');
-
+const botname = process.env.BOTNAME || 'Dreaded';
 
 
 const authenticationn = require('./Auth/auth.js');
