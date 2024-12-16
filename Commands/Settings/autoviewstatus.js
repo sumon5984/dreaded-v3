@@ -15,14 +15,15 @@ module.exports = async (context) => {
 
         const value = args[0]?.toLowerCase();
 
-        if (value === 'on') {
-            settings.autoviewstatus = true;
+        if (value === 'on' || value === 'off') {
+            const action = value === 'on';
+            if (settings.autoviewstatus === action) {
+                return await m.reply(`✅ Autoviewstatus is already ${value.toUpperCase()}.`);
+            }
+            settings.autoviewstatus = action;
             await settings.save();
-            await m.reply('✅ Autoviewstatus has been turned ON. Bot will autoview status update.');
-        } else if (value === 'off') {
-            settings.autoviewstatus = false;
-            await settings.save();
-            await m.reply('❌ Autoviewstatus has been turned OFF.');
+            const statusText = action ? 'ON. Bot will autoview status update.' : 'OFF.';
+            await m.reply(`✅ Autoviewstatus has been turned ${statusText}`);
         } else {
             await m.reply(`📄 Current autoviewstatus setting: ${settings.autoviewstatus ? 'ON' : 'OFF'}\n\nUse "autoviewstatus on" or "autoviewstatus off".`);
         }
