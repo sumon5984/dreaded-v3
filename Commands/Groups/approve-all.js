@@ -12,8 +12,8 @@ if (responseList.length === 0) return m.reply("there are no pending join request
 for (const participan of responseList) {
     const response = await client.groupRequestParticipantsUpdate(
         m.chat, 
-        [participan.jid], // Approve/reject each participant individually
-        "approve" // or "reject"
+        [participan.jid], 
+        "approve"
     );
     console.log(response);
 }
