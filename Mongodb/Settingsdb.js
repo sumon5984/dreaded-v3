@@ -14,6 +14,11 @@ const getSettings = async () => {
 
 const getGroupSettings = async (jid) => {
   try {
+    if (!jid.endsWith('@g.us')) {
+      console.log(`Not a group JID: ${jid}`);
+      return null; // Return null or handle non-group cases differently
+    }
+
     await connectToDB();
     let groupSettings = await GroupSettings.findOne({ jid });
 
@@ -35,4 +40,4 @@ const getGroupSettings = async (jid) => {
 module.exports = {
   getSettings,
   getGroupSettings,
-}; 
+};
