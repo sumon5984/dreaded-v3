@@ -5,7 +5,7 @@ module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
         const { m, args, mycode } = context;
         const value = args[0]?.toLowerCase();
-        const jid = m.chat; 
+        const jid = m.chat;
 
         if (!jid.endsWith('@g.us')) {
             return await m.reply('❌ This command can only be used in groups.');
@@ -19,14 +19,23 @@ module.exports = async (context) => {
             await groupSettings.save();
         }
 
-        if (value === 'on') {
-            groupSettings.antiforeign = true;
+        if (value === 'on' || value === 'off') {
+            const action = value === 'on' ? true : false;
+            const actionText = value === 'on' ? 'ON' : 'OFF';
+            const actionMsg = value === 'on' ? 'turned ON' : 'turned OFF';
+
+            if (groupSettings.antiforeign === action) {
+                return await m.reply(`✅ Antiforeign was already ${actionText}.`);
+            }
+
+            groupSettings.antiforeign = action;
             await groupSettings.save();
-            await m.reply(`✅ Antiforeign has been turned ON for this group. Bot will now automatically remove non-${mycode} numbers joining!`);
-        } else if (value === 'off') {
-            groupSettings.antiforeign = false;
-            await groupSettings.save();
-            await m.reply(`❌ Antiforeign has been turned OFF for this group.`);
+
+            if (value === 'on') {
+                await m.reply(`✅ Antiforeign has been ${actionMsg} for this group. Bot will now automatically remove non-${mycode} numbers joining!`);
+            } else {
+                await m.reply(`❌ Antiforeign has been ${actionMsg} for this group.`);
+            }
         } else {
             await m.reply(`📄 Current antiforeign setting for this group: ${groupSettings.antiforeign ? 'ON' : 'OFF'}\n\n Use "antiforeign on" or "antiforeign off".`);
         }
