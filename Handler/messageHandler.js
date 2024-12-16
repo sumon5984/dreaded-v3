@@ -36,7 +36,7 @@ const mokayas = await client.decodeJid(client.user.id);
 
 // if (mek.status) return;
 
-await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '🌻'}}, { statusJidList: [mek.key.participant, mokayas], broadcast: true});
+await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '❤️'}}, { statusJidList: [mek.key.participant, mokayas], broadcast: true});
 
 
         await client.readMessages([mek.key]);
