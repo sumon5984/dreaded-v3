@@ -2,6 +2,7 @@ const { getSettings } = require("../Mongodb/Settingsdb");
 const { smsg } = require("./smsg");
 const dreadedHandler = require("../dreaded");
 const spamCheck = require('../Functions/antispamm');
+const emojis = require('./emojis');
 
 const handleMessage = async (client, chatUpdate, store) => {
   try {
@@ -15,14 +16,13 @@ const handleMessage = async (client, chatUpdate, store) => {
 
     let emoji; 
     if (settings && settings.reactEmoji === 'random') {
-      const emojis = ['😀', '😁', '😂', '😅', '😎', '😜', '😊', '😍', '😋', '😄', '😃'];
+      
       emoji = emojis[Math.floor(Math.random() * emojis.length)];
     } else if (settings && settings.reactEmoji) {
       emoji = settings.reactEmoji;
     }
 
-    // Log the reactEmoji to the console
-    console.log("React Emoji: ", emoji);
+    
 
     if (settings && settings.autoread && mek.key && mek.key.remoteJid.endsWith("@s.whatsapp.net")) {
       await client.readMessages([mek.key]);
