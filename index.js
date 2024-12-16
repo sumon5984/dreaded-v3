@@ -53,7 +53,7 @@ const settingss = await getSettings();
 const { autoview, autoread, botname, autobio, mode, prefix, presence, anticall } = settingss;
 
 
-        const {  saveCreds, state } = await useMultiFileAuthState(`session`)
+        const {  saveCreds, state } = await useMultiFileAuthState(`Session`)
             const client = dreadedConnect({
         logger: pino({ level: 'silent' }),
         printQRInTerminal: true,
