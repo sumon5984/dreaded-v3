@@ -4,7 +4,6 @@ const { connectToDB } = require('./loadDb');
 
 connectToDB();
 
-
 const createUser = async (userId) => {
   if (!userId || userId.trim() === '') {
     console.error('Error creating user: Invalid or empty userId');
@@ -14,8 +13,6 @@ const createUser = async (userId) => {
   console.log(`Attempting to create user with userId: ${userId}`);
 
   try {
-    
-
     const existingUser = await NewUser.findOne({ jid: userId });
     if (existingUser) {
       console.log(`User already exists: ${userId}`);
@@ -112,4 +109,35 @@ const handleCallAndBan = async (call, client) => {
   }
 };
 
-module.exports = { createUser, getUser, isUserBanned, handleCallAndBan }; 
+// New functions to get total users and banned users
+const getTotalUsers = async () => {
+  try {
+    const totalUsers = await NewUser.countDocuments();
+    console.log(`Total users: ${totalUsers}`);
+    return totalUsers;
+  } catch (error) {
+    console.error('Error fetching total users:', error.message);
+    return 0;
+  }
+};
+
+const getBannedUsers = async () => {
+  try {
+    const bannedUsers = await NewUser.countDocuments({ banned: true });
+    console.log(`Total banned users: ${bannedUsers}`);
+    return bannedUsers;
+  } catch (error) {
+    console.error('Error fetching banned users:', error.message);
+    return 0;
+  }
+};
+
+
+module.exports = { 
+  createUser, 
+  getUser, 
+  isUserBanned, 
+  handleCallAndBan,
+  getTotalUsers,  
+  getBannedUsers
+};
