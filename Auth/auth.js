@@ -3,12 +3,12 @@ const { session } = require('../config');
 
 async function authenticationn() {
     try {
-        if (!fs.existsSync("../session/creds.json")) {
+        if (!fs.existsSync("../Session/creds.json")) {
             console.log("📡 connecting...");
-            await fs.writeFileSync("../session/creds.json", atob(session), "utf8");
+            await fs.writeFileSync("../Session/creds.json", atob(session), "utf8");
         }
-        else if (fs.existsSync("../session/creds.json") && session != "zokk") {
-            await fs.writeFileSync("../session/creds.json", atob(session), "utf8");
+        else if (fs.existsSync("../Session/creds.json") && session != "zokk") {
+            await fs.writeFileSync("../Session/creds.json", atob(session), "utf8");
         }
     }
     catch (e) {
