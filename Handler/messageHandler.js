@@ -4,7 +4,7 @@ const dreadedHandler = require("../dreaded");
 const spamCheck = require('../Functions/antispamm');
 
 const handleMessage = async (client, chatUpdate, store) => {
-  
+  try {
     const mek = chatUpdate.messages[0];
     if (!mek.message) return;
 
@@ -17,8 +17,6 @@ const handleMessage = async (client, chatUpdate, store) => {
       await client.readMessages([mek.key]);
     }
 
-    
-
     if (settings && settings.autoviewstatus && settings.autolikestatus && mek.key && mek.key.remoteJid === "status@broadcast") {
       let reactEmoji;
       if (settings.reactEmoji === 'random') {
@@ -28,17 +26,12 @@ const handleMessage = async (client, chatUpdate, store) => {
         reactEmoji = settings.reactEmoji;
       }
 
-
-// if (mek.status) return;
-
-
       await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '❤️' }}, { statusJidList: [mek.key.participant, Myself], broadcast: true });
-      
-    if (settings && settings.autoviewstatus === 'true' && mek.key && mek.key.remoteJid === "status@broadcast") {
-      await client.readMessages([mek.key]);
-    }
 
-    
+      if (settings && settings.autoviewstatus === 'true' && mek.key && mek.key.remoteJid === "status@broadcast") {
+        await client.readMessages([mek.key]);
+      }
+    }
 
     if (mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) {
       const Chat = mek.key.remoteJid;
@@ -58,7 +51,9 @@ const handleMessage = async (client, chatUpdate, store) => {
 
     dreadedHandler(client, m, chatUpdate, store);
 
-  
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 module.exports = handleMessage;
