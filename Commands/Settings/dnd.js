@@ -23,6 +23,7 @@ module.exports = async (context) => {
             settings.autoread = false;
             settings.anticall = true;
             settings.presence = 'online';
+settings.presence = 'private';
             await settings.save();
             await m.reply('✅ Do Not Disturb mode has been turned ON.\nThe bot will now switch itself to private mode and will be managing this account.\n\nDuring this time, the bot will respond to personal messages  appropriately using AI, informing users of your unavailability.\n\nWhatsApp notifications will be delivered silently with no pop up while incoming calls will be rejected.');
         } else if (value === 'off') {
