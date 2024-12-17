@@ -213,7 +213,7 @@ eventHandler(client, m);
 
 
 
-client.ev.on("connection.update", async (update) => {
+/* client.ev.on("connection.update", async (update) => {
 
 await console.log("Checking for connection update...");
   await connectionHandler(update);  
@@ -221,6 +221,8 @@ await console.log("Checking for connection update...");
 
 
 client.ev.on("creds.update", saveCreds);
+
+*/
 
 
   client.sendText = (jid, text, quoted = "", options) => client.sendMessage(jid, { text: text, ...options }, { quoted });
