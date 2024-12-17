@@ -6,14 +6,18 @@ module.exports = async (context) => {
 
     try {
         const categories = [
-            { name: 'AI', emoji: '🤖' },
+            
             { name: 'General', emoji: '✍️' },
             { name: 'Settings', emoji: '⚙️' },
-            { name: 'Owner', emoji: '👑' },
+{ name: 'Owner', emoji: '👑' },
+{ name: 'Wa-Privacy', emoji: '🪀' },
+{ name: 'Groups', emoji: '👥' },
+{ name: 'AI', emoji: '🤖' },
+            
             { name: 'Media', emoji: '🎥' },
             { name: 'Editting', emoji: '✂️' },
             { name: 'Groups', emoji: '👥' },
-            { name: 'Random', emoji: '🪀' }
+            { name: 'Random', emoji: '👾' }
         ];
 
         const getGreeting = () => {
