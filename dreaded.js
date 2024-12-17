@@ -26,7 +26,7 @@ const { botname, mycode } = require('./config');
 
 const {
    presence, autoread,
-  mode, prefix, author, packname,
+  mode, prefix, packname,
   dev, gcpresence, antionce, antitag
 } = settings;
 
@@ -95,7 +95,7 @@ const DevDreaded = dev.split(",");
 const context = {
     client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants, mycode,
     pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
-    packname, author, generateProfilePicture, groupMetadata, dreadedspeed,
+    packname, generateProfilePicture, groupMetadata, dreadedspeed,
     fetchJson, exec, getRandom, prefix, cmd, botname, mode, gcpresence, getGroupAdmins, antionce, uploadtoimgur
 };
 if (cmd && settings.mode === 'private' && !itsMe && !Owner) {
