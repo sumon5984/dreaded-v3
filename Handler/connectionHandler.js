@@ -19,7 +19,7 @@ const { connectToDB } = require('../Mongodb/loadDb');
 const { commands, totalCommands } = require('./commandHandler'); 
 
 const connectionHandler = async (client, update, startDreaded) => {
-  console.log("Trying to connect database and WhatsApp...");
+  await console.log("Wait while we connect the database and WhatsApp. . .");
 
   const { connection, lastDisconnect } = update;
 
@@ -40,6 +40,12 @@ const connectionHandler = async (client, update, startDreaded) => {
   const getCurrentTimeInNairobi = () => {
     return DateTime.now().setZone('Africa/Nairobi').toLocaleString(DateTime.TIME_SIMPLE);
   };
+
+if (connection === "connecting") {
+
+await console.log("Connecting to WhatsApp. . .");
+
+}
 
   if (connection === "close") {
     let reason = new Boom(lastDisconnect?.error)?.output.statusCode;
