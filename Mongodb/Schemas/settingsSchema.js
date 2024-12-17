@@ -26,6 +26,10 @@ const settingsSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+dnd: {
+    type: Boolean,
+    default: false
+  },
   presence: {
     type: String,
     default: 'online'
