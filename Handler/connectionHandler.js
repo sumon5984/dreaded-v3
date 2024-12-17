@@ -51,8 +51,10 @@ async function startDreaded() {
 
   // Bind the store to client events after initialization
 
-  client.ev.on("creds.update", saveCreds);
+  
   store.bind(client.ev);
+
+client.ev.on("creds.update", saveCreds);
   setInterval(() => { store.writeToFile("store.json"); }, 3000);
 }
 
