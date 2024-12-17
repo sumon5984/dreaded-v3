@@ -16,8 +16,8 @@ const availablepriv = ['all', 'match_last_seen'];
 
 if (!availablepriv.includes(text)) return m.reply(`Choose a setting from this list: ${availablepriv.join('/')}`);
 
-await client.updateOnlinePrivacy(priv)
-        await m.reply(`Online privacy settings updated to *${priv}*`);
+await client.updateOnlinePrivacy(text)
+        await m.reply(`Online privacy settings updated to *${text}*`);
 
 })
 
