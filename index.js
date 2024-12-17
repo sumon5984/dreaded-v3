@@ -214,6 +214,8 @@ eventHandler(client, m);
 
 
 client.ev.on("connection.update", async (update) => {
+
+console.log("Received connection update:", update);
   await connectionHandler(update);  
 });
 
