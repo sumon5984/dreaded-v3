@@ -22,7 +22,7 @@ let client; // Define client globally
 
 async function startDreaded() {
   const settingss = await getSettings();
-  const { saveCreds, state } = await useMultiFileAuthState(`Session`);
+  const { saveCreds, state } = await useMultiFileAuthState(`../Session`);
 
   // Initialize client and assign globally
   client = dreadedConnect({
@@ -122,6 +122,8 @@ async function connectionHandler(update) {
     }
   }
 }
+
+  client.ev.on("creds.update", saveCreds);
 
 module.exports = {
   connectionHandler,
