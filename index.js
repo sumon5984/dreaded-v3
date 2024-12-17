@@ -87,6 +87,9 @@ const client = getClient();
 
 async function main() {
 
+const client = await getClient(); 
+
+
 const settingss = await getSettings();
 
 const { autoview, autoread, botname, autobio, mode, prefix, presence, anticall } = settingss;
@@ -96,10 +99,7 @@ const { autoview, autoread, botname, autobio, mode, prefix, presence, anticall }
 
 
 
-  store.bind(client.ev);
-
-        setInterval(() => { store.writeToFile("store.json"); }, 3000);
-
+  
 
 if (settingss && settingss.autobio === true){ 
             setInterval(() => { 
