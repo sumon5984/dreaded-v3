@@ -4,10 +4,12 @@ const { getUser, createUser } = require('../../Mongodb/Userdb');
 module.exports = async (context) => {
   const { client, m, text } = context;
 const { default: Gemini } = await import('gemini-ai');
+
+if (!text) return m.reply('text ?');
   const master = 'mokaya';
   const prompt = `You are a WhatsApp digital assistant. Respond directly to user queries without prefixes like "Assistant's response".`;
 
-  const jid = m.chat;
+  const jid = m.sender;
   const userInput = text;
 
   try {
