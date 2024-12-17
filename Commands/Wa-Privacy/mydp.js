@@ -17,7 +17,7 @@ const availablepriv = ['all', 'contacts', 'contact_blacklist', 'none'];
 if (!availablepriv.includes(text)) return m.reply(`Choose a setting from this list: ${availablepriv.join('/')}`);
 
 await client.updateProfilePicturePrivacy(text)
-        await m.reply(`Profile picture privacy settings updated to *${text}*`);
+        await m.reply(`Profile Picture privacy settings updated to *${text}*`);
 
 })
 
