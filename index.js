@@ -82,20 +82,17 @@ fireInitQueries: false,
 
 */
 
-const client = getClient(); 
+
 
 
 async function main() {
-
-const client = await getClient(); 
-
-
-const settingss = await getSettings();
-
-const { autoview, autoread, botname, autobio, mode, prefix, presence, anticall } = settingss;
   console.log("🚀 Starting Dreaded bot...");
+  
+  
   await startDreaded();
-}
+  
+  const client = getClient(); // Now you can safely get the client
+
 
 
   const settingss = getSettings();
@@ -329,6 +326,8 @@ app.get("/", (req, res) => {
 });
 app.listen(port, () => console.log(`Server listening on port http://localhost:${port}`));
 
-main()
+}
+
+main().catch(console.error);
 
  
