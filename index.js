@@ -98,7 +98,7 @@ const { autoview, autoread, botname, autobio, mode, prefix, presence, anticall }
 }
 
 
-
+  const settingss = getSettings();
   
 
 if (settingss && settingss.autobio === true){ 
