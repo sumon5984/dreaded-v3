@@ -26,7 +26,7 @@ module.exports = async (context) => {
 
 const avatar = await client.profilePictureUrl(idBot, 'image').catch(_ => 'https://telegra.ph/file/b34645ca1e3a34f1b3978.jpg');
 
-await client.sendMessage(dest, { image: { url: avatar}, caption: fnn}, { quoted: m}) 
+await client.sendMessage(m.chat, { image: { url: avatar}, caption: fnn}, { quoted: m}) 
 
 
 })
