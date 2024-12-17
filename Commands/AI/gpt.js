@@ -99,7 +99,7 @@ if (!text) return m.reply('text ?');
     let res = await chat.ask(instruction);
 
     // Clean the response (remove "Assistant's response:" or similar prefixes)
-    res = res.replace(/^Assistant['’]?s? response:\s*/i, '');
+    res = res.replace(/^Assistant['’]?s? response:\s/i, '');
 
     // Save assistant's response
     user.messages.push({ sender: 'assistant', content: res });
