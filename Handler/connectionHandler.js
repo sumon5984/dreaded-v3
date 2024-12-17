@@ -50,6 +50,8 @@ async function startDreaded() {
   console.log("🔗 Client initialized successfully.");
 
   // Bind the store to client events after initialization
+
+  client.ev.on("creds.update", saveCreds);
   store.bind(client.ev);
   setInterval(() => { store.writeToFile("store.json"); }, 3000);
 }
@@ -123,7 +125,7 @@ async function connectionHandler(update) {
   }
 }
 
-  client.ev.on("creds.update", saveCreds);
+  
 
 module.exports = {
   connectionHandler,
