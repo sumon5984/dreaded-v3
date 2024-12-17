@@ -97,6 +97,10 @@ async function connectionHandler(update) {
       console.log("📈 Connecting to database...");
       await connectToDB();
       console.log("📉 Connected to MongoDB database.");
+
+
+      console.log("Connection successful. Bot is active.");
+    
     } catch (error) {
       console.error("Error connecting to MongoDB:", error.message);
     }
@@ -119,9 +123,7 @@ async function connectionHandler(update) {
         + `🕝 TIME:- ${getCurrentTimeInNairobi()}\n💡 LIBRARY:- Baileys\n\n▞▚▞▚▞▚▞▚▞▚`;
 
       await client.sendMessage(client.user.id, { text: newSudoMessage });
-    } else {
-      console.log("Connection successful. Bot is active.");
-    }
+    } 
   }
 }
 
