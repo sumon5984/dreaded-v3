@@ -6,7 +6,7 @@ const { connectToDB } = require('../Mongodb/loadDb');
 const { commands, totalCommands } = require('./commandHandler');
 const { DateTime } = require("luxon");
 const { useMultiFileAuthState, default: dreadedConnect, DisconnectReason } = require("@whiskeysockets/baileys");
-const pino = require("pino");
+
 
 let client; // Define client globally
 
