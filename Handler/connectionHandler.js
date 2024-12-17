@@ -19,7 +19,7 @@ const { connectToDB } = require('../Mongodb/loadDb');
 const { commands, totalCommands } = require('./commandHandler'); 
 
 const connectionHandler = async (client, update, startDreaded) => {
-  await console.log("Wait while we connect the database and WhatsApp. . .");
+  
 
   const { connection, lastDisconnect } = update;
 
@@ -41,9 +41,11 @@ const connectionHandler = async (client, update, startDreaded) => {
     return DateTime.now().setZone('Africa/Nairobi').toLocaleString(DateTime.TIME_SIMPLE);
   };
 
+await console.log("Wait while we connect the database and WhatsApp. . .");
+
 if (connection === "connecting") {
 
-await console.log("Connecting to WhatsApp. . .");
+await console.log("📈 Connecting to WhatsApp. . .");
 
 }
 
@@ -125,7 +127,7 @@ await console.log("Connecting to WhatsApp. . .");
       await client.sendMessage(client.user.id, { text: message });
     }
 
-    console.log(`✅ Connection successful\nLoaded ${totalCommands} commands.\nBot is active`);
+    await console.log(`✅ Connection to WhatsApp and database successful\nLoaded ${totalCommands} commands.\nBot is active!`);
   }
 };
 
