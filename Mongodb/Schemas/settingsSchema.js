@@ -38,13 +38,9 @@ reactEmoji: {
     type: String,
     default: '❤️'
   },
-  author: {
-    type: String,
-    default: 'fortunatus'
-  },
   packname: {
     type: String,
-    default: 'dreaded md2 🤖'
+    default: 'dreaded-v3 fortunatus'
   },
   dev: {
     type: String,
