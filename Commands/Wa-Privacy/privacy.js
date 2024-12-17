@@ -25,6 +25,7 @@ const Myself = await client.decodeJid(client.user.id);
 * Last seen : ${last}
 * Read receipt : ${readreceipts}
 * Group add : ${groupadd}
+* Status : ${status}
 * Call add : ${calladd}`;
 
 
