@@ -7,7 +7,7 @@ const ownerMiddleware = require('../../Middleware/ownerMiddleware');
     const { client, m, text} = context;
 
 if (!text) {
-      m.reply("Provide a setting to be updated. Example:\nonline all");
+      m.reply("Provide a setting to be updated. Example:\nlastseen all");
       return;
     }
 
