@@ -17,15 +17,15 @@ const Myself = await client.decodeJid(client.user.id);
                 calladd
         } = await client.fetchPrivacySettings(true);
         
-        const fnn = `*Current Privacy settings*
+        const fnn = `*Current Privacy Settings*
 
-* Name :* ${client.user.name}
-* Online:* ${online}
-* Profile picture :* ${profile}
-* Last seen :* ${last}
-* Read receipt :* ${readreceipts}
-* Group add :* ${groupadd}
-* Call add :* ${calladd}`;
+* Name : ${client.user.name}
+* Online: ${online}
+* Profile picture : ${profile}
+* Last seen : ${last}
+* Read receipt : ${readreceipts}
+* Group add : ${groupadd}
+* Call add : ${calladd}`;
 
 
 const avatar = await client.profilePictureUrl(Myself, 'image').catch(_ => 'https://telegra.ph/file/b34645ca1e3a34f1b3978.jpg');
