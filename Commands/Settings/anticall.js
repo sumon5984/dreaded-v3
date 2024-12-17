@@ -26,6 +26,11 @@ module.exports = async (context) => {
             if (!settings.anticall) {
                 return await m.reply('✅ Anti-call was already OFF.');
             }
+if (settings.dnd) {
+                return await m.reply('❌ You can not deactivate anticall while Do Not Disturb mode is active.');
+            }
+
+
             settings.anticall = false;
             await settings.save();
             await m.reply('❌ Anti-call has been turned OFF.');
