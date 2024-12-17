@@ -1,3 +1,18 @@
+const {
+  default: dreadedConnect,
+  useMultiFileAuthState,
+  DisconnectReason,
+  fetchLatestBaileysVersion,
+  makeInMemoryStore,
+  downloadContentFromMessage,
+  jidDecode,
+  proto,
+  getContentType,
+} = require("@whiskeysockets/baileys");
+
+
+
+
 const { Boom } = require("@hapi/boom");
 const pino = require("pino");
 const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
@@ -5,7 +20,7 @@ const { getSettings } = require("../Mongodb/Settingsdb");
 const { connectToDB } = require('../Mongodb/loadDb');
 const { commands, totalCommands } = require('./commandHandler');
 const { DateTime } = require("luxon");
-const { useMultiFileAuthState, default: dreadedConnect, DisconnectReason } = require("@whiskeysockets/baileys");
+
 
 
 let client; // Define client globally
