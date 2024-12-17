@@ -4,7 +4,7 @@ const { session } = require('../config');
 
 async function authenticationn() {
     try {
-        const credsPath = path.join(__dirname, 'Handler', 'Session', 'creds.json');
+        const credsPath = path.join(__dirname, '..', 'Handler', 'Session', 'creds.json');
 
         if (!fs.existsSync(credsPath)) {
             console.log("📡 connecting...");
