@@ -404,9 +404,13 @@ client.ev.on("creds.update", saveCreds);
 }
 
 
+app.use(express.static('Public'));
+
 app.get("/", (req, res) => {
-    res.send("Bot running now... ");
+    res.sendFile(__dirname + '/index.html'); 
 });
+
+
 app.listen(port, () => console.log(`Server listening on port http://localhost:${port}`));
 
 
