@@ -50,15 +50,16 @@ async function startDreaded() {
   console.log("🔗 Client initialized successfully.");
 
   // Bind the store to client events after initialization
-
-  
   store.bind(client.ev);
 
-// client.ev.on("creds.update", saveCreds);
+  // Handle creds.update event directly inside startDreaded
+  client.ev.on("creds.update", saveCreds);
+
   setInterval(() => { store.writeToFile("store.json"); }, 3000);
 }
 
-async function connectionHandler(update) {
+// Modify the connectionHandler to be directly inside the event listener
+client.ev.on("connection.update", async (update) => {
   const { connection, lastDisconnect } = update;
 
   const getGreeting = () => {
@@ -100,9 +101,7 @@ async function connectionHandler(update) {
       await connectToDB();
       console.log("📉 Connected to MongoDB database.");
 
-
       console.log("Connection successful. Bot is active.");
-    
     } catch (error) {
       console.error("Error connecting to MongoDB:", error.message);
     }
@@ -125,15 +124,11 @@ async function connectionHandler(update) {
         + `🕝 TIME:- ${getCurrentTimeInNairobi()}\n💡 LIBRARY:- Baileys\n\n▞▚▞▚▞▚▞▚▞▚`;
 
       await client.sendMessage(client.user.id, { text: newSudoMessage });
-    } 
+    }
   }
-}
-
-  
+});
 
 module.exports = {
-  connectionHandler,
   startDreaded,
-saveCreds: (state) => state.saveCreds,
   getClient: () => client
 };
