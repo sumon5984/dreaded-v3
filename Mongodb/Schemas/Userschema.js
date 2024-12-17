@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const newUserSchema = new mongoose.Schema({
   jid: {
     type: String,
@@ -15,7 +14,23 @@ const newUserSchema = new mongoose.Schema({
     type: String,
     default: null, 
   },
+  messages: [
+    {
+      sender: {
+        type: String,
+        enum: ['user', 'assistant'], 
+        required: true,
+      },
+      content: {
+        type: String,
+        required: true,
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
 });
 
-
-module.exports = mongoose.model('NewUser', newUserSchema); 
+module.exports = mongoose.model('NewUser', newUserSchema);
