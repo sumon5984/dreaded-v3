@@ -32,7 +32,6 @@ const { getSettings } = require('./Mongodb/Settingsdb');
 const messageHandler = require("./Handler/messageHandler");
 const eventHandler = require("./Handler/eventHandler.js");
 const eventHandler2= require("./Handler/eventHandler2.js");
-const { startDreaded, getClient } = require("./Handler/connectionHandler.js");
 const handleMessage = require("./Handler/messageHandler");
 const { smsg } = require('./Handler/smsg.js');
 const botname = process.env.BOTNAME || 'Dreaded';
