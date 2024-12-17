@@ -32,7 +32,7 @@ const { getSettings } = require('./Mongodb/Settingsdb');
 const messageHandler = require("./Handler/messageHandler");
 const eventHandler = require("./Handler/eventHandler.js");
 const eventHandler2= require("./Handler/eventHandler2.js");
-const connectionHandler = require("./Handler/connectionHandler.js");
+const { connectionHandler, startDreaded, getClient } = require("./Handler/connectionHandler.js");
 const handleMessage = require("./Handler/messageHandler");
 const { smsg } = require('./Handler/smsg.js');
 const botname = process.env.BOTNAME || 'Dreaded';
@@ -46,7 +46,7 @@ const { DateTime } = require('luxon');
 authenticationn();
 const mongoose = require("mongoose");
 
-async function startDreaded() {
+/* async function startDreaded() {
 
 
 const settingss = await getSettings();
@@ -78,6 +78,22 @@ fireInitQueries: false,
             }
         }
     })
+
+
+*/
+
+const client = getClient(); 
+
+
+async function main() {
+
+const settingss = await getSettings();
+
+const { autoview, autoread, botname, autobio, mode, prefix, presence, anticall } = settingss;
+  console.log("🚀 Starting Dreaded bot...");
+  await startDreaded();
+}
+
 
 
   store.bind(client.ev);
@@ -313,6 +329,6 @@ app.get("/", (req, res) => {
 });
 app.listen(port, () => console.log(`Server listening on port http://localhost:${port}`));
 
-startDreaded();
+main()
 
  
