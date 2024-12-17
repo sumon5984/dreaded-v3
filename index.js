@@ -322,7 +322,7 @@ client.ev.on("connection.update", async (update) => {
   };
 
   return client;
-}
+
 
 app.get("/", (req, res) => {
     res.send("Bot running now... ");
