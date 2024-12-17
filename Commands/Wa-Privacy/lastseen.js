@@ -16,8 +16,8 @@ const availablepriv = ['all', 'contacts', 'contact_blacklist', 'none'];
 
 if (!availablepriv.includes(text)) return m.reply(`Choose a setting from this list: ${availablepriv.join('/')}`);
 
-await client.updateLastSeenPrivacy(priv)
-        await m.reply(`Last seen privacy settings updated to *${priv}*`);
+await client.updateLastSeenPrivacy(text)
+        await m.reply(`Last seen privacy settings updated to *${text}*`);
 
 })
 
