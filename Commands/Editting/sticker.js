@@ -2,7 +2,7 @@ const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter')
 
 module.exports = async (context) => {
 
-const { client, m, packname, author, msgDreaded } = context;
+const { client, m, packname, msgDreaded } = context;
 
 if(!msgDreaded) { m.reply('Quote an image or a short video.') ; return } ;
 let media;
@@ -19,7 +19,7 @@ var result = await client.downloadAndSaveMediaMessage(media);
 
 let stickerResult = new Sticker(result, {
             pack: packname,
-            author: author,
+          
             type: StickerTypes.FULL,
             categories: ["🤩", "🎉"],
             id: "12345",
