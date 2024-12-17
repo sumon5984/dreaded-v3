@@ -41,11 +41,11 @@ const connectionHandler = async (client, update, startDreaded) => {
     return DateTime.now().setZone('Africa/Nairobi').toLocaleString(DateTime.TIME_SIMPLE);
   };
 
-await console.log("Wait while we connect the database and WhatsApp. . .");
+
 
 if (connection === "connecting") {
 
-await console.log("📈 Connecting to WhatsApp. . .");
+await console.log("📈 Connecting to WhatsApp and database. . .");
 
 }
 
