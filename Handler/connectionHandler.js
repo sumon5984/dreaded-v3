@@ -134,5 +134,6 @@ async function connectionHandler(update) {
 module.exports = {
   connectionHandler,
   startDreaded,
+saveCreds: (state) => state.saveCreds,
   getClient: () => client
 };
