@@ -4,6 +4,8 @@ const ownerMiddleware = require('../../Middleware/ownerMiddleware');
     await ownerMiddleware(context, async () => {
 
     const { client, m } = context;
+
+const Myself = await client.decodeJid(client.user.id);
     
     const {
                 readreceipts,
@@ -26,7 +28,7 @@ const ownerMiddleware = require('../../Middleware/ownerMiddleware');
 * Call add :* ${calladd}`;
 
 
-const avatar = await client.profilePictureUrl(idBot, 'image').catch(_ => 'https://telegra.ph/file/b34645ca1e3a34f1b3978.jpg');
+const avatar = await client.profilePictureUrl(Myself, 'image').catch(_ => 'https://telegra.ph/file/b34645ca1e3a34f1b3978.jpg');
 
 await client.sendMessage(m.chat, { image: { url: avatar}, caption: fnn}, { quoted: m}) 
 
