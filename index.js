@@ -218,7 +218,7 @@ client.ev.on("connection.update", async (update) => {
 });
 
 
-  client.ev.on("creds.update", saveCreds);
+// client.ev.on("creds.update", saveCreds);
 
 
   client.sendText = (jid, text, quoted = "", options) => client.sendMessage(jid, { text: text, ...options }, { quoted });
