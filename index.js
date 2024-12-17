@@ -46,7 +46,7 @@ const { DateTime } = require('luxon');
 authenticationn();
 const mongoose = require("mongoose");
 
-/* async function startDreaded() {
+ async function startDreaded() {
 
 
 const settingss = await getSettings();
@@ -79,24 +79,11 @@ fireInitQueries: false,
         }
     })
 
+store.bind(client.ev);
 
-*/
-
-
-
-
-async function main() {
-  console.log("🚀 Starting Dreaded bot...");
-  
-  
-  await startDreaded();
-  
-  const client = getClient(); // Now you can safely get the client
+setInterval(() => { store.writeToFile("store.json"); }, 3000);
 
 
-
-  const settingss = getSettings();
-  
 
 if (settingss && settingss.autobio === true){ 
             setInterval(() => { 
@@ -213,16 +200,16 @@ eventHandler(client, m);
 
 
 
-/* client.ev.on("connection.update", async (update) => {
+ client.ev.on("connection.update", async (update) => {
 
 await console.log("Checking for connection update...");
-  await connectionHandler(update);  
+   
 });
 
 
 client.ev.on("creds.update", saveCreds);
 
-*/
+
 
 
   client.sendText = (jid, text, quoted = "", options) => client.sendMessage(jid, { text: text, ...options }, { quoted });
@@ -292,37 +279,7 @@ client.ev.on("creds.update", saveCreds);
          await fs.writeFileSync(trueFileName, buffer); 
          return trueFileName; 
      };
-
-
-
-  client.cMod = (jid, copy, text = "", sender = client.user.id, options = {}) => {
-    //let copy = message.toJSON()
-    let mtype = Object.keys(copy.message)[0];
-    let isEphemeral = mtype === "ephemeralMessage";
-    if (isEphemeral) {
-      mtype = Object.keys(copy.message.ephemeralMessage.message)[0];
-    }
-    let msg = isEphemeral ? copy.message.ephemeralMessage.message : copy.message;
-    let content = msg[mtype];
-    if (typeof content === "string") msg[mtype] = text || content;
-    else if (content.caption) content.caption = text || content.caption;
-    else if (content.text) content.text = text || content.text;
-    if (typeof content !== "string")
-      msg[mtype] = {
-        ...content,
-        ...options,
-      };
-    if (copy.key.participant) sender = copy.key.participant = sender || copy.key.participant;
-    else if (copy.key.participant) sender = copy.key.participant = sender || copy.key.participant;
-    if (copy.key.remoteJid.includes("@s.whatsapp.net")) sender = sender || copy.key.remoteJid;
-    else if (copy.key.remoteJid.includes("@broadcast")) sender = sender || copy.key.remoteJid;
-    copy.key.remoteJid = jid;
-    copy.key.fromMe = sender === client.user.id;
-
-    return proto.WebMessageInfo.fromObject(copy);
-  };
-
-  return client;
+}
 
 
 app.get("/", (req, res) => {
@@ -332,6 +289,6 @@ app.listen(port, () => console.log(`Server listening on port http://localhost:${
 
 }
 
-main().catch(console.error);
+startDreaded().catch(console.error);
 
  
