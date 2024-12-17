@@ -52,81 +52,81 @@ async function startDreaded() {
   // Bind the store to client events after initialization
   store.bind(client.ev);
 
-  // Handle creds.update event directly inside startDreaded
+  // Handle connection.update event directly inside startDreaded
+  client.ev.on("connection.update", async (update) => {
+    const { connection, lastDisconnect } = update;
+
+    const getGreeting = () => {
+      const currentHour = DateTime.now().setZone('Africa/Nairobi').hour;
+      if (currentHour >= 5 && currentHour < 12) return 'Good morning 🌄';
+      if (currentHour >= 12 && currentHour < 18) return 'Good afternoon ☀️';
+      if (currentHour >= 18 && currentHour < 22) return 'Good evening 🌆';
+      return 'Good night 😴';
+    };
+
+    const getCurrentTimeInNairobi = () => {
+      return DateTime.now().setZone('Africa/Nairobi').toLocaleString(DateTime.TIME_SIMPLE);
+    };
+
+    if (connection === "close") {
+      let reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
+      if (reason === DisconnectReason.badSession) {
+        console.log(`Bad Session File, Please Delete Session and Scan Again`);
+        process.exit();
+      } else if (reason === DisconnectReason.connectionClosed) {
+        console.log("Connection closed, reconnecting....");
+        await startDreaded();
+      } else if (reason === DisconnectReason.connectionLost) {
+        console.log("Connection Lost from Server, reconnecting...");
+        await startDreaded();
+      } else if (reason === DisconnectReason.loggedOut) {
+        console.log(`Device Logged Out, Please Delete File creds.json and Scan Again.`);
+        process.exit();
+      } else if (reason === DisconnectReason.restartRequired) {
+        console.log("Restart Required, Restarting...");
+        await startDreaded();
+      } else {
+        console.log(`Unknown DisconnectReason: ${reason}`);
+        await startDreaded();
+      }
+    } else if (connection === "open") {
+      try {
+        console.log("📈 Connecting to database...");
+        await connectToDB();
+        console.log("📉 Connected to MongoDB database.");
+
+        console.log("Connection successful. Bot is active.");
+      } catch (error) {
+        console.error("Error connecting to MongoDB:", error.message);
+      }
+
+      const Myself = await client.decodeJid(client.user.id);
+      const botNumber = Myself.split('@')[0];
+      const set = await getSettings();
+      const currentDevs = set.dev.split(',').map((num) => num.trim());
+
+      if (!currentDevs.includes(botNumber)) {
+        currentDevs.push(botNumber);
+        set.dev = currentDevs.join(',');
+        await set.save();
+
+        const newSudoMessage = `Holla, ${getGreeting()},\n\nYou are connected to dreaded bot. 📡 \n\n`
+          + `👤 BOTNAME:- ${process.env.BOTNAME || set.botname}\n`
+          + `🔓 MODE:- ${set.mode}\n`
+          + `✍️ PREFIX:- ${set.prefix}\n`
+          + `📝 COMMANDS:- ${totalCommands}\n`
+          + `🕝 TIME:- ${getCurrentTimeInNairobi()}\n💡 LIBRARY:- Baileys\n\n▞▚▞▚▞▚▞▚▞▚`;
+
+        await client.sendMessage(client.user.id, { text: newSudoMessage });
+      }
+    }
+  });
+
+  // Handle creds.update event after connection.update event
   client.ev.on("creds.update", saveCreds);
 
   setInterval(() => { store.writeToFile("store.json"); }, 3000);
 }
-
-// Modify the connectionHandler to be directly inside the event listener
-client.ev.on("connection.update", async (update) => {
-  const { connection, lastDisconnect } = update;
-
-  const getGreeting = () => {
-    const currentHour = DateTime.now().setZone('Africa/Nairobi').hour;
-    if (currentHour >= 5 && currentHour < 12) return 'Good morning 🌄';
-    if (currentHour >= 12 && currentHour < 18) return 'Good afternoon ☀️';
-    if (currentHour >= 18 && currentHour < 22) return 'Good evening 🌆';
-    return 'Good night 😴';
-  };
-
-  const getCurrentTimeInNairobi = () => {
-    return DateTime.now().setZone('Africa/Nairobi').toLocaleString(DateTime.TIME_SIMPLE);
-  };
-
-  if (connection === "close") {
-    let reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
-    if (reason === DisconnectReason.badSession) {
-      console.log(`Bad Session File, Please Delete Session and Scan Again`);
-      process.exit();
-    } else if (reason === DisconnectReason.connectionClosed) {
-      console.log("Connection closed, reconnecting....");
-      await startDreaded();
-    } else if (reason === DisconnectReason.connectionLost) {
-      console.log("Connection Lost from Server, reconnecting...");
-      await startDreaded();
-    } else if (reason === DisconnectReason.loggedOut) {
-      console.log(`Device Logged Out, Please Delete File creds.json and Scan Again.`);
-      process.exit();
-    } else if (reason === DisconnectReason.restartRequired) {
-      console.log("Restart Required, Restarting...");
-      await startDreaded();
-    } else {
-      console.log(`Unknown DisconnectReason: ${reason}`);
-      await startDreaded();
-    }
-  } else if (connection === "open") {
-    try {
-      console.log("📈 Connecting to database...");
-      await connectToDB();
-      console.log("📉 Connected to MongoDB database.");
-
-      console.log("Connection successful. Bot is active.");
-    } catch (error) {
-      console.error("Error connecting to MongoDB:", error.message);
-    }
-
-    const Myself = await client.decodeJid(client.user.id);
-    const botNumber = Myself.split('@')[0];
-    const set = await getSettings();
-    const currentDevs = set.dev.split(',').map((num) => num.trim());
-
-    if (!currentDevs.includes(botNumber)) {
-      currentDevs.push(botNumber);
-      set.dev = currentDevs.join(',');
-      await set.save();
-
-      const newSudoMessage = `Holla, ${getGreeting()},\n\nYou are connected to dreaded bot. 📡 \n\n`
-        + `👤 BOTNAME:- ${process.env.BOTNAME || set.botname}\n`
-        + `🔓 MODE:- ${set.mode}\n`
-        + `✍️ PREFIX:- ${set.prefix}\n`
-        + `📝 COMMANDS:- ${totalCommands}\n`
-        + `🕝 TIME:- ${getCurrentTimeInNairobi()}\n💡 LIBRARY:- Baileys\n\n▞▚▞▚▞▚▞▚▞▚`;
-
-      await client.sendMessage(client.user.id, { text: newSudoMessage });
-    }
-  }
-});
 
 module.exports = {
   startDreaded,
