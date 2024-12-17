@@ -1,4 +1,6 @@
 const { Boom } = require("@hapi/boom");
+const pino = require("pino");
+const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
 const { getSettings } = require("../Mongodb/Settingsdb");
 const { connectToDB } = require('../Mongodb/loadDb');
 const { commands, totalCommands } = require('./commandHandler');
@@ -37,6 +39,11 @@ async function startDreaded() {
 
   console.log("🔗 Client initialized successfully.");
 }
+
+  store.bind(client.ev);
+
+        setInterval(() => { store.writeToFile("store.json"); }, 3000);
+
 
 async function connectionHandler(update) {
   const { connection, lastDisconnect } = update;
