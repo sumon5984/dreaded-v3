@@ -35,10 +35,10 @@ response += `🔘 *React Emoji*: ${settings.reactEmoji}\n`;
 
     
     const totalUsers = await getTotalUsers();
-    const bannedUsers = await getBannedUsers();
+            const { bannedCount } = await getBannedUsers();
 
     response += `🔘 *Total Users*: ${totalUsers}\n`;  
-    response += `🔘 *Banned Users*: ${bannedUsers}\n`;  
+    response += `🔘 *Banned Users*: ${bannedCount}\n`;  
     response += `🔘 *Total Groups*: ${anaa.length}\n`; 
 
     
