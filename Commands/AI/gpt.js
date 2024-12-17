@@ -1,15 +1,13 @@
 const { getUser, createUser } = require('../../Mongodb/Userdb');
+const { default: Gemini } = await import('gemini-ai');
 
 module.exports = async (context) => {
   const { client, m, text } = context;
 
   const master = 'mokaya';
-  const { default: Gemini } = await import('gemini-ai');
+  const prompt = `You are a WhatsApp digital assistant. Respond directly to user queries without prefixes like "Assistant's response".`;
 
-  // Gemini prompt
-  const prompt = `You are a WhatsApp digital assistant. You will respond to texts and messages appropriately.`;
-
-  const jid = m.chat; // Unique chat ID for the user
+  const jid = m.chat;
   const userInput = text;
 
   try {
@@ -30,13 +28,16 @@ module.exports = async (context) => {
     // Gemini API integration
     const gemini = new Gemini('AIzaSyC3sNClbdraGrS2ubb5PTdnm_RbUANtdzc');
     const chat = gemini.createChat();
-    const res = await chat.ask(instruction);
+    let res = await chat.ask(instruction);
+
+    // Clean the response (remove "Assistant's response:" or similar prefixes)
+    res = res.replace(/^Assistant['’]?s? response:\s*/i, '');
 
     // Save assistant's response
     user.messages.push({ sender: 'assistant', content: res });
     await user.save();
 
-    // Send the response to the user
+    // Send the cleaned response to the user
     await m.reply(res);
   } catch (err) {
     console.error('Error handling Gemini command:', err);
