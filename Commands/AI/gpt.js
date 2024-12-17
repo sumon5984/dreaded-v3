@@ -1,5 +1,4 @@
 const { getUser, createUser } = require('../../Mongodb/Userdb');
-const { default: Gemini } = await import('gemini-ai');
 
 module.exports = async (context) => {
   const { client, m, text } = context;
