@@ -66,7 +66,7 @@ fireInitQueries: false,
             downloadHistory: true,
             syncFullHistory: true,
             generateHighQualityLinkPreview: true,
-            markOnlineOnConnect: true,
+            markOnlineOnConnect: false,
             keepAliveIntervalMs: 30_000,
         auth: state,
         getMessage: async (key) => {
