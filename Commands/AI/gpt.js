@@ -7,7 +7,7 @@ module.exports = async (context) => {
   const { default: Gemini } = await import('gemini-ai');
 
   // Gemini prompt
-  const prompt = `You are a WhatsApp digital assistant.`;
+  const prompt = `You are a WhatsApp digital assistant. You will respond to texts and messages appropriately.`;
 
   const jid = m.chat; // Unique chat ID for the user
   const userInput = text;
