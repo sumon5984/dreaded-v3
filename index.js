@@ -33,6 +33,7 @@ const messageHandler = require("./Handler/messageHandler");
 const eventHandler = require("./Handler/eventHandler.js");
 const eventHandler2= require("./Handler/eventHandler2.js");
 const handleMessage = require("./Handler/messageHandler");
+const connectionHandler = require('./Handler/connectionHandler');
 const { connectToDB } = require('./Mongodb/loadDb');
 const { smsg } = require('./Handler/smsg.js');
 const botname = process.env.BOTNAME || 'Dreaded';
@@ -199,8 +200,15 @@ eventHandler(client, m);
 
 
 
+client.ev.on("connection.update", async (update) => {
+  await connectionHandler(client, update, startDreaded);
+});
 
- client.ev.on("connection.update", async (update) => {
+
+
+
+
+/* client.ev.on("connection.update", async (update) => {
 
 await console.log("Trying to connect database and WhatsApp...");
 
@@ -314,7 +322,11 @@ try {
     console.log(`✅ Connection successful\nLoaded ${totalCommands} commands.\nBot is active`);
   }
    
-});
+}); */
+
+
+
+
 
 
 client.ev.on("creds.update", saveCreds);
