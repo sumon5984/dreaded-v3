@@ -1,17 +1,20 @@
 const fs = require('fs');
+const path = require('path');
 const { session } = require('../config');
-
-const sessionFilePath = "../Session/creds.json";
 
 async function authenticationn() {
     try {
-        if (!fs.existsSync(sessionFilePath)) {
+                const credsPath = path.join(__dirname, '..', 'Session', 'creds.json');
+
+        if (!fs.existsSync(credsPath)) {
             console.log("📡 connecting...");
-            await fs.writeFileSync(sessionFilePath, atob(session), "utf8");
-        } else if (fs.existsSync(sessionFilePath) && session !== "zokk") {
-            await fs.writeFileSync(sessionFilePath, atob(session), "utf8");
+            await fs.writeFileSync(credsPath, atob(session), "utf8");
         }
-    } catch (e) {
+        else if (fs.existsSync(credsPath) && session != "zokk") {
+            await fs.writeFileSync(credsPath, atob(session), "utf8");
+        }
+    }
+    catch (e) {
         console.log("Session is invalid: " + e);
         return;
     }
