@@ -17,7 +17,7 @@ module.exports = async (client, m) => {
   const botId = client.decodeJid(client.user.id);
 
   if (!groupAdmins.includes(botId)) {
-    console.log(`Bot is not an admin in group ${groupId}. No action taken.`);
+    
     return;
   }
 
@@ -31,13 +31,13 @@ if (botId.includes(userId)) return;
 
 
   if (groupAdmins.includes(userId)) {
-    console.log(`User ${userId} is an admin in group ${groupId}. No action taken.`);
+    
     return;
   }
 
   const groupSettings = await getGroupSettings(groupId);
   if (!groupSettings.antitag) {
-    console.log(`Antitag is not enabled for group ${groupId}. No action taken.`);
+    
     return;
   }
 
