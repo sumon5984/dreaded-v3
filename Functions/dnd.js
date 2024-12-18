@@ -1,8 +1,6 @@
 const { getGroupSettings, getSettings } = require('../Mongodb/Settingsdb');
 const { getUser, createUser } = require('../Mongodb/Userdb'); 
- const { generateWAMessageFromContent,
-  proto,
-  generateWAMessageContent } = require('@whiskeysockets/baileys')
+ 
 
 module.exports = async (client, m) => {
   const { default: Gemini } = await import('gemini-ai');
@@ -11,7 +9,7 @@ module.exports = async (client, m) => {
   const chatId = m.chat;
   const userInput = m.text;
   const name = `dreaded digital assistant`;
-  const master = process.env.MASTER_NAME;
+  const master = process.env.MYNAME;
   const masterContact = process.env.OTHER_CONTACT; 
   const botId = client.decodeJid(client.user.id);
 
@@ -70,7 +68,7 @@ module.exports = async (client, m) => {
 
 
         await m.reply(
-          `Unfortunately, ${master} is currently offline and unavailable.  You can reach them directly through ${master contact}.  Do not send another message as it will be ignored till they come back. Thank you for your patience.`
+          `Unfortunately, ${master} is currently offline and unavailable.  You can reach them directly through ${masterContact}.  Do not send another message as it will be ignored till they come back. Thank you for your patience.`
         );
         user.geminiErrorNotified = true;
         await user.save();
