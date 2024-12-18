@@ -56,7 +56,7 @@ const mongoose = require("mongoose");
 
 const settingss = await getSettings();
 
-const { botname, autobio, mode, prefix, presence, anticall } = settingss;
+const { autobio, mode, prefix, presence, anticall } = settingss;
 
 
         const {  saveCreds, state } = await useMultiFileAuthState(`Session`)
