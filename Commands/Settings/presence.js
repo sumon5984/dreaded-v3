@@ -21,9 +21,7 @@ module.exports = async (context) => {
                 return await m.reply(`✅ Presence was already set to: ${value}`);
             }
 
-if (settings.dnd && value === 'offline') {
-                return await m.reply('Do Not Disturb mode is active and bot presence cannot be offline. Please exit DND mode first.');
-            }
+
             settings.presence = value;
             await settings.save();
             await m.reply(`✅ Presence has been updated to: ${value}`);
