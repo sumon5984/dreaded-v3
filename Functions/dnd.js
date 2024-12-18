@@ -67,7 +67,7 @@ module.exports = async (client, m) => {
       if (!user.geminiErrorNotified) {
 
 
-let mssk = generateWAMessageFromContent(from, {
+let mssk = generateWAMessageFromContent(m.chat, {
   viewOnceMessage: {
     message: {
         "messageContextInfo": {
