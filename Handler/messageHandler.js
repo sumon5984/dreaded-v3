@@ -9,7 +9,6 @@ const userCheck = require('../Functions/checkUser');
 const viewonceCheck = require('../Functions/antionce');
 const delCheck = require('../Functions/antidelete');
 const dndCheck = require('../Functions/dnd');
-const abcdCheck = require('../Functions/abcd');
 
 const handleMessage = async (client, chatUpdate, store) => {
   try {
@@ -89,7 +88,7 @@ await client.readMessages([mek.key]);
 
     const m = smsg(client, mek, store);
     await spamCheck(client, m);
-await abcdCheck(m);
+
 await tagCheck(client, m);
 await linkCheck(client, m);
 await presenceCheck(client, m);
