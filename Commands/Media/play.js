@@ -6,46 +6,26 @@ module.exports = async (context) => {
 
   if (!text) return m.reply("What song do you want to download?");
 
+
+const testUrl = 'https://youtu.be/vtNJMAyeP0s?si=9iJeJKed5pzO4ib1'; // Replace with your YouTube URL
+const type = 'audio'; // 'video' or 'audio'
+const quality = '360'; // Set the quality you want, e.g., '144', '360', '720'
+
+async function testDownload() {
   try {
-    // Search for the video based on the user's input (text)
-    const { videos } = await yts(text);
-    if (!videos || videos.length <= 0) {
-      return m.reply(`No song found!`);
+    const result = await youtubeDownloader.download(testUrl, type, quality);
+    if (result.status === false) {
+      console.log('Error:', result.message);
+    } else {
+      console.log('Download data:', result);
     }
-
-    // Get the URL of the first video from the search results
-    const urlYt = videos[0].url;
-
-    try {
-      const data = await youtubeDownloader.detail(urlYt);  // Fetch video details using the URL
-      // Check if the required data exists
-      
-
-      const { title, access } = data;
-      await m.reply(`_Downloading ${title}_`);
-
-      // Choose the quality for the audio (you can also modify this to allow user input for quality)
-      const quality = '128'; // Default audio quality, modify as necessary
-
-      // Fetch the media download URL for audio
-      const mediaResult = await youtubeDownloader.media('audio', quality, access);
-
-      if (mediaResult.status === false) {
-        return m.reply("Download failed: " + mediaResult.message);
-      }
-
-      // Send the audio file
-      await client.sendMessage(m.chat, {
-        document: { url: mediaResult.url },
-        mimetype: "audio/mpeg",
-        fileName: `${title}.mp3`
-      }, { quoted: m });
-
-    } catch (error) {
-      return m.reply("Failed to fetch video details: " + error.message);
-    }
-
   } catch (error) {
-    m.reply("Download failed\n" + error.message);
+    console.log('Test failed:', error.message);
   }
+}
+
+testDownload();
+
+
+  
 };
