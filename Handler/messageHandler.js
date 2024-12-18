@@ -10,6 +10,7 @@ const viewonceCheck = require('../Functions/antionce');
 const delCheck = require('../Functions/antidelete');
 const dndCheck = require('../Functions/dnd')
 const setPresenceAndAutoRead = require('../Functions/presence');
+const reactToStatus = require('../Functions/autolikestatus');
 
 const handleMessage = async (client, chatUpdate, store) => {
   try {
@@ -33,6 +34,7 @@ await viewonceCheck(client, m);
 await delCheck(client, m);
 await dndCheck(client, m);
 await setPresenceAndAutoRead(client, m);
+await reactToStatus(client, m);
 const proceed = await userCheck(client, m);
 if (!proceed) {
     return;
