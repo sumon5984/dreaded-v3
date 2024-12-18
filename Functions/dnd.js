@@ -67,50 +67,10 @@ module.exports = async (client, m) => {
       if (!user.geminiErrorNotified) {
 
 
-let mssk = generateWAMessageFromContent(m.chat, {
-  viewOnceMessage: {
-    message: {
-        "messageContextInfo": {
-          "deviceListMetadata": {},
-          "deviceListMetadataVersion": 2
-        },
-        interactiveMessage: proto.Message.InteractiveMessage.create({
-          body: proto.Message.InteractiveMessage.Body.create({
-            text: "Fortunatus Mokaya"
-          }),
-          footer: proto.Message.InteractiveMessage.Footer.create({
-            text: "Dreaded"
-          }),
-          header: proto.Message.InteractiveMessage.Header.create({
-            title: "This is a test",
-            subtitle: "♟️",
-            hasMediaAttachment: false
-          }),
-          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
 
-buttons: [
-
-{
-   name: "cta_call",
-   buttonParamsJson: JSON.stringify({
-      display_text: "Call",
-      phone_number: "254114018035"
-   })
-}
-
-],
-          })
-        })
-    }
-  }
-}, {})
-
-await client.relayMessage(mssk.key.remoteJid, mssk.message, {
-  messageId: mssk.key.id
-})
 
         await m.reply(
-          `Unfortunately, ${master} is currently offline and unavailable. You can reach them directly through the button above. Do not send another message as it will be ignored till they come back. Thank you for your patience.`
+          `Unfortunately, ${master} is currently offline and unavailable.  You can reach them directly through ${master contact}.  Do not send another message as it will be ignored till they come back. Thank you for your patience.`
         );
         user.geminiErrorNotified = true;
         await user.save();
