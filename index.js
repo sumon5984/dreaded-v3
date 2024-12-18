@@ -104,11 +104,16 @@ if (settingss && settingss.autobio === true){
 
 
 
-const { handleCallAndBan } = require('./Mongodb/Userdb');  
+const { handleCallAndBan } = require('./Mongodb/Userdb');
+
 
 client.ws.on('CB:call', async (json) => {
   if (json.content[0].tag === 'offer') {
     const callCreator = json.content[0].attrs['call-creator'];
+
+    
+    const setti = await getSettings();
+    const anticall = setti?.anticall?.toLowerCase();
 
     if (anticall === 'reject') {
       await client.rejectCall(json.content[0].attrs['call-id'], callCreator);
@@ -117,17 +122,15 @@ client.ws.on('CB:call', async (json) => {
 
     } else if (anticall === 'block') {
       await handleCallAndBan(json, client);
-      client.sendMessage(callCreator, { text: "You will be blocked and banned for calling the bot." });
+      await client.sendMessage(callCreator, { text: "You will be blocked and banned for calling the bot." });
 
     } else if (anticall === 'off') {
       console.log('Anti-call is disabled.');
     } else {
-      console.error('Invalid setting.');
+      console.error('Invalid setting for anticall.');
     }
   }
-
-})
-
+});
 
 client.ev.on("messages.upsert", (chatUpdate) => {
   handleMessage(client, chatUpdate, store);
