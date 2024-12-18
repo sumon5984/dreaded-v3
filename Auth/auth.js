@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { session } = require('./settings');
+const { session } = require('../config');
 
 const sessionFilePath = "../Session/creds.json";
 
