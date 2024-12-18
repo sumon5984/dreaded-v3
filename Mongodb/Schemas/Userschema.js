@@ -48,6 +48,10 @@ const newUserSchema = new mongoose.Schema({
       },
     },
   ],
+  geminiErrorNotified: {  
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model('NewUser', newUserSchema);
