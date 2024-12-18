@@ -105,7 +105,7 @@ if (settingss && settingss.autobio === true){
 
 
 const { handleCallAndBan } = require('./Mongodb/Userdb');
-const { getSettings } = require('./Mongodb/Settingsdb');
+
 
 client.ws.on('CB:call', async (json) => {
   if (json.content[0].tag === 'offer') {
