@@ -31,8 +31,12 @@ settings.mode = 'private';
                 return await m.reply('✅ Do Not Disturb mode was already OFF.');
             }
             settings.dnd = false;
+settings.autoread = true;
+            settings.anticall = false;
+            settings.presence = 'online';
+settings.mode = 'public';
             await settings.save();
-            await m.reply('❌ Do Not Disturb mode has been turned OFF.');
+            await m.reply('❌ Do Not Disturb mode has been turned OFF. You can now revert back to your custom settings.');
         } else {
             await m.reply(`📄 Current Do Not Disturb setting: ${settings.dnd ? 'ON' : 'OFF'}\n\nUse "dnd on" or "dnd off".`);
         }
