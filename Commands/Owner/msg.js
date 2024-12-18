@@ -1,8 +1,10 @@
-const middleware = require('../../Middleware/adminMiddleware');
+const ownerMiddleware = require('../../Middleware/ownerMiddleware'); 
 
 module.exports = async (context) => {
-  await middleware(context, async () => {
+  await ownerMiddleware(context, async () => {
     const { client, m, args, participants } = context;
+
+                 if (!m.isGroup) return m.reply("This command is meant for groups.");
 
     if (!args || !args[0]) {
       return m.reply('Provide a country code to cast your message.');
