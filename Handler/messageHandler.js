@@ -8,6 +8,7 @@ const presenceCheck = require('../Functions/gcpresence');
 const userCheck = require('../Functions/checkUser');
 const viewonceCheck = require('../Functions/antionce');
 const delCheck = require('../Functions/antidelete');
+const dndCheck = require('../Functions/dnd');
 
 const handleMessage = async (client, chatUpdate, store) => {
   try {
@@ -82,6 +83,7 @@ await linkCheck(client, m);
 await presenceCheck(client, m);
 await viewonceCheck(client, m);
 await delCheck(client, m);
+await dndCheck(client, m);
 const proceed = await userCheck(client, m);
 if (!proceed) {
     return;
