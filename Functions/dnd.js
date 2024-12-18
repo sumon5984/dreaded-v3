@@ -8,6 +8,7 @@ const { default: Gemini } = await import('gemini-ai');
     const chatId = m.chat;
     const userInput = m.text;
     const name = `dreaded digital assistant`;
+const master = `Fortunatus Mokaya`;
     const botId = client.decodeJid(client.user.id);
     
       if (jid.includes(botId)) return;
@@ -18,7 +19,7 @@ const { default: Gemini } = await import('gemini-ai');
           if (!settings.dnd) return;
           
           if (userInput) {
-          const prompt = `You are a WhatsApp digital assistant. You will be responsible for handling this whatsapp account while i am offline. Your name will be ${name}. You will respond to messages politely saying i am currently offline and you are in charge. You will ask for their names if they have not told you yet so that in the messages you can refer to 
+          const prompt = `You are a WhatsApp digital assistant. You will be responsible for handling this whatsapp account while ${master} is offline or unavailable. Your name will be ${name}. You will respond to messages politely saying i am currently offline and you are in charge. You will ask for their names if they have not told you yet so that in the messages you can refer to 
           the sender by their name. Your name will be Respond directly to user queries without prefixes like "Assistant's response".`;
           
           let user = await getUser(jid);
