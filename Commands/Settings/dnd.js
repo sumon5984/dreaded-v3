@@ -20,20 +20,20 @@ module.exports = async (context) => {
                 return await m.reply('✅ Do Not Disturb mode was already ON.');
             }
             settings.dnd = true;
-            settings.autoread = false;
+           
             settings.anticall = true;
-            settings.presence = 'online';
+           
 settings.mode = 'private';
             await settings.save();
-            await m.reply('✅ Do Not Disturb mode has been turned ON.\nThe bot will now switch itself to private mode and will be managing this account.\n\nDuring this time, the bot will respond to personal messages  appropriately using AI, informing users of your unavailability.\n\nWhatsApp notifications will be delivered silently with no pop up while incoming calls will be rejected.');
+            await m.reply('✅ Do Not Disturb mode has been turned ON.\nThe bot will now switch itself to private mode and will be managing this account.\n\nDuring this time, the bot will respond to personal messages  appropriately using AI, informing users of your unavailability.\n\nIncoming calls will be rejected.');
         } else if (value === 'off') {
             if (!settings.dnd) {
                 return await m.reply('✅ Do Not Disturb mode was already OFF.');
             }
             settings.dnd = false;
-settings.autoread = true;
+
             settings.anticall = false;
-            settings.presence = 'online';
+          
 settings.mode = 'public';
             await settings.save();
             await m.reply('❌ Do Not Disturb mode has been turned OFF. You can now revert back to your custom settings.');
