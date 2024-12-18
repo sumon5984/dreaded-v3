@@ -29,7 +29,7 @@ module.exports = async (context) => {
       return m.reply('No members with the specified country code found.');
     }
 
-    let warningMessage = `⚠️ The bot is about to send given message to all participants with the specified country code.\n\nThis may be considered spam by WhatsApp and could result in bans. Proceed with caution.`;
+    let warningMessage = `⚠️ The bot is about to send given message to ${member.length} participants with the specified country code.\n\nThis may be considered spam by WhatsApp and could result in bans. Proceed with caution.`;
     await m.reply(warningMessage);
 
     setTimeout(() => {
