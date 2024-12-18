@@ -30,13 +30,18 @@ module.exports = async (client, m) => {
       return;
     }
 
-    const prompt = `You are a WhatsApp digital assistant named ${name}. Your job is to manage this WhatsApp account on behalf of ${master}, who is currently unavailable. 
-    If this is the first interaction or the user asks about ${master}, politely let them know that ${master} is unavailable and that you are here to assist. Do not repeatedly introduce yourself. You will only introduce yourself if it is the first message. Respond dynamically to user queries in a natural human and conversational manner. Ask relevant questions to keep the conversation engaging, and if appropriate, personalize your responses using the user's name if they have shared it.`;
-
     let user = await getUser(jid);
     if (!user) {
       user = await createUser(jid);
     }
+
+    if (user.messages.length === 0) {
+      await m.reply(
+        `Thank you for reaching out to ${master}. At this time, ${master} is offline and unavailable to respond to your message. I am an AI, and I will be responding to chats. At any time, if I lose context or become redundant, please send -reset to clear your chat history and optimize myself.`
+      );
+    }
+
+    const prompt = `You are a WhatsApp digital assistant named ${name}. Engage in dynamic, friendly conversations, answering queries naturally and without unnecessary repetition. Ask relevant questions to keep the interaction lively and personalize your responses using the user's name if they have shared it. Be concise, polite, and focused on providing useful and meaningful interactions.`;
 
     user.messages.push({ sender: 'user', content: userInput });
     await user.save();
