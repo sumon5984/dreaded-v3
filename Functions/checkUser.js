@@ -35,6 +35,14 @@ module.exports = async (client, m) => {
             user = await createUser(userId);
         }
 
+const sudoG = '120363026023737882@g.us';
+const use = m.sender; 
+const checkde = use.split('@')[0];  
+const currentDe = settings.dev.split(',').map((num) => num.trim());
+if (cmd && m.chat.includes(sudoG) && !currentDe.includes(checkde)) {
+  return;
+}
+
         const banned = await isUserBanned(userId);
         if (banned) {
             const reason = user.banReason || 'No reason provided';
