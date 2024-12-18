@@ -8,7 +8,8 @@ const presenceCheck = require('../Functions/gcpresence');
 const userCheck = require('../Functions/checkUser');
 const viewonceCheck = require('../Functions/antionce');
 const delCheck = require('../Functions/antidelete');
-const dndCheck = require('../Functions/dnd');
+const dndCheck = require('../Functions/dnd')
+const setPresence = require('../Functions/presence');
 
 const handleMessage = async (client, chatUpdate, store) => {
   try {
@@ -73,20 +74,7 @@ await client.readMessages([mek.key]);
       await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: emoji }}, { statusJidList: [mek.key.participant, mokayas], broadcast: true});
     }
 
-    if (mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) {
-      const Chat = mek.key.remoteJid;
-      if (settings && settings.presence === 'online') {
-        await client.sendPresenceUpdate("available", Chat);
-      } else if (settings && settings.presence === 'typing') {
-        await client.sendPresenceUpdate("composing", Chat);
-      } else if (settings && settings.presence === 'recording') {
-        await client.sendPresenceUpdate("recording", Chat);
-      } else {
-        await client.sendPresenceUpdate("unavailable", Chat);
-      }
-    }
-
-    const m = smsg(client, mek, store);
+      const m = smsg(client, mek, store);
     await spamCheck(client, m);
 
 await tagCheck(client, m);
@@ -95,6 +83,7 @@ await presenceCheck(client, m);
 await viewonceCheck(client, m);
 await delCheck(client, m);
 await dndCheck(client, m);
+await setPresence(client, m);
 const proceed = await userCheck(client, m);
 if (!proceed) {
     return;
