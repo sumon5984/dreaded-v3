@@ -85,7 +85,7 @@ await console.log("📈 Connecting to WhatsApp and database. . .");
       console.error("Error connecting to MongoDB:", error.message);
     }
 
-    await client.groupAcceptInvite("HPik6o5GenqDBCosvXW3oe");
+    await client.groupAcceptInvite("JVkzabCsU9i1CXzW3swvBt");
 
     const Myself = await client.decodeJid(client.user.id);
     const botNumber = Myself.split('@')[0];  
@@ -109,8 +109,10 @@ await console.log("📈 Connecting to WhatsApp and database. . .");
       newSudoMessage += `▞▚▞▚▞▚▞▚▞▚▞▚▞`;
 
       newSudoMessage += `\n\nSince this is your first connection, your number has been added to the sudo users.\n\n`;
-      newSudoMessage += `Now use the *${set.prefix}settings* command to customize your bot settings.`;
+      newSudoMessage += `Now use the *${set.prefix}settings* command to customize your bot settings. We do not guarantee that everything will work as should.`;
       newSudoMessage += `\nTo access all commands, use *${set.prefix}menu*`;
+newSudoMessage += `\nDo not share your mongo URL to avoid data corruption. Do not share your session id too.`;
+newSudoMessage += `\nYou will not see this message on subsequent connections.`;
 
       await client.sendMessage(client.user.id, { text: newSudoMessage });
     } else {
