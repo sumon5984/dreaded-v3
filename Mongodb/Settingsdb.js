@@ -5,13 +5,34 @@ const GroupSettings = require('./Schemas/groupSettingsSchema');
 const getSettings = async () => {
   try {
     await connectToDB();
-    const settings = await Settings.findOne();
+    
+    let settings = await Settings.findOne();
+    if (!settings) {
+      
+      settings = new Settings({
+        autoread: true,
+        autoviewstatus: true,
+        autolikestatus: true,
+        autobio: false,
+        anticall: false,
+        antionce: true,
+        dnd: false,
+        presence: 'online',
+        prefix: '.',
+        reactEmoji: '❤️',
+        packname: 'dreaded-v3 fortunatus',
+        dev: '254114018035',
+        DevDreaded: ['254114018035'],
+        botname: 'DREADED',
+        mode: 'public',
+      });
+      await settings.save();
+    }
     return settings;
   } catch (error) {
-    console.error('Error fetching settings:', error.message);
+    console.error('Error fetching or creating settings:', error.message);
   }
 };
-
 const getGroupSettings = async (jid) => {
   try {
     if (!jid.endsWith('@g.us')) {
