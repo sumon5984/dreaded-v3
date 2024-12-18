@@ -36,7 +36,6 @@ const getSettings = async () => {
 const getGroupSettings = async (jid) => {
   try {
     if (!jid.endsWith('@g.us')) {
-      
       return null; 
     }
 
@@ -45,9 +44,20 @@ const getGroupSettings = async (jid) => {
 
     if (!groupSettings) {
       
-      groupSettings = new GroupSettings({ jid });
+      groupSettings = new GroupSettings({
+        jid,
+        antilink: false,
+        antispam: false,
+        antidelete: true,
+        events: true,
+        antitag: true,
+        gcpresence: true,
+        antiforeign: true,
+        antidemote: false,
+        antipromote: false,
+        updatedAt: Date.now(),
+      });
       await groupSettings.save();
-      
     }
 
     return groupSettings;
@@ -55,6 +65,7 @@ const getGroupSettings = async (jid) => {
     console.error('Error fetching or creating group settings:', error.message);
   }
 };
+
 
 module.exports = {
   getSettings,
