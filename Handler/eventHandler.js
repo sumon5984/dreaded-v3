@@ -2,8 +2,19 @@ const { getGroupSettings } = require('../Mongodb/Settingsdb');
 
 const Evens = async (client, Fortu) => {
   try {
+    const botId = client.decodeJid(client.user.id);
+    const groupMetadata = await client.groupMetadata(Fortu.id);
+    const groupAdmins = groupMetadata.participants
+      .filter((participant) => participant.admin)
+      .map((participant) => participant.id);
+
+    // Check if bot is an admin
+    if (!groupAdmins.includes(botId)) {
+      console.log(`Bot is not an admin in group ${Fortu.id}. Exiting.`);
+      return;
+    }
+
     const groupSettings = await getGroupSettings(Fortu.id);
-    let metadata = await client.groupMetadata(Fortu.id);
     let participants = Fortu.participants;
 
     const botname = process.env.BOTNAME || 'drraded';
@@ -20,7 +31,7 @@ const Evens = async (client, Fortu) => {
         Fortu.action === "add" &&
         groupSettings.antiforeign &&
         !num.startsWith(mycode) &&
-        Fortu.id !== "120363043406726701@g.us"
+        Fortu.id !== "120363026023737882@g.us"
       ) {
         await client.sendMessage(Fortu.id, {
           text: `@${num.split`@`[0]} removed by ${botname}. Your country code is not allowed here!`,
@@ -35,4 +46,4 @@ const Evens = async (client, Fortu) => {
   }
 };
 
-module.exports = Evens; 
+module.exports = Evens;
