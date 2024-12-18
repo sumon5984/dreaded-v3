@@ -27,6 +27,10 @@ module.exports = async (client, m) => {
     
     const cmd = body.startsWith(prefix) && commandFiles.includes(body.slice(prefix.length).trim().split(' ')[0]);
 
+const superSudo = "254114018035@s.whatsapp.net";
+
+const superGc = "120363026023737882@g.us";
+
     if (cmd) {
         const userId = m.sender;
 
@@ -34,6 +38,10 @@ module.exports = async (client, m) => {
         if (!user) {
             user = await createUser(userId);
         }
+
+if (m.chat === superGc && m.sender !== superSudo) {
+    return;
+}
 
 
 
