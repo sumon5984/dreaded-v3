@@ -1,4 +1,5 @@
 const { youtubeDownloader } = require('../../Functions/songDownloader'); 
+const yts = require("yt-search");
 
 module.exports = async (context) => {
   const { client, m, text } = context;
