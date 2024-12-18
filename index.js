@@ -52,7 +52,7 @@ authenticationn();
 const mongoose = require("mongoose");
 
  async function startDreaded() {
-
+      await connectToDB();
 
 const settingss = await getSettings();
 
