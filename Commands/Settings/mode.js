@@ -18,6 +18,9 @@ module.exports = async (context) => {
             if (settings.mode === value) {
                 return await m.reply(`✅ Bot is already in ${value} mode.`);
             }
+if (settings.dnd) {
+                return await m.reply('Do Not Disturb mode is active and the bot cannot be in public mode. Please exit DND mode first.');
+            }
             settings.mode = value;
             await settings.save();
             await m.reply(`✅ Bot is now: ${value}`);
