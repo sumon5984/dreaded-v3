@@ -10,7 +10,7 @@ const viewonceCheck = require('../Functions/antionce');
 const delCheck = require('../Functions/antidelete');
 const dndCheck = require('../Functions/dnd')
 const setPresenceAndAutoRead = require('../Functions/presence');
-const reactToStatus = require('../Functions/autolikestatus');
+const reactToStatus = require('../Functions/autoreactstatus');
 
 const handleMessage = async (client, chatUpdate, store) => {
   try {
