@@ -29,6 +29,18 @@
     "BOTNAME": {
       "description": "Enter the name for your bot.",
       "required": true
+    },
+    "GEMINI_API_KEY": {
+      "description": "This API key used for integrating Gemini services. To use AI you will need this key. It is also used to handle private messages in DND.",
+      "required": false
+    },
+    "OTHER_CONTACT": {
+      "description": "This is the alternate contact number the bot will provide when Do Not Disturb (DND) is active. You can use your bot number or another if available. It ensures people can still reach you. Please enter only one number with no spaces.",
+      "required": true
+    },
+    "MYNAME": {
+      "description": "The name the bot will use to refer to you during DND mode, ensuring users know how to address you.",
+      "required": true
     }
   },
   "buildpacks": [
@@ -42,4 +54,4 @@
       "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
     }
   ]
-} 
+}
