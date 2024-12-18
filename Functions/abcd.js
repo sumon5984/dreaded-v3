@@ -5,6 +5,8 @@ module.exports = async ( m ) => {
 
 const { getSettings } = require('../Mongodb/Settingsdb');
 
+        if (!m.chat.endsWith("@g.us")) return;
+
     let settings = await getSettings();
     const { prefix } = settings;
 
