@@ -21,9 +21,10 @@ module.exports = async (context) => {
       }
     }
 
-    let member = participants.filter(v => !v.admin)
-      .map(v => v.id)
-      .filter(v => v.startsWith(mycode) && v !== client.decodeJid(client.user.id));
+    let member = participants
+  .map(v => v.id)
+  .filter(v => v.startsWith(mycode) && v !== client.decodeJid(client.user.id));
+
 
     if (member.length === 0) {
       return m.reply('No members with the specified country code found.');
