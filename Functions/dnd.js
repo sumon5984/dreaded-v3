@@ -9,6 +9,7 @@ module.exports = async (client, m) => {
   const userInput = m.text;
   const name = `dreaded digital assistant`;
   const master = process.env.MASTER_NAME;
+  const masterContact = process.env.OTHER_CONTACT; 
   const botId = client.decodeJid(client.user.id);
 
   if (jid.includes(botId)) return;
@@ -17,10 +18,14 @@ module.exports = async (client, m) => {
   let settings = await getSettings();
   if (!settings.dnd) return;
 
+  let user = await getUser(jid);
+  if (!user) {
+    user = await createUser(jid);
+  }
+
   if (userInput) {
     if (userInput.toLowerCase().startsWith('-reset')) {
-      let user = await getUser(jid);
-      if (user) {
+      if (user.messages.length > 0) {
         user.messages = [];
         await user.save();
         await m.reply('Your conversation history has been cleared and the context lost.');
@@ -28,11 +33,6 @@ module.exports = async (client, m) => {
         await m.reply('No existing conversation history to reset.');
       }
       return;
-    }
-
-    let user = await getUser(jid);
-    if (!user) {
-      user = await createUser(jid);
     }
 
     if (user.messages.length === 0) {
@@ -49,15 +49,25 @@ module.exports = async (client, m) => {
     const history = user.messages.map(msg => `${msg.sender}: ${msg.content}`).join('\n');
     const instruction = `${prompt}\nChat history:\n${history}\nUser's input: ${userInput}`;
 
-    const gemini = new Gemini(process.env.GEMINI_API_KEY);
-    const chat = gemini.createChat();
-    let res = await chat.ask(instruction);
+    try {
+      const gemini = new Gemini(process.env.GEMINI_API_KEY);
+      const chat = gemini.createChat();
+      let res = await chat.ask(instruction);
 
-    res = res.replace(/^Assistant['’]?s? response:\s*/i, '');
+      res = res.replace(/^Assistant['’]?s? response:\s*/i, '');
 
-    user.messages.push({ sender: 'assistant', content: res });
-    await user.save();
+      user.messages.push({ sender: 'assistant', content: res });
+      await user.save();
 
-    await m.reply(res);
+      await m.reply(res);
+    } catch (error) {
+      if (!user.geminiErrorNotified) {
+        await m.reply(
+          `Unfortunately, ${master} is currently offline and unavailable. You can reach them directly through this number: ${masterContact}. Do not send another message as it will be ignored. Thank you for your patience.`
+        );
+        user.geminiErrorNotified = true;
+        await user.save();
+      }
+    }
   }
 };
