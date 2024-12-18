@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const Ytdl = require("ytdl-core");
 
 const types = [ 'video', 'audio' ];
 const qualityVideo = [ '144', '240', '360', '480', '720' ];
