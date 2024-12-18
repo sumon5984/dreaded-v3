@@ -28,6 +28,14 @@ const reactToStatus = async (client, m) => {
     emoji = settings.reactEmoji;
   }
 
+
+
+if (settings.autoviewstatus && m.key && m.key.remoteJid === "status@broadcast") {
+    await client.readMessages([m.key]);
+  }
+
+
+
   if (settings.autolikestatus && m.key && m.key.remoteJid === "status@broadcast") {
     const mokayas = await client.decodeJid(client.user.id);
 
