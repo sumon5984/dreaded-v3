@@ -15,12 +15,12 @@ module.exports = async (client, m) => {
   const botId = client.decodeJid(client.user.id);
 
   if (!groupAdmins.includes(botId)) {
-    console.log(`Bot is not an admin in group ${groupId}. No action taken.`);
+    
     return;
   }
 
   if (groupAdmins.includes(userId)) {
-    console.log(`User ${userId} is an admin in group ${groupId}. No action taken.`);
+    
     return;
   }
 
@@ -32,7 +32,7 @@ module.exports = async (client, m) => {
 
   const groupSettings = await getGroupSettings(groupId);
   if (!groupSettings.antilink) {
-    console.log(`Antilink is not enabled for group ${groupId}. No action taken.`);
+    
     return;
   }
 
@@ -46,7 +46,7 @@ module.exports = async (client, m) => {
       : "";
 
   if (body && (body.includes('http://') || body.includes('https://'))) {
-    console.log(`Detected a link in a message from ${userId}.`);
+    
 
     await client.sendMessage(
       groupId,
