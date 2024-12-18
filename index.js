@@ -34,6 +34,10 @@ const eventHandler = require("./Handler/eventHandler.js");
 const eventHandler2= require("./Handler/eventHandler2.js");
 const handleMessage = require("./Handler/messageHandler");
 const connectionHandler = require('./Handler/connectionHandler');
+
+const { handleCall } = require('./Handler/callHandler');
+
+
 const { connectToDB } = require('./Mongodb/loadDb');
 const { smsg } = require('./Handler/smsg.js');
 const botname = process.env.BOTNAME || 'Dreaded';
@@ -102,30 +106,8 @@ if (settingss && settingss.autobio === true){
 }
 
 
-
-
-const { handleCallAndBan } = require('./Mongodb/Userdb');
-
-
 client.ws.on('CB:call', async (json) => {
-  if (json.content[0].tag === 'offer') {
-    const callCreator = json.content[0].attrs['call-creator'];
-
-    const setti = await getSettings();
-    const anticall = setti?.anticall?.toLowerCase();
-
-    if (anticall === 'reject') {
-      await client.rejectCall(json.content[0].attrs['call-id'], callCreator);
-      
-      client.sendMessage(callCreator, { text: "I am currently unavailable to pick calls. Send me a message or an SMS." });
-
-    } else if (anticall === 'block') {
-      await handleCallAndBan(json, client);
-      await client.sendMessage(callCreator, { text: "You will be blocked and banned for calling the bot." });
-      await client.updateBlockStatus(callCreator, 'block');
-    }
-    
-  }
+  await handleCall(json, client);
 });
 
 client.ev.on("messages.upsert", (chatUpdate) => {
@@ -172,24 +154,6 @@ client.ev.on("messages.upsert", (chatUpdate) => {
     return (withoutContact ? "" : v.name) || v.subject || v.verifiedName || PhoneNumber("+" + jid.replace("@s.whatsapp.net", "")).getNumber("international");
   };
 
-  client.setStatus = (status) => {
-    client.query({
-      tag: "iq",
-      attrs: {
-        to: "@s.whatsapp.net",
-        type: "set",
-        xmlns: "status",
-      },
-      content: [
-        {
-          tag: "status",
-          attrs: {},
-          content: Buffer.from(status, "utf-8"),
-        },
-      ],
-    });
-    return status;
-  };
 
   client.public = true;
 
@@ -227,44 +191,6 @@ client.ev.on("creds.update", saveCreds);
 
          return buffer 
       }; 
-
-
-        client.sendImageAsSticker = async (jid, path, quoted, options = {}) => { 
-         let buff = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,`[1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0); 
-         // let buffer 
-         if (options && (options.packname || options.author)) { 
-             buffer = await writeExifImg(buff, options) 
-         } else { 
-             buffer = await imageToWebp(buff); 
-         } 
-
-         await client.sendMessage(jid, { sticker: { url: buffer }, ...options }, { quoted }); 
-         return buffer 
-     }; 
-
- client.sendVideoAsSticker = async (jid, path, quoted, options = {}) => {
-  let buff = Buffer.isBuffer(path)
-    ? path
-    : /^data:.*?\/.*?;base64,/i.test(path)
-    ? Buffer.from(path.split(",")[1], "base64")
-    : /^https?:\/\//.test(path)
-    ? await (await getBuffer(path))
-    : fs.existsSync(path)
-    ? fs.readFileSync(path)
-    : Buffer.alloc(0);
-
-  let buffer;
-
-  if (options && (options.packname || options.author)) {
-    buffer = await writeExifVid(buff, options);
-  } else {
-    buffer = await videoToWebp(buff);
-  }
-
-  await client.sendMessage(jid, { sticker: { url: buffer }, ...options }, { quoted });
-  return buffer;
-};
-
 
  client.downloadAndSaveMediaMessage = async (message, filename, attachExtension = true) => { 
          let quoted = message.msg ? message.msg : message; 
