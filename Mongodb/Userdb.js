@@ -10,12 +10,9 @@ const createUser = async (userId) => {
     return;
   }
 
-  console.log(`Attempting to create user with userId: ${userId}`);
-
   try {
     const existingUser = await NewUser.findOne({ jid: userId });
     if (existingUser) {
-      console.log(`User already exists: ${userId}`);
       return existingUser;
     }
 
@@ -25,7 +22,6 @@ const createUser = async (userId) => {
     });
 
     await newUser.save();
-    console.log(`Created new user: ${userId}`);
     return newUser;
   } catch (error) {
     console.error('Error creating user:', error.message);
@@ -36,11 +32,6 @@ const getUser = async (userId) => {
   try {
     await connectToDB();
     const user = await NewUser.findOne({ jid: userId });
-    if (user) {
-      console.log(`User found: ${userId}`);
-    } else {
-      console.log(`User not found: ${userId}`);
-    }
     return user;
   } catch (error) {
     console.error('Error fetching user:', error.message);
@@ -53,14 +44,8 @@ const isUserBanned = async (userId) => {
     const user = await getUser(userId);
 
     if (!user) {
-      console.log(`User ${userId} not found in database. Unable to determine banned status.`);
+      console.error(`User ${userId} not found in database. Unable to determine banned status.`);
       return null;
-    }
-
-    if (user.banned) {
-      console.log(`User ${userId} is banned.`);
-    } else {
-      console.log(`User ${userId} is not banned.`);
     }
 
     return user.banned;
@@ -78,42 +63,34 @@ const handleCallAndBan = async (call, client) => {
     return;
   }
 
-  console.log(`Received call from: ${userId}`);
-
   try {
     await connectToDB();
 
     let user = await NewUser.findOne({ jid: userId });
 
     if (!user) {
-      console.log(`User ${userId} not found. Creating user and banning them.`);
       user = new NewUser({
         jid: userId,
         banned: true,
         banReason: 'calling',
       });
     } else if (!user.banned) {
-      console.log(`User ${userId} found. Updating banned status.`);
       user.banned = true;
       user.banReason = 'calling';
-    } else {
-      console.log(`User ${userId} is already banned. Reason: ${user.banReason || 'No reason provided'}`);
     }
 
     await user.save();
 
     await client.rejectCall(call.content[0].attrs['call-id'], userId);
-    console.log(`Call rejected and user ${userId} banned for calling.`);
   } catch (error) {
     console.error(`Error handling call from ${userId}:`, error.message);
   }
 };
 
-// New functions to get total users and banned users
+
 const getTotalUsers = async () => {
   try {
     const totalUsers = await NewUser.countDocuments();
-    console.log(`Total users: ${totalUsers}`);
     return totalUsers;
   } catch (error) {
     console.error('Error fetching total users:', error.message);
@@ -125,18 +102,12 @@ const getBannedUsers = async () => {
   try {
     const bannedUsers = await NewUser.find({ banned: true }, 'jid banReason');  
     const bannedCount = bannedUsers.length;
-    console.log(`Total banned users: ${bannedCount}`);
-    bannedUsers.forEach(user => {
-      console.log(`User: ${user.jid}, Reason: ${user.banReason || 'No reason provided'}`);
-    });
     return { bannedCount, bannedUsers };
   } catch (error) {
     console.error('Error fetching banned users:', error.message);
     return { bannedCount: 0, bannedUsers: [] };
   }
 };
-
-
 
 module.exports = { 
   createUser, 
