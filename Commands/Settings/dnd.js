@@ -21,7 +21,7 @@ module.exports = async (context) => {
             }
             settings.dnd = true;
            
-            settings.anticall = reject;
+            settings.anticall = 'reject'
            
 settings.mode = 'private';
             await settings.save();
@@ -32,7 +32,7 @@ settings.mode = 'private';
             }
             settings.dnd = false;
 
-            settings.anticall = off;
+            settings.anticall = 'off';
           
 settings.mode = 'public';
             await settings.save();
