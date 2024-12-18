@@ -58,6 +58,10 @@ reactEmoji: {
     type: String,
     default: 'DREADED'
   },
+anticall: {
+    type: String,
+    default: 'reject'
+  },
   mode: {
     type: String,
     default: 'public'
