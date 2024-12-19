@@ -48,7 +48,7 @@
 
 - ***Now [`DEPLOY TO HEROKU`](https://dashboard.heroku.com/new?template=https://github.com/Fortunatusmokaya/dreaded-v3).***
 
-- ***Fill in the required vars i.e SESSION, MONGO_URI, BOTNAME and the rest then deploy***
+- ***Fill in the required vars i.e SESSION, MONGO_URI, BOTNAME and the rest then deploy, deploy will take 3-4 minutes, be sure to view logs incase of error.***
 
 # Credits
 
