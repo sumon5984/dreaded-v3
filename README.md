@@ -27,20 +27,16 @@
 - ***Get your `PAIR CODE` [HERE](https://pair.dreaded.site).***
 
 - ***Then `Go-to WhatsApp > Three dots > Linked Devices`***
- - ***You will get a session ID in your WhatsApp. Copy it.***
+
+ - ***You will get a SESSION ID in your WhatsApp. Copy it.***
 
 
 
-
-
-
-
-
-
-## ⚛️ Heroku Deploy:
+## ⚛️ HEROKU SETUP
       
-- [Fork Main Repo](https://github.com/FantoX/Atlas-MD/fork)
+   - ***[`CREATE HEROKU ACCOUNT`](https://signup.heroku.com/) `if you don't have one.`***
 
-- 
-- Then full in the values according to instructions (Mandatory).
+- ***Now [`DEPLOY TO HEROKU`](https://dashboard.heroku.com/new?template=https://github.com/Fortunatusmokaya/dreaded-v3).***
+
+-***`Fill in the required vars i.e SESSION, MONGO_URI, BOTNAME and the rest`***
 
