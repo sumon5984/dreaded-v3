@@ -88,9 +88,13 @@ Thanks to...
 
 ***Incase of any issues, contact me  [here](https://wa.me/+254114018035) via WhatsApp.***
 
-***Modifying the bot structure is at your own risk. We won't offer technical support if error occur.***
+## DISCLAIMER
 
-***This bot is not created nor endorsed by WhatsApp. Your account might be banned. Be careful not to cause spam.***
+<span style="color: red;">***Modifying the bot structure is at your own risk. We won't offer technical support if errors occur.***</span>
+
+<span style="color: red;">***This bot is not created nor endorsed by WhatsApp. Your account might be banned. Be careful not to cause spam.***</span>
+
+<span style="color: red;">***Do not share your mongodb URL or SESSION ID***</span>
 
 ## License
 
