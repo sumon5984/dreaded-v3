@@ -26,6 +26,9 @@
 
 - ***Get your `PAIR CODE` [HERE](https://pair.dreaded.site).***
 
+- ***Then `Go-to WhatsApp > Three dots > Linked Devices`***
+ - ***You will get a session ID in your WhatsApp. Copy it.***
+
 
 
 
