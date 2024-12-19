@@ -7,7 +7,7 @@
 |----|
 
 
-***This is a Simple WhatsApp bot which is a modification of the predecessor `dreaded-md` and `dreaded-v2` but with a database configuration and more commands. This bot will be the last version of dreadeds***
+***This is a Simple WhatsApp bot which is a modification of the predecessor `dreaded-md` and `dreaded-v2` but with a database configuration and more commands.***
 
 
  ***Some AI and media commands use our API. This API is not very reliable hence sometimes there may be a downtime.***
@@ -15,6 +15,8 @@
 ***If you are a developer you can check out our [API SITE](https://api.dreaded.site)***
 
 ......*Remember to support by [`FORKING`](https://github.com/Fortunatusmokaya/dreaded-v3/fork) and STARRING ⭐ our repo*
+
+
 
 
 
