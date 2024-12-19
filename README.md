@@ -14,7 +14,7 @@
 
 *You will need a database URL i.e MONGODB URL and a GEMINI API key*
 
-- Create a MongoDB URL from mongodb.com. Need help? Watch this short 1 minute [Video Guide](https://youtube.com/shorts/pIHvoXkwmq4?feature=share) for MongoDB URL.
+- Create a MongoDB URL from [here](mongodb.com). Need help? Watch this short 1 minute [Video Guide](https://youtube.com/shorts/pIHvoXkwmq4?feature=share) for MongoDB URL.
  - Copy the database URL to your clipboard.
 
 - Get GEMINI API key from [HERE](https://aistudio.google.com/app/apikey). 
