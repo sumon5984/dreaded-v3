@@ -14,7 +14,7 @@
 
 ***If you are a developer you can check out our [API SITE](https://api.dreaded.site)***
 
-......*Remember to Fork and Star our repo*
+......*Remember to  [`FORK`](https://github.com/Fortunatusmokaya/dreaded-v3/fork) and STAR ⭐ our repo*
 
 
  
