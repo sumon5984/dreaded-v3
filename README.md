@@ -1,11 +1,11 @@
 ## FEATURES
 
-***This is a semi-complex WhatsApp bot which is a modification of the predecessor `dreaded-md` and `dreaded-v2` but with a database configuration and more commands. It has group management features, some media commands, image manipulation commands as well as AI and many other features incorporated.***
+***This is a semi-complex WhatsApp bot which is a modification of the predecessor `dreaded-md` and `dreaded-v2` but with a database configuration and more commands.***
 
 
- *** Some AI and media commands use our API. This API is not very reliable hence sometimes there may be a downtime.***
+ ***Some AI and media commands use our API. This API is not very reliable hence sometimes there may be a downtime.***
 
-*** If you are a developer you can check out our`  [`API SITE`](https://api.dreaded.site)***
+***If you are a developer you can check out our`  [`API SITE`](https://api.dreaded.site)***
 
 
  
