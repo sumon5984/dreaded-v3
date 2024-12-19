@@ -14,7 +14,7 @@
 
 ***If you are a developer you can check out our [API SITE](https://api.dreaded.site)***
 
-......*Remember to  [`FORK`](https://github.com/Fortunatusmokaya/dreaded-v3/fork) and STAR ⭐ our repo*
+......*Remember to support by [`FORKING`](https://github.com/Fortunatusmokaya/dreaded-v3/fork) and STARRING ⭐ our repo*
 
 
  
@@ -86,15 +86,20 @@ Thanks to...
   </a>
 
 
-***Incase of any issues, contact me  [here](https://wa.me/+254114018035) via WhatsApp.***
+***Incase of any issues or requests, contact me  [here](https://wa.me/+254114018035) via WhatsApp.***
 
 ## DISCLAIMER
+
+
+<span style="color: red;">***Do not share your mongodb URL to prevent data corruption***</span>
+
+<span style="color: red;">***Do not expose your SESSION ID to anyone.***</span>
 
 <span style="color: red;">***Modifying the bot structure is at your own risk. We won't offer technical support if errors occur.***</span>
 
 <span style="color: red;">***This bot is not created nor endorsed by WhatsApp. Your account might be banned. Be careful not to cause spam.***</span>
 
-<span style="color: red;">***Do not share your mongodb URL or SESSION ID***</span>
+
 
 ## License
 
