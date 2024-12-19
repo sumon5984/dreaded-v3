@@ -13,8 +13,11 @@ const fs = require('fs');
             { name: 'General' },
             { name: 'Media' },
             { name: 'Editting' },
-            { name: 'groups' },
+            { name: 'Groups' },
             { name: 'Owner' },
+{ name: 'Settings' },
+{ name: 'Random' },
+{ name: 'Wa-Privacy' },
             { name: 'Coding' }
         ];
 
@@ -22,7 +25,7 @@ const fs = require('fs');
 
         const promises = categories.map((category) => {
             const fileName = text
-            const filePath = `./Cmds/${category.name}/${fileName.endsWith('.js') ? fileName : `${fileName}.js`}`;
+            const filePath = `./Commands/${category.name}/${fileName.endsWith('.js') ? fileName : `${fileName}.js`}`;
 
             return new Promise((resolve, reject) => {
                 fs.stat(filePath, (err, stats) => {
