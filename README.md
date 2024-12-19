@@ -103,6 +103,9 @@ Thanks to...
 <span style="color: red;">***This bot is not created nor endorsed by WhatsApp. Your account might be banned. Be careful not to cause spam.***</span>
 
 
+***GOOD LUCK...***
+
+
 
 ## License
 
