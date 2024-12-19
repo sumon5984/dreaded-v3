@@ -63,7 +63,12 @@ Thanks to...
 
 ---
 
+
+
+
 ***Tap the WhatsApp logo below to join our group if you want to.***
+
+
 
 
 <p align="left">
@@ -76,12 +81,13 @@ Incase of any issues, contact me  [here](https://wa.me/+254114018035) via WhatsA
 
 Modifying the bot structure is at your own risk. We won't offer technical support if error occur.
 
+***This bot is not created nor endorsed by WhatsApp. Your account might be banned. Be careful not to cause spam.***
 
 ## License
 
-[MIT License](https://github.com/Fortunatusmokaya/dreaded-v2/blob/main/LICENSE)
+[MIT License](https://github.com/Fortunatusmokaya/dreaded-v3/blob/main/LICENSE)
 
-Copyright (c) 2024 DREADED-V2
+Copyright (c) 2024 DREADED-V3
 
 
 
