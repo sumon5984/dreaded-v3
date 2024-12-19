@@ -52,6 +52,7 @@ module.exports = async (client, m) => {
 
     try {
       const gemini = new Gemini(process.env.GEMINI_API_KEY);
+if (!process.env.GEMINI_API_KEY) return m.reply(`What's up ${m.pushName}, Unfortunately, ${master} is currently offline and unavailable.  You can reach them directly through ${masterContact}.  Do not send another message as it will be ignored till they come back. Thank you for your patience.`);
       const chat = gemini.createChat();
       let res = await chat.ask(instruction);
 
