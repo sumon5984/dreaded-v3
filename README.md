@@ -22,6 +22,11 @@
 
 - ***You must `fork` this repo before fetching pairing code. Fork this repo by tapping  [`here`](https://github.com/Fortunatusmokaya/dreaded-v3/fork)***
 
+### 3. PAIRING
+
+- ***Get your `SESSION ID` by  [`PAIRING CODE`](https://pair.dreaded.site).***
+
+
 
 
 
