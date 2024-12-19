@@ -1,30 +1,35 @@
+const axios = require("axios");
+
 module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
 
-const yts = require("yt-search");
-try {
+    const yts = require("yt-search");
 
-if (!text) return m.reply("What song do you want to download ?")
+    try {
+        if (!text) return m.reply("What song do you want to download?");
 
+        let data = await fetchJson(`https://api.dreaded.site/api/ytdl/video?query=${text}`);
+        let name = data.result.title;
+        let audioLink = data.result.audioLink;
 
+        await m.reply(`_Downloading ${name}_`);
 
-        let data = await fetchJson (`https://api.dreaded.site/api/ytdl/video?query=${text}`)
+       
+        const response = await axios.get(audioLink, {
+            responseType: "arraybuffer",
+            headers: {
+                "User-Agent": "Mozilla/5.0",
+            },
+        });
 
-let name = data.result.title;
-await m.reply(`_Downloading ${name}_`)
+      
+        await client.sendMessage(m.chat, {
+            document: Buffer.from(response.data),
+            mimetype: "audio/mpeg",
+            fileName: name,
+        }, { quoted: m });
 
-
-await client.sendMessage(m.chat, {
- document: {url: data.result.audioLink},
-mimetype: "audio/mpeg",
- fileName: name }, { quoted: m });
-
-
-
-} catch (error) {
-
-m.reply("Download failed\n" + error)
-
-}
-
-}
+    } catch (error) {
+        m.reply("Download failed\n" + error.message);
+    }
+};
