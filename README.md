@@ -5,14 +5,14 @@
 
  ***Some AI and media commands use our API. This API is not very reliable hence sometimes there may be a downtime.***
 
-***If you are a developer you can check out our[API SITE](https://api.dreaded.site)***
+***If you are a developer you can check out our [API SITE](https://api.dreaded.site)***
 
 
  
 
- `The API site contains many endpoints that can be used in your projects. No need for API keys or login, completely free, for now`
+ ## ⚙️ SET UP
 
-## ⚙️ SET UP
+*You will need a database URL i.e MONGODB URL*
 
 - Create a MongoDB URL. Need help? Watch this short 1 minute [Video Guide](https://youtube.com/shorts/pIHvoXkwmq4?feature=share) for MongoDB URL.
 
