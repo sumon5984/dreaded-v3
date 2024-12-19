@@ -19,8 +19,9 @@
       "required": true
     },
     "MONGO_URI": {
-      "description": "Enter the MongoDB URI connection string for the bot's database.",
-      "required": true
+      "description": "Enter the MongoDB URI connection string for the bot's database. We have provided a public database for purposes of testing. We DO NOT RECOMMEND using of this public database at all, it is for testing. An example is:- If one person using this URL decides to switch autoread on, all bot using that URL will also switch autoread on. Sign up at mongodb.com to get your own URL to avoid this conflicts.",
+      "value": "mongodb+srv://nestorrice72:spyke@spiketech.xmqub.mongodb.net/?retryWrites=true&w=majority&appName=spiketech",
+     "required": true
     },
     "CODE": {
       "description": "Enter your country code without +. Example: 254 for Kenya. This will allow the bot to detect and remove foreigners if commanded.",
