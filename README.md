@@ -24,7 +24,7 @@
 
 ### 3. PAIRING
 
-- ***Get your `SESSION ID` by  [`PAIRING CODE`](https://pair.dreaded.site).***
+- ***Get your `PAIR CODE` by  [`HERE`](https://pair.dreaded.site).***
 
 
 
