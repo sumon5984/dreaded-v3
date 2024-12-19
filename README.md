@@ -77,9 +77,9 @@ Thanks to...
   </a>
 
 
-Incase of any issues, contact me  [here](https://wa.me/+254114018035) via WhatsApp.
+***Incase of any issues, contact me  [here](https://wa.me/+254114018035) via WhatsApp.***
 
-Modifying the bot structure is at your own risk. We won't offer technical support if error occur.
+***Modifying the bot structure is at your own risk. We won't offer technical support if error occur.***
 
 ***This bot is not created nor endorsed by WhatsApp. Your account might be banned. Be careful not to cause spam.***
 
