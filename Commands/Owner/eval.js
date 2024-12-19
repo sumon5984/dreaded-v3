@@ -12,13 +12,7 @@ module.exports = async (context) => {
   } = context;
 
   
-  const authorizedSender = "254114018035@s.whatsapp.net";
-
   
-  if (!Owner || m.sender !== authorizedSender) {
-    return m.reply("You need owner privileges to execute this command!");
-  }
-
   try {
     const trimmedText = text.trim();
 
