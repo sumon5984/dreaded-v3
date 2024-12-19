@@ -30,12 +30,18 @@ module.exports = async (context) => {
             proxy,
         });
 
+        if (!Buffer.isBuffer(response.data)) {
+            console.log("Unexpected response data type:", typeof response.data);
+            return m.reply("Failed to process the download. The response is not valid audio data.");
+        }
+
         await client.sendMessage(m.chat, {
             document: Buffer.from(response.data),
             mimetype: "audio/mpeg",
             fileName: name,
         }, { quoted: m });
     } catch (error) {
+        console.error("Error:", error.message);
         m.reply("Download failed\n" + error.message);
     }
 };
