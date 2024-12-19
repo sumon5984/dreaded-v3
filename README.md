@@ -12,7 +12,7 @@
 
  ## ⚙️ SET UP
 
-*1) You will need to get a database URL i.e MONGODB URL and a GEMINI API key*
+1) ## CREATING MONGODB URL AND GEMINI API
 
 - Create a MongoDB URL from [here](mongodb.com). Need help? Watch this short 1 minute [Video Guide](https://youtube.com/shorts/pIHvoXkwmq4?feature=share) for MongoDB URL.
  - Copy the database URL to your clipboard.
