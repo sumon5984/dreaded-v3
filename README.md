@@ -14,11 +14,10 @@
 
 ***If you are a developer you can check out our [API SITE](https://api.dreaded.site)***
 
-......*Remember to support by [`FORKING`](https://github.com/Fortunatusmokaya/dreaded-v3/fork) and STARRING ⭐ our repo*|
+......*Remember to support by [`FORKING`](https://github.com/Fortunatusmokaya/dreaded-v3/fork) and STARRING ⭐ our repo*
 
 
 
-|----|
  
 
  ## ⚙️ SET UP
