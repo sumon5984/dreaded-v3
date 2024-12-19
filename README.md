@@ -12,13 +12,13 @@
 
  ## ⚙️ SET UP
 
-1. ## CREATING MONGODB URL AND GEMINI API
+1. # CREATING MONGODB URL AND GEMINI API
 
 - ***Create a MongoDB URL from [here](mongodb.com). Need help? Watch this short 1 minute [Video Guide](https://youtube.com/shorts/pIHvoXkwmq4?feature=share) for MongoDB URL.***
 
 - ***Get GEMINI API key from [HERE](https://aistudio.google.com/app/apikey).***
 
-2. ## FORK
+2. # FORK
 
 - ***You must `fork` this repo before fetching pairing code. Fork this repo by tapping  [`here`](https://github.com/Fortunatusmokaya/dreaded-v3/fork)***
 
