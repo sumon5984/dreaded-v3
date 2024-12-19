@@ -1,5 +1,5 @@
 {
-  "name": "DREADED BOT",
+  "name": "DREADED V3",
   "description": "This is a simple WhatsApp bot built with Node.js and Baileys with MD support.",
   "keywords": [
     "bot",
@@ -31,7 +31,8 @@
       "required": true
     },
     "GEMINI_API_KEY": {
-      "description": "This API key used for integrating Gemini services. To use AI you will need this key. It is also used to handle private messages in DND.",
+      "description": "This API key used for integrating gemini services. To use AI you will need this key. It is also used to handle private messages in DND. We provided a free public key meanwhile.",
+      "value": "AIzaSyC3sNClbdraGrS2ubb5PTdnm_RbUANtdzc",
       "required": false
     },
     "OTHER_CONTACT": {
