@@ -56,7 +56,7 @@ const mongoose = require("mongoose");
 
 const settingss = await getSettings();
 
-await console.log(settingss);
+
 
 const { autobio, mode, prefix, presence, anticall } = settingss;
 
