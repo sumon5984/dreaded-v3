@@ -18,6 +18,7 @@ const fs = require('fs');
 { name: 'Settings' },
 { name: 'Random' },
 { name: 'Wa-Privacy' },
+{ name: 'Search' },
             { name: 'Coding' }
         ];
 
