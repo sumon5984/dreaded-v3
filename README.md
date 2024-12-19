@@ -32,7 +32,7 @@
 
 
 
-## ⚛️ HEROKU SETUP
+## 4. HEROKU SETUP
       
    - ***[`CREATE HEROKU ACCOUNT`](https://signup.heroku.com/) `if you don't have one.`***
 
