@@ -18,6 +18,12 @@
 
 - ***Get GEMINI API key from [HERE](https://aistudio.google.com/app/apikey).***
 
+2. ## FORK
+
+- ***You must `fork` this repo before fetching pairing code. Fork this repo by tapping  [`here`](https://github.com/Fortunatusmokaya/dreaded-v3/fork)***
+
+
+
 
 
 
