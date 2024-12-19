@@ -1,5 +1,11 @@
 ## DREADED-V3
 
+
+<div align="center">
+
+| [![Fortunatus Mokaya](https://github.com/Fortunatusmokaya.png?lenght=50width=50)](https://github.com/Fortunatusmokaya)|
+|----|
+
 ***This is a semi-complex WhatsApp bot which is a modification of the predecessor `dreaded-md` and `dreaded-v2` but with a database configuration and more commands.***
 
 
