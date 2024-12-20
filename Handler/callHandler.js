@@ -9,8 +9,10 @@ const handleCall = async (client, json, settingsss, handleCallAndBan) => {
         await client.sendMessage(callCreator, { text: "We kindly request that you avoid calling as I am unable to handle calls at the moment." });
       } else if (settingsss.anticall === 'block') {
         await client.sendMessage(callCreator, { text: "We can't receive calls at the moment. You will be blocked and banned." });
+
+await handleCallAndBan(json, client);
         await client.updateBlockStatus(callCreator, 'block');
-        await handleCallAndBan(json, client);
+        
       }
     }
   }
