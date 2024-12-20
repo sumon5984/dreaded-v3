@@ -35,7 +35,7 @@ const eventHandler2= require("./Handler/eventHandler2.js");
 const handleMessage = require("./Handler/messageHandler");
 const connectionHandler = require('./Handler/connectionHandler');
 
-const { handleCall } = require('./Handler/callHandler');
+const handleCall = require('./Handler/callHandler');
 
 
 const { connectToDB } = require('./Mongodb/loadDb');
