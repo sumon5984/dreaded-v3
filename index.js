@@ -111,20 +111,8 @@ const { handleCallAndBan } = require('./Mongodb/Userdb');
 
 
 client.ws.on('CB:call', async (json) => {
-  if (json.content[0].tag == 'offer') {
-    const callCreator = json.content[0].attrs['call-creator'];
-    const callId = json.content[0].attrs['call-id'];
-
-    if (settingss && settingss.anticall) {
-      if (settingss.anticall === 'reject') {
-        await client.rejectCall(callId, callCreator);
-        await client.sendMessage(callCreator, { text: "We kindly request that you avoid calling as I am unable to handle calls at the moment. Thank you for understanding." });
-      } else if (settingss.anticall === 'block') {
-        await handleCallAndBan(json, client);
-        await client.sendMessage(callCreator, { text: "We can't receive calls at the moment. You will be blocked and banned." });
-      }
-    }
-  }
+  const settingsss = await getSettings(); 
+  await handleCall(client, json, settingsss, handleCallAndBan);
 });
 
 
