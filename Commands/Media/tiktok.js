@@ -1,4 +1,3 @@
-const fetch = require("node-fetch");
 
 module.exports = async (context) => {
     const { client, botname, m, text, fetchJson } = context;
@@ -37,7 +36,7 @@ module.exports = async (context) => {
 
         const caption = `🎥 TikTok Video\n\n📌 *Description:* ${tikDescription}\n👤 *Author:* ${tikAuthor}\n❤️ *Likes:* ${tikLikes}\n💬 *Comments:* ${tikComments}\n🔗 *Shares:* ${tikShares}`;
 
-        m.reply(`TikTok data fetched successfully! Downloading video...`);
+        m.reply(`TikTok data fetched successfully! Downloading video: ${tikVideoUrl}...`);
 
         const response = await fetch(tikVideoUrl);
 
@@ -45,7 +44,7 @@ module.exports = async (context) => {
             throw new Error(`Failed to download video: HTTP ${response.status}`);
         }
 
-        const videoBuffer = Buffer.from(await response.arrayBuffer());
+        const videoBuffer = await response.buffer(); 
 
         await client.sendMessage(m.chat, {
             video: videoBuffer,
