@@ -21,11 +21,11 @@ module.exports = async (context) => {
 
         let message = `Today Football Matches ⚽\n\n`;
 
-        message += pl ? `Premier League:\n${pl}\n` : "Premier League: No matches scheduled\n";
-        message += laliga ? `La Liga:\n${laliga}\n` : "La Liga: No matches scheduled\n";
-        message += bundesliga ? `Bundesliga:\n${bundesliga}\n` : "Bundesliga: No matches scheduled\n";
-        message += serieA ? `Serie A:\n${serieA}\n` : "Serie A: No matches scheduled\n";
-        message += ligue1 ? `Ligue 1:\n${ligue1}\n` : "Ligue 1: No matches scheduled\n";
+        message += pl ? `🇬🇧 Premier League:\n${pl}\n` : "🇬🇧 Premier League: No matches scheduled\n\n";
+        message += laliga ? `🇪🇸 La Liga:\n${laliga}\n` : "🇪🇸 La Liga: No matches scheduled\n\n";
+        message += bundesliga ? `🇩🇪 Bundesliga:\n${bundesliga}\n` : "🇩🇪 Bundesliga: No matches scheduled\n\n";
+        message += serieA ? `🇮🇹 Serie A:\n${serieA}\n` : "🇮🇹 Serie A: No matches scheduled\n\n";
+        message += ligue1 ? `🇫🇷 Ligue 1:\n${ligue1}\n` : "🇫🇷 Ligue 1: No matches scheduled\n\n";
 
         await m.reply(message);
     } catch (error) {
