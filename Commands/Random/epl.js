@@ -4,7 +4,7 @@ module.exports = async (context) => {
 
     try {
         
-        const data = await fetchJson('https://api.dreaded.site/api/pl-standings');
+        const data = await fetchJson('https://api.dreaded.site/api/standings/PL');
         
         const standings = data.data;
 
