@@ -21,11 +21,14 @@ module.exports = async (context) => {
 
         let message = `Today Football Matches ⚽\n\n`;
 
-        message += pl ? `🇬🇧 Premier League:\n${pl}\n\n` : "🇬🇧 Premier League: No matches scheduled\n\n";
+        message += pl ? `🇬🇧 Premier League:\n${pl.map(match => {
+            const { game, date, time } = match; // Extracting game, date, and time as separate properties
+            return `${game}\nDate: ${date}\nTime: ${time}\n`;
+        }).join('\n')}\n\n` : "🇬🇧 Premier League: No matches scheduled\n\n";
 
         if (laliga) {
             let laligaMatches = laliga.map(match => {
-                const { game, date, time } = match; 
+                const { game, date, time } = match;
                 return `${game}\nDate: ${date}\nTime: ${time}\n`;
             }).join('\n');
 
@@ -34,9 +37,20 @@ module.exports = async (context) => {
             message += "🇪🇸 La Liga: No matches scheduled\n\n";
         }
 
-        message += bundesliga ? `🇩🇪 Bundesliga:\n${bundesliga}\n\n` : "🇩🇪 Bundesliga: No matches scheduled\n\n";
-        message += serieA ? `🇮🇹 Serie A:\n${serieA}\n\n` : "🇮🇹 Serie A: No matches scheduled\n\n";
-        message += ligue1 ? `🇫🇷 Ligue 1:\n${ligue1}\n\n` : "🇫🇷 Ligue 1: No matches scheduled\n\n";
+        message += bundesliga ? `🇩🇪 Bundesliga:\n${bundesliga.map(match => {
+            const { game, date, time } = match;
+            return `${game}\nDate: ${date}\nTime: ${time}\n`;
+        }).join('\n')}\n\n` : "🇩🇪 Bundesliga: No matches scheduled\n\n";
+
+        message += serieA ? `🇮🇹 Serie A:\n${serieA.map(match => {
+            const { game, date, time } = match;
+            return `${game}\nDate: ${date}\nTime: ${time}\n`;
+        }).join('\n')}\n\n` : "🇮🇹 Serie A: No matches scheduled\n\n";
+
+        message += ligue1 ? `🇫🇷 Ligue 1:\n${ligue1.map(match => {
+            const { game, date, time } = match;
+            return `${game}\nDate: ${date}\nTime: ${time}\n`;
+        }).join('\n')}\n\n` : "🇫🇷 Ligue 1: No matches scheduled\n\n";
 
         await m.reply(message);
     } catch (error) {
