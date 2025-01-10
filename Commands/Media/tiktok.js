@@ -1,3 +1,4 @@
+const fetch = require("node-fetch");
 
 module.exports = async (context) => {
     const { client, botname, m, text, fetchJson } = context;
@@ -44,7 +45,8 @@ module.exports = async (context) => {
             throw new Error(`Failed to download video: HTTP ${response.status}`);
         }
 
-        const videoBuffer = await response.buffer(); 
+        const arrayBuffer = await response.arrayBuffer(); 
+        const videoBuffer = Buffer.from(arrayBuffer); 
 
         await client.sendMessage(m.chat, {
             video: videoBuffer,
