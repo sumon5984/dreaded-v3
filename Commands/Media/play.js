@@ -15,15 +15,15 @@ module.exports = async (context) => {
         const urlYt = videos[0].url;
 
         try {
-          
-            const response = await axios.get(`https://api.dreaded.site/api/ytdl/audio?url=${urlYt}`);
+            
+            const response = await axios.get(`https://api.dreaded.site/api/ytdl2/audio?url=${urlYt}`);
             const data = response.data;
 
-            if (!data || !data.title || !data.audioUrl) {
-                throw new Error("Invalid response from primary API");
+            if (!data || !data.result || !data.result.downloadUrl) {
+                throw new Error("Invalid response from API");
             }
 
-            const { title: name, audioUrl: audio } = data;
+            const { title: name, downloadUrl: audio } = data.result;
 
             await m.reply(`_Downloading ${name}_`);
             await client.sendMessage(
@@ -36,17 +36,17 @@ module.exports = async (context) => {
                 { quoted: m }
             );
         } catch (primaryError) {
-            console.error("Primary API failed:", primaryError.message);
+            console.error("API failed:", primaryError.message);
 
-         
-            const fallbackResponse = await axios.get(`https://api.dreaded.site/api/ytdl2/audio?url=${urlYt}`);
+          
+            const fallbackResponse = await axios.get(`https://api.dreaded.site/api/ytdl/audio?url=${urlYt}`);
             const fallbackData = fallbackResponse.data;
 
-            if (!fallbackData || !fallbackData.result || !fallbackData.result.downloadUrl) {
+            if (!fallbackData || !fallbackData.title || !fallbackData.audioUrl) {
                 throw new Error("Invalid response from fallback API");
             }
 
-            const { title: name, downloadUrl: audio } = fallbackData.result;
+            const { title: name, audioUrl: audio } = fallbackData;
 
             await m.reply(`_Downloading ${name}_`);
             await client.sendMessage(
