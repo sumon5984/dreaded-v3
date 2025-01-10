@@ -5,7 +5,7 @@ module.exports = async (context) => {
 
     try {
         let pl, laliga, bundesliga, serieA, ligue1;
-        
+
         const plData = await fetchJson('https://api.dreaded.site/api/matches/PL');
         pl = formatMatches('Premier League', plData.data);
 
@@ -31,7 +31,7 @@ module.exports = async (context) => {
 
         await m.reply(message);
     } catch (error) {
-        m.reply('Something went wrong. Unable to fetch matches.' + error);
+        m.reply('Something went wrong. Unable to fetch matches.');
     }
 };
 
@@ -40,15 +40,8 @@ function formatMatches(leagueName, matchesData) {
         return `${leagueName}: No matches scheduled`;
     }
 
-    let formattedMatches = `${leagueName}:\n`;
-    matchesData.split('\n').forEach(match => {
-        const matchDate = match.match(/Date: (.*?)$/);
-        if (matchDate) {
-            const utcDate = matchDate[1];
-            const kenyaTime = moment(utcDate).tz('Africa/Nairobi').format('YYYY-MM-DD HH:mm:ss');
-            match = match.replace(utcDate, kenyaTime);
-        }
-        formattedMatches += `${match}\n`;
-    });
-    return formattedMatches;
+    const kenyaTime = moment(matchesData.match(/Date: (.*)/)[1]).tz('Africa/Nairobi').format('YYYY-MM-DD HH:mm:ss');
+    const matchDetails = `${matchesData.split(" - Date:")[0]} - Date: ${kenyaTime}`;
+
+    return `${leagueName}:\n${matchDetails}`;
 }
