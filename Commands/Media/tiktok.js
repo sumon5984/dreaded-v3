@@ -15,7 +15,7 @@ module.exports = async (context) => {
                 data.tiktok.author.nickname &&
                 data.tiktok.statistics.likeCount
             ) {
-                return data; 
+                return data;
             }
         }
         throw new Error("Failed to fetch valid TikTok data after multiple attempts.");
@@ -29,7 +29,6 @@ module.exports = async (context) => {
         const data = await fetchTikTokData(url);
 
         const tikVideoUrl = data.tiktok.video;
-        const tikAudioUrl = data.tiktok.music;
         const tikDescription = data.tiktok.description || "No description available";
         const tikAuthor = data.tiktok.author.nickname || "Unknown Author";
         const tikLikes = data.tiktok.statistics.likeCount || "0";
@@ -38,14 +37,13 @@ module.exports = async (context) => {
 
         const caption = `🎥 TikTok Video\n\n📌 *Description:* ${tikDescription}\n👤 *Author:* ${tikAuthor}\n❤️ *Likes:* ${tikLikes}\n💬 *Comments:* ${tikComments}\n🔗 *Shares:* ${tikShares}`;
 
-       
+        await m.reply(`TikTok data fetched successfully! Sending video: ${tikVideoUrl}`);
+
         await client.sendMessage(m.chat, {
             video: { url: tikVideoUrl },
             mimetype: "video/mp4",
             caption: caption,
         }, { quoted: m });
-
-        
 
     } catch (error) {
         m.reply(`Error: ${error.message}`);
