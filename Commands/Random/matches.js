@@ -21,39 +21,36 @@ module.exports = async (context) => {
 
         let message = `Today Football Matches ⚽\n\n`;
 
-        // Handle Premier League matches
         message += typeof pl === 'string' ? `🇬🇧 Premier League:\n${pl}\n\n` : pl.length > 0 ? `🇬🇧 Premier League:\n${pl.map(match => {
             const { game, date, time } = match;
-            return `${game}\nDate: ${date}\nTime: ${time}\n`;
+            return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
         }).join('\n')}\n\n` : "🇬🇧 Premier League: No matches scheduled\n\n";
 
-        // Handle La Liga matches
         if (typeof laliga === 'string') {
             message += `🇪🇸 La Liga:\n${laliga}\n\n`;
         } else {
             message += laliga.length > 0 ? `🇪🇸 La Liga:\n${laliga.map(match => {
                 const { game, date, time } = match;
-                return `${game}\nDate: ${date}\nTime: ${time}\n`;
+                return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
             }).join('\n')}\n\n` : "🇪🇸 La Liga: No matches scheduled\n\n";
         }
 
-        // Handle Bundesliga matches
         message += typeof bundesliga === 'string' ? `🇩🇪 Bundesliga:\n${bundesliga}\n\n` : bundesliga.length > 0 ? `🇩🇪 Bundesliga:\n${bundesliga.map(match => {
             const { game, date, time } = match;
-            return `${game}\nDate: ${date}\nTime: ${time}\n`;
+            return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
         }).join('\n')}\n\n` : "🇩🇪 Bundesliga: No matches scheduled\n\n";
 
-        // Handle Serie A matches
         message += typeof serieA === 'string' ? `🇮🇹 Serie A:\n${serieA}\n\n` : serieA.length > 0 ? `🇮🇹 Serie A:\n${serieA.map(match => {
             const { game, date, time } = match;
-            return `${game}\nDate: ${date}\nTime: ${time}\n`;
+            return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
         }).join('\n')}\n\n` : "🇮🇹 Serie A: No matches scheduled\n\n";
 
-        // Handle Ligue 1 matches
         message += typeof ligue1 === 'string' ? `🇫🇷 Ligue 1:\n${ligue1}\n\n` : ligue1.length > 0 ? `🇫🇷 Ligue 1:\n${ligue1.map(match => {
             const { game, date, time } = match;
-            return `${game}\nDate: ${date}\nTime: ${time}\n`;
+            return `${game}\nDate: ${date}\nTime: ${time} (EAT)\n`;
         }).join('\n')}\n\n` : "🇫🇷 Ligue 1: No matches scheduled\n\n";
+
+        message += "Times and dates are in East African Timezone (EAT).";
 
         await m.reply(message);
     } catch (error) {
