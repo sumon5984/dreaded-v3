@@ -27,7 +27,7 @@ module.exports = async (context) => {
 
         const tikAudioUrl = data.tiktok.music;
 
-        m.reply(`TikTok audio data fetched successfully! Downloading audio: ${tikAudioUrl}...`);
+        m.reply(`TikTok audio data fetched successfully! Sending. . .`);
 
         const response = await fetch(tikAudioUrl);
 
