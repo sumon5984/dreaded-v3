@@ -18,8 +18,8 @@ module.exports = async (context) => {
             const data = await fetchJson(`https://api.dreaded.site/api/matches/${league.code}`);
             const matches = data.data;
 
-            if (matches.includes("No matches scheduled")) {
-                message += `${league.name}: ${matches}\n\n`;
+            if (matches === "No matches scheduled for " + league.code + " today.") {
+                message += `${league.name}: No matches scheduled\n\n`;
             } else {
                 message += `${league.name}:\n`;
 
@@ -42,6 +42,6 @@ module.exports = async (context) => {
         await m.reply(message);
 
     } catch (error) {
-        m.reply(`something went wrong. Unable to fetch matches.` + error);
+        m.reply('Something went wrong. Unable to fetch matches.');
     }
 };
