@@ -1,3 +1,5 @@
+const moment = require('moment-timezone');
+
 module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
 
@@ -22,7 +24,24 @@ module.exports = async (context) => {
         let message = `Today Football Matches ⚽\n\n`;
 
         message += pl ? `🇬🇧 Premier League:\n${pl}\n\n` : "🇬🇧 Premier League: No matches scheduled\n\n";
-        message += laliga ? `🇪🇸 La Liga:\n${laliga}\n\n` : "🇪🇸 La Liga: No matches scheduled\n\n";
+
+        
+        if (laliga) {
+            let laligaMatches = laliga.split('\n').map(match => {
+                const matchDetails = match.split(' - ');
+                if (matchDetails.length === 2) {
+                    const [teams, dateTime] = matchDetails;
+                    const localTime = moment.utc(dateTime.trim()).tz('Africa/Nairobi').format('YYYY-MM-DD HH:mm:ss');
+                    return `${teams} - Date: ${localTime}`;
+                }
+                return match;
+            }).join('\n');
+
+            message += `🇪🇸 La Liga:\n${laligaMatches}\n\n`;
+        } else {
+            message += "🇪🇸 La Liga: No matches scheduled\n\n";
+        }
+
         message += bundesliga ? `🇩🇪 Bundesliga:\n${bundesliga}\n\n` : "🇩🇪 Bundesliga: No matches scheduled\n\n";
         message += serieA ? `🇮🇹 Serie A:\n${serieA}\n\n` : "🇮🇹 Serie A: No matches scheduled\n\n";
         message += ligue1 ? `🇫🇷 Ligue 1:\n${ligue1}\n\n` : "🇫🇷 Ligue 1: No matches scheduled\n\n";
