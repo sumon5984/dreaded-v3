@@ -37,7 +37,7 @@ module.exports = async (context) => {
 
         const caption = `🎥 TikTok Video\n\n📌 *Description:* ${tikDescription}\n👤 *Author:* ${tikAuthor}\n❤️ *Likes:* ${tikLikes}\n💬 *Comments:* ${tikComments}\n🔗 *Shares:* ${tikShares}`;
 
-        m.reply(`TikTok data fetched successfully! Downloading video: ${tikVideoUrl}...`);
+        m.reply(`TikTok data fetched successfully! Sending...`);
 
         const response = await fetch(tikVideoUrl);
 
