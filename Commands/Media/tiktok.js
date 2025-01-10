@@ -37,10 +37,18 @@ module.exports = async (context) => {
 
         const caption = `🎥 TikTok Video\n\n📌 *Description:* ${tikDescription}\n👤 *Author:* ${tikAuthor}\n❤️ *Likes:* ${tikLikes}\n💬 *Comments:* ${tikComments}\n🔗 *Shares:* ${tikShares}`;
 
-        await m.reply(`TikTok data fetched successfully! Sending video: ${tikVideoUrl}`);
+        m.reply(`TikTok data fetched successfully! Downloading video...`);
+
+        const response = await fetch(tikVideoUrl);
+
+        if (!response.ok) {
+            throw new Error(`Failed to download video: HTTP ${response.status}`);
+        }
+
+        const videoBuffer = Buffer.from(await response.arrayBuffer());
 
         await client.sendMessage(m.chat, {
-            video: { url: tikVideoUrl },
+            video: videoBuffer,
             mimetype: "video/mp4",
             caption: caption,
         }, { quoted: m });
