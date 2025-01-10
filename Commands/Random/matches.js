@@ -31,7 +31,9 @@ module.exports = async (context) => {
                 const matchDetails = match.split(' - ');
                 if (matchDetails.length === 2) {
                     const [teams, dateTime] = matchDetails;
-                    const localTime = moment.utc(dateTime.trim()).tz('Africa/Nairobi').format('YYYY-MM-DD HH:mm:ss');
+                    const localTime = moment.utc(dateTime.trim()).tz('Africa/Nairobi').isValid() 
+                        ? moment.utc(dateTime.trim()).tz('Africa/Nairobi').format('YYYY-MM-DD HH:mm:ss') 
+                        : 'Invalid date';
                     return `${teams} - Date: ${localTime}`;
                 }
                 return match;
