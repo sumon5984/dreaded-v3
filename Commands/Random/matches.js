@@ -1,6 +1,6 @@
-const moment = require('moment-timezone');
-
 module.exports = async (context) => {
+
+const moment = require('moment-timezone');
     const { client, m, text, fetchJson } = context;
 
     const leagues = [
@@ -14,34 +14,33 @@ module.exports = async (context) => {
     try {
         let message = "Today Football Matches ⚽\n\n";
 
-        for (let league of leagues) {
+        
+        const results = await Promise.all(leagues.map(async (league) => {
             const data = await fetchJson(`https://api.dreaded.site/api/matches/${league.code}`);
             const matches = data.data;
 
-            if (matches === "No matches scheduled for " + league.code + " today.") {
-                message += `${league.name}: No matches scheduled\n\n`;
+            if (matches === `No matches scheduled for ${league.code} today.`) {
+                return `${league.name}: No matches scheduled`;
             } else {
-                message += `${league.name}:\n`;
-
+                let leagueMatches = `${league.name}:\n`;
                 matches.split('\n').forEach(match => {
                     const matchDate = match.match(/Date: (.*?)$/);
-
                     if (matchDate) {
                         const utcDate = matchDate[1];
                         const kenyaTime = moment(utcDate).tz('Africa/Nairobi').format('YYYY-MM-DD HH:mm:ss');
                         match = match.replace(utcDate, kenyaTime);
                     }
-
-                    message += `${match}\n`;
+                    leagueMatches += `${match}\n`;
                 });
-
-                message += "\n";
+                return leagueMatches;
             }
-        }
+        }));
 
+        
+        message += results.join("\n\n");
         await m.reply(message);
 
     } catch (error) {
-        m.reply('Something went wrong. Unable to fetch matches.' + error);
+        m.reply('Something went wrong. Unable to fetch matches.');
     }
 };
