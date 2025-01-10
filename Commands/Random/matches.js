@@ -42,6 +42,6 @@ module.exports = async (context) => {
         await m.reply(message);
 
     } catch (error) {
-        m.reply('Something went wrong. Unable to fetch matches.');
+        m.reply('Something went wrong. Unable to fetch matches.' + error);
     }
 };
