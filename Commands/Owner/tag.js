@@ -7,11 +7,11 @@ module.exports = async (context) => {
         const { client, m, args, participants, text } = context;
 
 
+if (!m.isGroup) return m.reply('Command meant for groups');
 
 
 
-
-client.sendMessage(m.chat, { text : text ? text : '☞︎︎︎ TAGGED ☜︎︎︎' , mentions: participants.map(a => a.id)}, { quoted: m });
+client.sendMessage(m.chat, { text : text ? text : 'Attention here' , mentions: participants.map(a => a.id)}, { quoted: m });
 
 });
 
