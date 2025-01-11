@@ -4,10 +4,10 @@ const cheerio = require('cheerio');
 module.exports = async (context) => {
     const { m, text } = context;
 
-    if (!text) return m.reply("Provide a valid URL to fetch!");
+    if (!text) return m.reply("Provide a valid URL to fetch! The bot will crawl the website and fetch it's html, CSS, JavaScript and any media embedded to it.");
 
     if (!/^https?:\/\//i.test(text)) {
-        return m.reply("Please provide a URL starting with http:// or https://");
+        return m.reply("The URL must start with http:// or https://");
     }
 
     try {
