@@ -14,28 +14,30 @@ module.exports = async (context) => {
 
         try {
             
-            const primaryData = await fetchJson(`https://api.dreaded.site/api/ytdl/audio?url=${urlYt}`);
-            if (!primaryData || !primaryData.result || !primaryData.download || !primaryData.metadata) {
-                throw new Error("Invalid response from primary API");
-            }
+                    let data = await fetchJson(`https://api.dreaded.site/api/ytdl/audio?url=${urlYt}`);
 
-            const {
-                metadata: { title: name, duration: { timestamp: duration }, thumbnail, author: { name: authorName } },
-                download: { url: audio, filename, quality },
-            } = primaryData.result;
+        if (!data || !data.result || !data.result.download || !data.result.download.url) {
+            return m.reply("Failed to fetch audio from the API.");
+        }
 
-            
+        const {
+            metadata: { title, thumbnail, duration, author },
+            download: { url: audioUrl, quality, filename },
+        } = data.result;
 
-            await m.reply(`_Downloading ${name}_`);
-            await client.sendMessage(
-                m.chat,
-                {
-                    document: { url: audio },
-                    mimetype: "audio/mpeg",
-                    fileName: filename || `${name}.mp3`,
-                },
-                { quoted: m }
-            );
+
+
+        await m.reply(`_Downloading ${title}_`);
+
+        await client.sendMessage(
+            m.chat,
+            {
+                document: { url: audioUrl },
+                mimetype: "audio/mpeg",
+                fileName: filename,
+            },
+            { quoted: m }
+        );
         } catch (primaryError) {
             console.error("Primary API failed:", primaryError.message);
 
