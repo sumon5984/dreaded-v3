@@ -1,11 +1,13 @@
+const fetch = require('node-fetch');
+
 module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
-    
+
     const apiUrl = `https://api.dreaded.site/api/lyrics?title=${encodeURIComponent(text)}`;
 
     try {
         if (!text) return m.reply("Provide a song name!");
-        
+
         const data = await fetchJson(apiUrl);
 
         if (!data.success || !data.result || !data.result.lyrics) {
@@ -14,14 +16,25 @@ module.exports = async (context) => {
 
         const { title, artist, link, thumb, lyrics } = data.result;
 
-        const image = thumb || "https://i.imgur.com/Cgte666.jpeg";
+        const imageUrl = thumb || "https://i.imgur.com/Cgte666.jpeg";
+
+        const imageBuffer = await fetch(imageUrl)
+            .then(res => res.buffer())
+            .catch(err => {
+                console.error('Error fetching image:', err);
+                return null;
+            });
+
+        if (!imageBuffer) {
+            return m.reply("An error occurred while fetching the image.");
+        }
 
         const caption = `**Title**: ${title}\n**Artist**: ${artist}\n\n${lyrics}`;
-        
+
         await client.sendMessage(
             m.chat,
             {
-                image: { url: image }, 
+                image: imageBuffer,
                 caption: caption
             },
             { quoted: m }
@@ -30,4 +43,4 @@ module.exports = async (context) => {
         console.error(error);
         m.reply(`An error occurred while fetching the lyrics for "${text}".`);
     }
-};
+}
