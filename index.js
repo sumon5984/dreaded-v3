@@ -56,7 +56,7 @@ const { DateTime } = require('luxon');
 authenticationn();
 const mongoose = require("mongoose");
 
-const creds = JSON.parse(readFileSync(join(__dirname, 'Sessions', 'creds.json'), { encoding: 'utf-8' })); 
+const creds = JSON.parse(readFileSync(join(__dirname, 'Session', 'creds.json'), { encoding: 'utf-8' })); 
 
  async function startDreaded() {
       await connectToDB();
