@@ -22,7 +22,7 @@ module.exports = async (context) => {
         const handler = async ({ messages, type }) => {
             if (type !== 'notify') return;
 
-            const userReply = messages.find(msg => msg.key.quoted?.id === messageKey.id);
+            const userReply = messages.find(msg => msg.key.quoted?.id === messageKey.id && msg.key.remoteJid === messageKey.remoteJid); 
 
             if (!userReply) return;
 
@@ -48,7 +48,7 @@ module.exports = async (context) => {
                     m.reply("Audio Download failed\n" + error.message);
                 }
             } else if (downloadChoice === 2) {
-                await m.reply("Sending");
+                await m.reply("Sending...");
                 await client.sendMessage(
                     m.chat,
                     {
@@ -69,3 +69,4 @@ module.exports = async (context) => {
         m.reply("An error occurred:\n" + error.message);
     }
 };
+
