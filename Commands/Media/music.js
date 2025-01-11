@@ -21,10 +21,10 @@ module.exports = async (context) => {
         const messageKey = sentMessage.key;
         m.reply(`Sent message key: ${JSON.stringify(messageKey)}`);
 
-        let hasReplied = false; 
+        let hasReplied = false;
 
         const handler = async ({ messages, type }) => {
-            if (hasReplied) return; 
+            if (hasReplied) return;
 
             m.reply(`messages.upsert event triggered: Type: ${type}, Messages: ${JSON.stringify(messages)}`);
 
@@ -33,7 +33,8 @@ module.exports = async (context) => {
                 return;
             }
 
-            const userReply = messages.find(msg => msg.key.quoted?.id === messageKey.id && msg.key.remoteJid === messageKey.remoteJid);
+            const userReply = messages.find(msg => msg.key.quoted?.id === messageKey.id && msg.message?.extendedTextMessage?.contextInfo?.stanzaId === messageKey.id);
+
             m.reply(`User Reply: ${JSON.stringify(userReply)}`);
 
             if (!userReply) {
@@ -41,8 +42,8 @@ module.exports = async (context) => {
                 return;
             }
 
-            hasReplied = true; 
-            client.ev.off('messages.upsert', handler); 
+            hasReplied = true;
+            client.ev.off('messages.upsert', handler);
 
             const replyText = userReply.message?.text || userReply.message?.conversation;
             m.reply(`Reply Text: ${replyText}`);
@@ -64,7 +65,7 @@ module.exports = async (context) => {
                     m.reply(`Audio Download failed\n${error.message}`);
                 }
             } else if (downloadChoice === 2) {
-                m.reply("Sending.");
+                m.reply("Sending");
                 await client.sendMessage(
                     m.chat,
                     {
