@@ -4,10 +4,10 @@ const cheerio = require('cheerio');
 module.exports = async (context) => {
     const { m, text } = context;
 
-    if (!text) return m.reply("Provide a valid web link to fetch! The bot will crawl the website and fetch it's html, CSS, JavaScript and any media embedded to it.");
+    if (!text) return m.reply("Provide a valid web link to fetch! The bot will crawl the website and fetch its HTML, CSS, JavaScript, and any media embedded in it.");
 
     if (!/^https?:\/\//i.test(text)) {
-        return m.reply("The URL must start with http:// or https://");
+        return m.reply("Please provide a URL starting with http:// or https://");
     }
 
     try {
@@ -42,13 +42,21 @@ module.exports = async (context) => {
         await m.reply(`**Full HTML Content**:\n\n${html}`);
 
         if (cssFiles.length > 0) {
-            await m.reply(`**CSS Files Found**:\n${cssFiles.join('\n')}`);
+            for (const cssFile of cssFiles) {
+                const cssResponse = await fetch(new URL(cssFile, text));
+                const cssContent = await cssResponse.text();
+                await m.reply(`**CSS File Content**:\n\n${cssContent}`);
+            }
         } else {
             await m.reply("No external CSS files found.");
         }
 
         if (jsFiles.length > 0) {
-            await m.reply(`**JavaScript Files Found**:\n${jsFiles.join('\n')}`);
+            for (const jsFile of jsFiles) {
+                const jsResponse = await fetch(new URL(jsFile, text));
+                const jsContent = await jsResponse.text();
+                await m.reply(`**JavaScript File Content**:\n\n${jsContent}`);
+            }
         } else {
             await m.reply("No external JavaScript files found.");
         }
