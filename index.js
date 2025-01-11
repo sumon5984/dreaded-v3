@@ -87,7 +87,7 @@ fireInitQueries: false,
             keepAliveIntervalMs: 30_000,
         auth: {
             ...state,
-            appState: myAppStateKeyId 
+            myAppStateKey: myAppStateKeyId 
         },
         getMessage: async (key) => {
             if (store) {
