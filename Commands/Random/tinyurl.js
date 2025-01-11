@@ -23,7 +23,7 @@ module.exports = async (context) => {
         await client.sendMessage(
             m.chat,
             {
-                text: `Original URL: ${originalUrl}\nShortened URL: ${shortenedUrl}`,
+                text: `*Original URL*: ${originalUrl}\n\n*Shortened URL*: ${shortenedUrl}`,
             },
             { quoted: m }
         );
