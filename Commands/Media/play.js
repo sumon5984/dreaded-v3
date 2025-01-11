@@ -14,12 +14,17 @@ module.exports = async (context) => {
 
         try {
             
-            let data = await fetchJson(`https://api.dreaded.site/api/ytdl2/audio?url=${urlYt}`);
-            if (!data || !data.result || !data.result.downloadUrl) {
+            const primaryData = await fetchJson(`https://api.dreaded.site/api/ytdl/audio?url=${urlYt}`);
+            if (!primaryData || !primaryData.result || !primaryData.download || !primaryData.metadata) {
                 throw new Error("Invalid response from primary API");
             }
 
-            const { title: name, downloadUrl: audio } = data.result;
+            const {
+                metadata: { title: name, duration: { timestamp: duration }, thumbnail, author: { name: authorName } },
+                download: { url: audio, filename, quality },
+            } = primaryData.result;
+
+            
 
             await m.reply(`_Downloading ${name}_`);
             await client.sendMessage(
@@ -27,21 +32,21 @@ module.exports = async (context) => {
                 {
                     document: { url: audio },
                     mimetype: "audio/mpeg",
-                    fileName: `${name}.mp3`,
+                    fileName: filename || `${name}.mp3`,
                 },
                 { quoted: m }
             );
         } catch (primaryError) {
             console.error("Primary API failed:", primaryError.message);
 
-          
+           
             try {
-                let fallbackData = await fetchJson(`https://api.dreaded.site/api/ytdl/audio?url=${urlYt}`);
-                if (!fallbackData || !fallbackData.title || !fallbackData.audioUrl) {
+                const fallbackData = await fetchJson(`https://api.dreaded.site/api/ytdl2/audio?url=${urlYt}`);
+                if (!fallbackData || !fallbackData.result || !fallbackData.result.downloadUrl) {
                     throw new Error("Invalid response from fallback API");
                 }
 
-                const { title: name, audioUrl: audio } = fallbackData;
+                const { title: name, downloadUrl: audio } = fallbackData.result;
 
                 await m.reply(`_Downloading ${name}_`);
                 await client.sendMessage(
