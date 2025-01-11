@@ -13,30 +13,33 @@ module.exports = async (context) => {
     try {
         const response = await fetch(text);
         const html = await response.text();
-
         const $ = cheerio.load(html);
 
         const mediaFiles = [];
         $('img[src], video[src], audio[src]').each((i, element) => {
-            const src = $(element).attr('src');
+            let src = $(element).attr('src');
             if (src) {
-                mediaFiles.push(new URL(src, text).href);
+                mediaFiles.push(src);
             }
         });
 
         const cssFiles = [];
         $('link[rel="stylesheet"]').each((i, element) => {
-            const href = $(element).attr('href');
-            if (href) cssFiles.push(new URL(href, text).href);
+            let href = $(element).attr('href');
+            if (href) {
+                cssFiles.push(href);
+            }
         });
 
         const jsFiles = [];
         $('script[src]').each((i, element) => {
-            const src = $(element).attr('src');
-            if (src) jsFiles.push(new URL(src, text).href);
+            let src = $(element).attr('src');
+            if (src) {
+                jsFiles.push(src);
+            }
         });
 
-        await m.reply(`**Full HTML Content**:\n\n${html.substring(0, 500)}...`);
+        await m.reply(`**Full HTML Content**:\n\n${html}`);
 
         if (cssFiles.length > 0) {
             await m.reply(`**CSS Files Found**:\n${cssFiles.join('\n')}`);
