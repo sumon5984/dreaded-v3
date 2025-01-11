@@ -86,8 +86,9 @@ fireInitQueries: false,
             markOnlineOnConnect: false,
             keepAliveIntervalMs: 30_000,
         auth: {
-        appState: myAppStateKeyId 
-    },
+            ...state,
+            appState: myAppStateKeyId 
+        },
         getMessage: async (key) => {
             if (store) {
                 const mssg = await store.loadMessage(key.remoteJid, key.id)
