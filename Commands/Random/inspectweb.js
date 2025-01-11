@@ -1,7 +1,5 @@
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
-const fs = require('fs');
-const path = require('path');
 
 module.exports = async (context) => {
     const { m, text } = context;
@@ -18,48 +16,45 @@ module.exports = async (context) => {
 
         const $ = cheerio.load(html);
 
+        const mediaFiles = [];
+        $('img[src], video[src], audio[src]').each((i, element) => {
+            const src = $(element).attr('src');
+            if (src) {
+                mediaFiles.push(new URL(src, text).href);
+            }
+        });
+
         const cssFiles = [];
         $('link[rel="stylesheet"]').each((i, element) => {
             const href = $(element).attr('href');
-            if (href) cssFiles.push(href);
+            if (href) cssFiles.push(new URL(href, text).href);
         });
 
         const jsFiles = [];
         $('script[src]').each((i, element) => {
             const src = $(element).attr('src');
-            if (src) jsFiles.push(src);
+            if (src) jsFiles.push(new URL(src, text).href);
         });
 
-        await m.reply(`Full HTML Content:\n\n${html}`);
+        await m.reply(`**Full HTML Content**:\n\n${html.substring(0, 500)}...`);
 
-        if (cssFiles.length === 0) {
-            await m.reply("No CSS files linked in the HTML. Maybe the styles are embedded directly in the HTML?");
+        if (cssFiles.length > 0) {
+            await m.reply(`**CSS Files Found**:\n${cssFiles.join('\n')}`);
         } else {
-            for (const cssFile of cssFiles) {
-                const cssUrl = new URL(cssFile, text).href;
-                const cssResponse = await fetch(cssUrl);
-                const cssContent = await cssResponse.text();
-                await m.reply(`CSS from ${cssUrl}:\n\n${cssContent.substring(0, 500)}...`);
-            }
+            await m.reply("No external CSS files found.");
         }
 
-        if (jsFiles.length === 0) {
-            await m.reply("No JavaScript files linked in the HTML. Maybe the scripts are embedded directly in the HTML?");
+        if (jsFiles.length > 0) {
+            await m.reply(`**JavaScript Files Found**:\n${jsFiles.join('\n')}`);
         } else {
-            for (const jsFile of jsFiles) {
-                const jsUrl = new URL(jsFile, text).href;
-                const jsResponse = await fetch(jsUrl);
-                const jsContent = await jsResponse.text();
-                await m.reply(`JavaScript from ${jsUrl}:\n\n${jsContent.substring(0, 500)}...`);
-            }
+            await m.reply("No external JavaScript files found.");
         }
 
-      
-        const url = new URL(text);
-        const ipResponse = await fetch(`https://ipinfo.io/${url.hostname}/json`);
-        const ipData = await ipResponse.json();
-
-        await m.reply(`IP Address: ${ipData.ip}\nHost: ${ipData.org}\nLocation: ${ipData.city}, ${ipData.region}, ${ipData.country}`);
+        if (mediaFiles.length > 0) {
+            await m.reply(`**Media Files Found**:\n${mediaFiles.join('\n')}`);
+        } else {
+            await m.reply("No media files (images, videos, audios) found.");
+        }
 
     } catch (error) {
         console.error(error);
