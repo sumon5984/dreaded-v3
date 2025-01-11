@@ -43,6 +43,44 @@ module.exports = async (context) => {
             );
         }
 
+        if (contentType.includes('audio')) {
+            const audioBuffer = await response.buffer();
+            const filename = text.split('/').pop(); 
+            return client.sendMessage(
+                m.chat,
+                {
+                    audio: { url: text },
+                    mimetype: "audio/mpeg",
+                    fileName: filename,
+                },
+                { quoted: m }
+            );
+        }
+
+        if (contentType.includes('application/pdf')) {
+            return client.sendMessage(
+                m.chat,
+                {
+                    document: { url: text },
+                    mimetype: "application/pdf",
+                    fileName: text.split('/').pop(),
+                },
+                { quoted: m }
+            );
+        }
+
+        if (contentType.includes('application')) {
+            return client.sendMessage(
+                m.chat,
+                {
+                    document: { url: text },
+                    mimetype: contentType,
+                    fileName: text.split('/').pop(),
+                },
+                { quoted: m }
+            );
+        }
+
         return m.reply("The content type is unsupported or could not be determined.");
     } catch (error) {
         console.error(error);
