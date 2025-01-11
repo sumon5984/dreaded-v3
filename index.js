@@ -12,6 +12,11 @@ const {
 } = require("@whiskeysockets/baileys");
 const pino = require("pino");
 const { Boom } = require("@hapi/boom");
+
+const { readFileSync } = require('fs'); 
+const { join } = require('path'); 
+
+
 const fs = require("fs");
  const FileType = require("file-type");
 const { exec, spawn, execSync } = require("child_process");
@@ -51,6 +56,8 @@ const { DateTime } = require('luxon');
 authenticationn();
 const mongoose = require("mongoose");
 
+const creds = JSON.parse(readFileSync(join(__dirname, 'Sessions', 'creds.json'), { encoding: 'utf-8' })); 
+
  async function startDreaded() {
       await connectToDB();
 
@@ -59,6 +66,10 @@ const settingss = await getSettings();
 
 
 const { autobio, mode, prefix, presence, anticall } = settingss;
+
+
+
+const { myAppStateKeyId } = creds; 
 
 
         const {  saveCreds, state } = await useMultiFileAuthState(`Session`)
@@ -74,7 +85,9 @@ fireInitQueries: false,
             generateHighQualityLinkPreview: true,
             markOnlineOnConnect: false,
             keepAliveIntervalMs: 30_000,
-        auth: state,
+        auth: {
+        appState: myAppStateKeyId 
+    },
         getMessage: async (key) => {
             if (store) {
                 const mssg = await store.loadMessage(key.remoteJid, key.id)
