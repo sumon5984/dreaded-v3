@@ -30,10 +30,20 @@ function findAllCommandFiles(dir) {
 const { commandFiles, totalCommands } = findAllCommandFiles(cmdsDir);
 
 const commands = {};
+const aliases = {
+    remove: 'kick'
+    
+};
+
 commandFiles.forEach(file => {
     const commandName = path.basename(file, '.js');
     const commandModule = require(file);
     commands[commandName] = commandModule;
 });
 
-module.exports = { commands, totalCommands };
+
+const resolveCommand = (command) => {
+    return aliases[command] || command;
+};
+
+module.exports = { commands, totalCommands, resolveCommand };
