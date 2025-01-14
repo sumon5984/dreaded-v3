@@ -24,12 +24,21 @@ module.exports = async (context) => {
                 );
 
                 const configVars = response.data;
-                if (configVars) {
-                    let configMessage = "Current Heroku Config Vars:\n";
+                let configMessage = "";
+
+                if (configVars && Object.keys(configVars).length > 0) {
+                    configMessage = "Current Heroku Config Vars:\n";
                     for (const [key, value] of Object.entries(configVars)) {
                         configMessage += `${key}: ${value}\n`;
                     }
-                    await m.reply(configMessage);
+
+                
+                    if (m.isGroup) {
+                        await client.sendMessage(m.sender, { text: configMessage }, { quoted: m });
+                        await m.reply("For security reasons, the vars have been sent to your inbox.");
+                    } else {
+                        await m.reply(configMessage);
+                    }
                 } else {
                     await m.reply("No config vars found for your Heroku app.");
                 }
@@ -40,7 +49,7 @@ module.exports = async (context) => {
             }
         }
 
-        
+      
         await getHerokuConfigVars();
     });
 };
