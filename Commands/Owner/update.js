@@ -6,6 +6,11 @@ module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
         const { client, m, text, Owner } = context;
 
+        if (!herokuAppName || !herokuApiKey) {
+            await m.reply("It looks like the Heroku app name or API key is not set. Please make sure you have set the `HEROKU_APP_NAME` and `HEROKU_API_KEY` environment variables manually in heroku.");
+            return;
+        }
+
         async function redeployApp() {
             try {
                 const response = await axios.post(
@@ -23,11 +28,11 @@ module.exports = async (context) => {
                     }
                 );
 
-                await m.reply("An update and redeploy has been triggered successfully. Wait 2mins for bot to start.");
+                await m.reply("Redeploy triggered successfully!");
                 console.log("Build details:", response.data);
             } catch (error) {
                 const errorMessage = error.response?.data || error.message;
-                await m.reply(`Failed to update and redeploy. ${errorMessage} Please check if you have set the Heroku API key and Heroku app name correctly. Also note that this command will work if you are deploying directly from main repo. For forks you have to do a manual redeploy and sync.`);
+                await m.reply(`Failed to update and redeploy. ${errorMessage} Please check if you have set the Heroku API key and Heroku app name correctly.`);
                 console.error("Error triggering redeploy:", errorMessage);
             }
         }
