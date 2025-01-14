@@ -107,8 +107,9 @@ await status_saver(client, m, Owner, prefix)
   const command = cmd ? body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase() : null;
 
         if (commands[command]) {
-    await commands[command](context);
-        } 
+    
+    await commands[command].execute(context);
+}
 
     } catch (err) {
         console.log(util.format(err));
