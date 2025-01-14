@@ -27,7 +27,7 @@ module.exports = async (context) => {
                 let configMessage = "";
 
                 if (configVars && Object.keys(configVars).length > 0) {
-                    configMessage = "Current Heroku Config Vars:\n";
+                    configMessage = "⚙️ Current Heroku Config Vars\n\n";
                     for (const [key, value] of Object.entries(configVars)) {
                         configMessage += `${key}: ${value}\n`;
                     }
