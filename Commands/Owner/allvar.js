@@ -1,0 +1,46 @@
+const axios = require("axios");
+const { herokuAppName, herokuApiKey } = require("../../config");
+const ownerMiddleware = require('../../Middleware/ownerMiddleware');
+
+module.exports = async (context) => {
+    await ownerMiddleware(context, async () => {
+        const { client, m, text, Owner } = context;
+
+        if (!herokuAppName || !herokuApiKey) {
+            await m.reply("It looks like the Heroku app name or API key is not set. Please make sure you have set the `HEROKU_APP_NAME` and `HEROKU_API_KEY` environment variables.");
+            return;
+        }
+
+        async function getHerokuConfigVars() {
+            try {
+                const response = await axios.get(
+                    `https://api.heroku.com/apps/${herokuAppName}/config-vars`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${herokuApiKey}`,
+                            Accept: "application/vnd.heroku+json; version=3",
+                        },
+                    }
+                );
+
+                const configVars = response.data;
+                if (configVars) {
+                    let configMessage = "Current Heroku Config Vars:\n";
+                    for (const [key, value] of Object.entries(configVars)) {
+                        configMessage += `${key}: ${value}\n`;
+                    }
+                    await m.reply(configMessage);
+                } else {
+                    await m.reply("No config vars found for your Heroku app.");
+                }
+            } catch (error) {
+                const errorMessage = error.response?.data || error.message;
+                await m.reply(`Failed to retrieve config vars. ${errorMessage}`);
+                console.error("Error fetching Heroku config vars:", errorMessage);
+            }
+        }
+
+        
+        await getHerokuConfigVars();
+    });
+};
