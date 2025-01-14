@@ -28,7 +28,7 @@ module.exports = async (context) => {
                     }
                 );
 
-                await m.reply("Redeploy triggered successfully!");
+                await m.reply("Your bot is getting updated, wait 2 mins for the redeploy to finish!");
                 console.log("Build details:", response.data);
             } catch (error) {
                 const errorMessage = error.response?.data || error.message;
