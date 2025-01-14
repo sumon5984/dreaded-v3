@@ -12,7 +12,7 @@ module.exports = async (context) => {
         }
 
         if (!text) {
-            await m.reply(`Please enter the var name to get in the format: \`${prefix}getvar VAR_NAME\`\nExample: \`${prefix}getvar MYCODE\``);
+            await m.reply(`Please enter the var name to get in the format: \`${prefix}getvar VAR_NAME\`\n\nExample: \`${prefix}getvar MYCODE\``);
             return;
         }
 
@@ -37,7 +37,7 @@ module.exports = async (context) => {
                     if (m.isGroup) {
                         await m.reply("It is recommended to use this command in inbox to prevent exposing sensitive info.");
                     }
-                    await m.reply(`Config var \`${varName}\` is set to \`${varValue}\`.`);
+                    await m.reply(`Config var \`${varName}\` is set to ${varValue}.`);
                 } else {
                     await m.reply(`Config var \`${varName}\` does not exist.`);
                 }
