@@ -29,10 +29,9 @@ module.exports = async (context) => {
                 if (configVars && Object.keys(configVars).length > 0) {
                     configMessage = "⚙️ Current Heroku Config Vars\n\n";
                     for (const [key, value] of Object.entries(configVars)) {
-                        configMessage += `${key}: ${value}\n`;
+                        configMessage += `${key}: ${value}\n\n`;  
                     }
 
-                
                     if (m.isGroup) {
                         await client.sendMessage(m.sender, { text: configMessage }, { quoted: m });
                         await m.reply("For security reasons, the vars have been sent to your inbox.");
@@ -49,7 +48,6 @@ module.exports = async (context) => {
             }
         }
 
-      
         await getHerokuConfigVars();
     });
 };
