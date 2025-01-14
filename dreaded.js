@@ -111,7 +111,6 @@ console.log(`Command received: ${command}`);
 const resolvedCommand = resolveCommand(command);
 
 
-
 if (commands[resolvedCommand]) {
     await commands[resolvedCommand](context);
 }
@@ -135,4 +134,6 @@ console.log('Caught exception: ', errr)
 })
 
 
-}; 
+};
+
+
