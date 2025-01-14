@@ -51,7 +51,7 @@ var budy = typeof m.text == "string" ? m.text : "";
  const timestamp = speed(); 
    const dreadedspeed = speed() - timestamp 
 
-    const cmd = body.startsWith(prefix);
+    const cmd = body.toLowerCase().startsWith(prefix);
   
     const args = body.trim().split(/ +/).slice(1);
     const pushname = m.pushName || "No Name";
