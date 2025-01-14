@@ -7,7 +7,7 @@ const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJs
 const { exec, spawn, execSync } = require("child_process");
 const uploadtoimgur = require('./Lib/Imgur')
 const path = require('path');
-const { commands, totalCommands, resolveCommand } = require('./Handler/commandHandler');
+const { commands, totalCommands } = require('./Handler/commandHandler');
 const status_saver = require('./Functions/status_saver');
 const mongoose = require("mongoose");
 
@@ -108,11 +108,8 @@ await status_saver(client, m, Owner, prefix)
 
 console.log(`Command received: ${command}`); 
 
-const resolvedCommand = resolveCommand(command);
-
-
-if (commands[resolvedCommand]) {
-    await commands[resolvedCommand](context);
+if (commands[command]) {
+    await commands[command](context);
 }
 
 
