@@ -34,14 +34,14 @@ commandFiles.forEach(file => {
     const commandName = path.basename(file, '.js');
     const commandModule = require(file);
 
-   
+    
     commands[commandName] = commandModule;
 
-  
+   
     if (commandModule.aliases && Array.isArray(commandModule.aliases)) {
-        for (const alias of commandModule.aliases) {
+        commandModule.aliases.forEach(alias => {
             commands[alias] = commandModule;
-        }
+        });
     }
 });
 
