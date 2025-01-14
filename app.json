@@ -21,7 +21,7 @@
     "MONGO_URI": {
       "description": "Enter the MongoDB URI connection string for the bot's database. We have provided a public database for purposes of testing. We DO NOT RECOMMEND using of this public database at all, it is for testing. An example is:- If one person using this URL decides to switch autoread on, all bot using that URL will also switch autoread on. Sign up at mongodb.com to get your own URL to avoid this conflicts.",
       "value": "mongodb+srv://nestorrice72:spyke@spiketech.xmqub.mongodb.net/?retryWrites=true&w=majority&appName=spiketech",
-     "required": true
+      "required": true
     },
     "CODE": {
       "description": "Enter your country code without +. Example: 254 for Kenya. This will allow the bot to detect and remove foreigners if commanded.",
@@ -43,6 +43,14 @@
     "MYNAME": {
       "description": "The name the bot will use to refer to you during DND mode, ensuring users know how to address you.",
       "required": true
+    },
+    "HEROKU_APP_NAME": {
+      "description": "Re-enter the same app name you provided earlier. This will be used for auto-deployment. Example: 'minemain'.",
+      "required": false
+    },
+    "HEROKU_API_KEY": {
+      "description": "This is your Heroku API key. To enable auto-deployment, you must provide this key. You can get it by logging into your Heroku account, going to 'Account Settings', and clicking 'Reveal API Key'. Copy and paste it here.",
+      "required": false
     }
   },
   "buildpacks": [
