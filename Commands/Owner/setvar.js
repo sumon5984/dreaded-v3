@@ -32,7 +32,7 @@ module.exports = async (context) => {
                 );
 
                 if (response.status === 200) {
-                    await m.reply(`Config var \`${varName}\` has been successfully updated to \`${value}\`.`);
+                    await m.reply(`Config var \`${varName}\` has been successfully updated to \`${value}\`. Wait 2min for change to effect as bot restarts.`);
                 } else {
                     await m.reply("Failed to update the config var. Please try again.");
                 }
