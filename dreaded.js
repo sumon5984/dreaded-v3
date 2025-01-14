@@ -109,11 +109,10 @@ await status_saver(client, m, Owner, prefix)
 console.log(`Command received: ${command}`); 
 
 if (commands[command]) {
-    console.log(`Executing command: ${command}`); 
-    await commands[command].execute(context);
-} else {
-    console.log(`Unknown command: ${command}`);
+    await commands[command](context);
 }
+
+
     } catch (err) {
         console.log(util.format(err));
     }
