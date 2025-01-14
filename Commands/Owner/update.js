@@ -28,7 +28,7 @@ module.exports = async (context) => {
                     }
                 );
 
-                await m.reply("Your bot is getting updated, wait 2 mins for the redeploy to finish!");
+                await m.reply("Your bot is getting updated, wait 2 mins for the redeploy to finish! This will install the latest version of DREADED-V3.");
                 console.log("Build details:", response.data);
             } catch (error) {
                 const errorMessage = error.response?.data || error.message;
