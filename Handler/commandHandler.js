@@ -31,8 +31,8 @@ const { commandFiles, totalCommands } = findAllCommandFiles(cmdsDir);
 
 const commands = {};
 const aliases = {
-    remove: 'kick'
-    
+    remove: 'kick', 
+    speed: 'ping', 
 };
 
 commandFiles.forEach(file => {
@@ -41,9 +41,8 @@ commandFiles.forEach(file => {
     commands[commandName] = commandModule;
 });
 
-
 const resolveCommand = (command) => {
-    return aliases[command] || command;
+    return aliases[command] || command; 
 };
 
 module.exports = { commands, totalCommands, resolveCommand };
