@@ -106,11 +106,14 @@ await status_saver(client, m, Owner, prefix)
 
   const command = cmd ? body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase() : null;
 
-        if (commands[command]) {
-    
-    await commands[command].execute(context);
-}
+console.log(`Command received: ${command}`); 
 
+if (commands[command]) {
+    console.log(`Executing command: ${command}`); 
+    await commands[command].execute(context);
+} else {
+    console.log(`Unknown command: ${command}`);
+}
     } catch (err) {
         console.log(util.format(err));
     }
