@@ -33,19 +33,7 @@ const commands = {};
 commandFiles.forEach(file => {
     const commandName = path.basename(file, '.js');
     const commandModule = require(file);
-
-    
     commands[commandName] = commandModule;
-
-   
-    if (commandModule.aliases && Array.isArray(commandModule.aliases)) {
-        commandModule.aliases.forEach(alias => {
-            commands[alias] = commandModule;
-        });
-    }
 });
-
-
-console.log("Available commands:", Object.keys(commands));
 
 module.exports = { commands, totalCommands };
