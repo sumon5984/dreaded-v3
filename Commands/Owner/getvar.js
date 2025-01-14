@@ -35,7 +35,7 @@ module.exports = async (context) => {
 
                 if (varValue) {
                     if (m.isGroup) {
-                        await m.reply("It is recommended to use this command in inbox to prevent exposing sensitive info.");
+                        await m.reply("It is recommended to use this command in inbox to prevent exposing sensitive info like session and APIs.");
                     }
                     await m.reply(`Config var \`${varName}\` is set to ${varValue}.`);
                 } else {
