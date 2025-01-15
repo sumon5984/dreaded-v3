@@ -23,14 +23,15 @@ module.exports = async (context) => {
         return dDisplay + hDisplay + mDisplay + sDisplay;
     };
 
-    await m.reply(`Pong\n` +
-        `Speed: ${dreadedspeed.toFixed(4)}ms\n` +
-        `Platform: ${platform}\n` +
-        `Architecture: ${arch}\n` +
-        `CPU: ${cpus.length} Core(s)\n` +
-        `Total Memory: ${totalMemory} GB\n` +
-        `Free Memory: ${freeMemory} GB\n` +
-        `Hostname: ${hostname}\n` +
-        `Uptime: ${uptimes(process.uptime())}`
+    await m.reply(`🖥️ **SYSTEM STATUS**\n\n` +
+        `⚡ **Speed**: ${dreadedspeed.toFixed(4)}ms\n\n` +
+        `⏳ **Uptime**: ${uptimes(process.uptime())}\n\n` +
+        `💻 **Platform**: ${platform}\n\n` +
+        `🔧 **Architecture**: ${arch}\n\n` +
+        `🖧 **CPU**: ${cpus.length} Core(s)\n\n` +
+        `💾 **Total Memory**: ${totalMemory} GB\n\n` +
+        `🆓 **Free Memory**: ${freeMemory} GB\n\n` +
+        `🌐 **Hostname**: ${hostname}\n\n` +
+        `🤖 **DREADED V3 BOT**`
     );
 };
