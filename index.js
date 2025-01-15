@@ -56,7 +56,7 @@ const { DateTime } = require('luxon');
 authenticationn();
 const mongoose = require("mongoose");
 
-const creds = JSON.parse(readFileSync(join(__dirname, 'Session', 'creds.json'), { encoding: 'utf-8' })); 
+
 
  async function startDreaded() {
       await connectToDB();
@@ -69,7 +69,7 @@ const { autobio, mode, prefix, presence, anticall } = settingss;
 
 
 
-const { myAppStateKeyId } = creds; 
+
 
 
         const {  saveCreds, state } = await useMultiFileAuthState(`Session`)
@@ -85,10 +85,7 @@ fireInitQueries: false,
             generateHighQualityLinkPreview: true,
             markOnlineOnConnect: false,
             keepAliveIntervalMs: 30_000,
-        auth: {
-            ...state,
-            myAppStateKey: myAppStateKeyId 
-        },
+        auth: state,
         getMessage: async (key) => {
             if (store) {
                 const mssg = await store.loadMessage(key.remoteJid, key.id)
