@@ -115,7 +115,7 @@ if (commands[command]) {
 
 
     } catch (err) {
-        console.log(util.format(err));
+       
     }
 
 process.on('uncaughtException', function (errr) {
