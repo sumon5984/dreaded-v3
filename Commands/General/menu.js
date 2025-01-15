@@ -93,6 +93,6 @@ module.exports = async (context) => {
 
     } catch (error) {
         console.error(error);
-        m.reply('An error occurred while fetching the menu.');
+        m.reply('An error occurred while fetching the menu.\n' + error);
     }
 };
