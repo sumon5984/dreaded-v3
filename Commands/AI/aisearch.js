@@ -8,8 +8,8 @@ module.exports = async (context) => {
     try {
         const data = await fetchJson(`https://api.dreaded.site/api/aisearch?query=${text}`);
 
-        if (data && data.data && data.data.result) {
-            const res = data.data.result;
+        if (data && data.result) {
+            const res = data.result;
             await m.reply(res);
         } else {
             m.reply("Invalid response from the API.");
