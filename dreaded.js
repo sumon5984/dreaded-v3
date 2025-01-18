@@ -7,11 +7,11 @@ const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJs
 const { exec, spawn, execSync } = require("child_process");
 const uploadtoimgur = require('./Lib/Imgur');
 const path = require('path');
-const { commands, totalCommands } = require('./Handlers/commandHandler');
+const { commands, totalCommands } = require('./Handler/commandHandler');
 const status_saver = require('./Functions/status_saver');
 const mongoose = require("mongoose");
 
-const { findClosestCommand } = require('./Lib/similarityHandler');
+const { findClosestCommand } = require('./Handler/similarityHandler');
 
 module.exports = dreaded = async (client, m, chatUpdate, store) => {
   try {
