@@ -1,4 +1,4 @@
-const similarity = require('similarity');
+/* const similarity = require('similarity');
 const path = require('path');
 const fs = require('fs');
 
@@ -56,3 +56,5 @@ const findClosestCommand = (inputCommand, threshold = 0.6) => {
 };
 
 module.exports = { findClosestCommand };
+
+*/
