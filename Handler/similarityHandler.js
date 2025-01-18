@@ -6,6 +6,7 @@ const cmdsDir = path.join(__dirname, '..', 'Commands');
 
 function findAllCommandFiles(dir) {
     let commandFiles = [];
+    let totalCommands = 0;
 
     function findFiles(directory) {
         const files = fs.readdirSync(directory);
@@ -18,12 +19,13 @@ function findAllCommandFiles(dir) {
                 findFiles(filePath);
             } else if (file.endsWith('.js')) {
                 commandFiles.push(filePath);
+                totalCommands++;
             }
         }
     }
 
     findFiles(dir);
-    return { commandFiles };
+    return { commandFiles, totalCommands };
 }
 
 const { commandFiles } = findAllCommandFiles(cmdsDir);
@@ -39,13 +41,18 @@ const findClosestCommand = (inputCommand, threshold = 0.6) => {
 
     availableCommands.forEach(command => {
         const similarityScore = similarity(inputCommand.toLowerCase(), command.toLowerCase());
+
         if (similarityScore > maxSimilarity && similarityScore < 1) {
             maxSimilarity = similarityScore;
             closestCommand = command;
         }
     });
 
-    return maxSimilarity >= threshold ? closestCommand : null;
+    if (maxSimilarity >= threshold) {
+        return closestCommand;
+    }
+
+    return null;
 };
 
 module.exports = { findClosestCommand };
