@@ -1,4 +1,43 @@
 module.exports = async (context) => {
+    const { client, m, text, botname, fetchJson } = context;
+const axios = require('axios');
+
+if (!m.quoted) return m.reply("quote an image or pdf for analysis");
+
+if (!text) return m.reply("Provide some instruction");
+
+    const query = text
+
+   
+    const Buffer = await m.quoted.download();
+
+    
+    const base64 = imageBuffer.toString('base64');
+
+   
+    try {
+        const response = await axios.get('https://api.dreaded.site/api/gemini-analyze', {
+            params: {
+                query: query,
+                imageBuffer: base64
+            }
+        });
+
+        console.log(response.data);
+await m.reply(response.data.result);
+
+    } catch (error) {
+        console.error("Error in sending request:", error);
+    }
+}
+
+
+
+
+
+
+
+/* module.exports = async (context) => {
     const { client, m, text, mime, uploadtoimgur, fetchJson } = context;
 
         
@@ -35,3 +74,5 @@ m.reply("I am unable to analyze images at the moment\n" + e)
 
 }
 }
+
+*/
