@@ -94,15 +94,16 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
 
     const command = cmd ? body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase() : null;
 
-    console.log(`Command received: ${command}`);
+console.log(`Command received: ${command}`);
 
-    
-    const suggestion = findClosestCommand(command, prefix);
-    if (suggestion) {
-      m.reply(`Did you mean: ${suggestion}`);
-    } else if (commands[command]) {
-      await commands[command](context);
-    }
+const suggestion = findClosestCommand(command, 0.6);
+if (suggestion) {
+    m.reply(`Did you mean: ${suggestion}`);
+} else if (commands[command]) {
+    await commands[command](context);
+} else {
+    m.reply("Command not recognized.");
+}
 
   } catch (err) {
     console.error("Error:", err);
