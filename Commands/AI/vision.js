@@ -1,35 +1,27 @@
-module.exports = async (context) => {
-    const { client, m, text, botname, fetchJson } = context;
 const axios = require('axios');
 
-if (!m.quoted) return m.reply("quote an image or pdf for analysis");
+module.exports = async (context) => {
+    const { client, m, text, botname } = context;
 
-if (!text) return m.reply("Provide some instruction");
+    if (!m.quoted) return m.reply("quote an image or pdf for analysis");
+    if (!text) return m.reply("Provide some instruction");
 
-    const query = text
+    const query = text;
+    const buffer = await m.quoted.download();
+    const base64String = buffer.toString('base64');
 
-   
-    const Buffer = await m.quoted.download();
-
-    
-    const base64 = Buffer.toString('base64');
-
-const encoded = encodeURIComponent(base64);
-
-await m.reply(encoded);
-
-   
     try {
-        const response = await axios.get('https://api.dreaded.site/api/gemini-analyze', {
-            params: {
-                query: query,
-                imageBuffer: encoded
+        const response = await axios.post('https://api.dreaded.site/api/gemini-analyze', {
+            query: query,
+            imageBuffer: base64String
+        }, {
+            headers: {
+                'Content-Type': 'application/json'  
             }
         });
 
         console.log(response.data);
-await m.reply(response.data.result);
-
+        await m.reply(response.data.result);
     } catch (error) {
         console.error("Error in sending request:", error);
     }
