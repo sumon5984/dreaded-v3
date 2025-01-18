@@ -67,6 +67,7 @@
         "imgur": "2.3.0",
 "request": "^2.88.2",
 "mathjs": "^11.3.0",
+"similarity": "^1.2.1",
     "qs": "^6.11.0",
   "javascript-obfuscator": "^4.1.0",    
     "jimp": "^0.16.13",
