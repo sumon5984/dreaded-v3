@@ -3,56 +3,41 @@ const fs = require("fs");
 const util = require("util");
 const chalk = require("chalk");
 const speed = require("performance-now");
+const similarity = require("similarity");
 const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJson, getBuffer, jsonformat, generateProfilePicture, parseMention, getRandom } = require('./Lib/Func.js');
 const { exec, spawn, execSync } = require("child_process");
-const uploadtoimgur = require('./Lib/Imgur')
+const uploadtoimgur = require('./Lib/Imgur');
 const path = require('path');
 const { commands, totalCommands } = require('./Handler/commandHandler');
 const status_saver = require('./Functions/status_saver');
 const mongoose = require("mongoose");
 
-
-    
-
-
-
 module.exports = dreaded = async (client, m, chatUpdate, store) => {
   try {
+    const { getSettings } = require('./Mongodb/Settingsdb');
+    const settings = await getSettings();
+    const { botname, mycode } = require('./config');
 
-const { getSettings } = require('./Mongodb/Settingsdb'); 
+    const {
+      presence, autoread, mode, prefix, packname,
+      dev, gcpresence, antionce, antitag
+    } = settings;
 
-const settings = await getSettings();
-const { botname, mycode } = require('./config');
+    var body = m.mtype === "conversation"
+      ? m.message.conversation
+      : m.mtype === "imageMessage"
+      ? m.message.imageMessage.caption
+      : m.mtype === "extendedTextMessage"
+      ? m.message.extendedTextMessage.text
+      : "";
 
-const {
-   presence, autoread,
-  mode, prefix, packname,
-  dev, gcpresence, antionce, antitag
-} = settings;
+    var msgDreaded = m.message.extendedTextMessage?.contextInfo?.quotedMessage;
+    var budy = typeof m.text == "string" ? m.text : "";
 
-
-
-
-
-
-    var body =
-  m.mtype === "conversation"
-    ? m.message.conversation
-    : m.mtype === "imageMessage"
-    ? m.message.imageMessage.caption
-    : m.mtype === "extendedTextMessage"
-    ? m.message.extendedTextMessage.text
-    : "";
-
-var msgDreaded = m.message.extendedTextMessage?.contextInfo?.quotedMessage;
-
-var budy = typeof m.text == "string" ? m.text : "";
-   
- const timestamp = speed(); 
-   const dreadedspeed = speed() - timestamp 
+    const timestamp = speed();
+    const dreadedspeed = speed() - timestamp;
 
     const cmd = body.toLowerCase().startsWith(prefix);
-  
     const args = body.trim().split(/ +/).slice(1);
     const pushname = m.pushName || "No Name";
     const botNumber = await client.decodeJid(client.user.id);
@@ -62,75 +47,93 @@ var budy = typeof m.text == "string" ? m.text : "";
     const arg1 = arg.trim().substring(arg.indexOf(" ") + 1);
 
     const getGroupAdmins = (participants) => { 
-       let admins = []; 
-       for (let i of participants) { 
-         i.admin === "superadmin" ? admins.push(i.id) : i.admin === "admin" ? admins.push(i.id) : ""; 
-       } 
-       return admins || []; 
-     };
-    const fortu = (m.quoted || m); 
-         const quoted = (fortu.mtype == 'buttonsMessage') ? fortu[Object.keys(fortu)[1]] : (fortu.mtype == 'templateMessage') ? fortu.hydratedTemplate[Object.keys(fortu.hydratedTemplate)[1]] : (fortu.mtype == 'product') ? fortu[Object.keys(fortu)[0]] : m.quoted ? m.quoted : m; 
+      let admins = []; 
+      for (let i of participants) { 
+        i.admin === "superadmin" ? admins.push(i.id) : i.admin === "admin" ? admins.push(i.id) : ""; 
+      } 
+      return admins || []; 
+    };
 
-
+    const fortu = (m.quoted || m);
+    const quoted = (fortu.mtype == 'buttonsMessage') ? fortu[Object.keys(fortu)[1]] : 
+                   (fortu.mtype == 'templateMessage') ? fortu.hydratedTemplate[Object.keys(fortu.hydratedTemplate)[1]] : 
+                   (fortu.mtype == 'product') ? fortu[Object.keys(fortu)[0]] : m.quoted ? m.quoted : m;
 
     const color = (text, color) => {
       return !color ? chalk.green(text) : chalk.keyword(color)(text);
     };
+
     const mime = (quoted.msg || quoted).mimetype || "";
-            const qmsg = (quoted.msg || quoted);
+    const qmsg = (quoted.msg || quoted);
 
+    const DevDreaded = dev.split(",");
+    const Owner = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender);
 
-const DevDreaded = dev.split(",");
-    const Owner = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender)
-   
     const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => {}) : "";
     const groupName = m.isGroup ? groupMetadata.subject : "";
     const participants = m.isGroup ? await groupMetadata.participants : ""; 
-     const groupAdmin = m.isGroup ? await getGroupAdmins(participants) : ""; 
-     const isBotAdmin = m.isGroup ? groupAdmin.includes(botNumber) : false; 
-     const isAdmin = m.isGroup ? groupAdmin.includes(m.sender) : false;
+    const groupAdmin = m.isGroup ? await getGroupAdmins(participants) : ""; 
+    const isBotAdmin = m.isGroup ? groupAdmin.includes(botNumber) : false; 
+    const isAdmin = m.isGroup ? groupAdmin.includes(m.sender) : false;
 
-            const IsGroup = m.chat?.endsWith("@g.us");
+    const IsGroup = m.chat?.endsWith("@g.us");
 
-const context = {
-    client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants, mycode,
-    pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
-    packname, generateProfilePicture, groupMetadata, dreadedspeed,
-    fetchJson, exec, getRandom, prefix, cmd, botname, mode, gcpresence, getGroupAdmins, antionce, uploadtoimgur
-};
-if (cmd && settings.mode === 'private' && !itsMe && !Owner) {
-return;
-}
+    const context = {
+      client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants, mycode,
+      pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
+      packname, generateProfilePicture, groupMetadata, dreadedspeed,
+      fetchJson, exec, getRandom, prefix, cmd, botname, mode, gcpresence, getGroupAdmins, antionce, uploadtoimgur
+    };
 
-await status_saver(client, m, Owner, prefix)
-
-  const command = cmd ? body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase() : null;
-
-console.log(`Command received: ${command}`); 
-
-if (commands[command]) {
-    await commands[command](context);
-}
-
-
-
-    } catch (err) {
-       
+    if (cmd && settings.mode === 'private' && !itsMe && !Owner) {
+      return;
     }
 
-process.on('uncaughtException', function (errr) {
-let e = String(errr)
-if (e.includes("conflict")) return
-if (e.includes("not-authorized")) return
-if (e.includes("Socket connection timeout")) return
-if (e.includes("rate-overlimit")) return
-if (e.includes("Connection Closed")) return
-if (e.includes("Timed Out")) return
-if (e.includes("Value not found")) return
-console.log('Caught exception: ', errr)
-})
+    await status_saver(client, m, Owner, prefix);
 
+    const command = cmd ? body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase() : null;
 
+    console.log(`Command received: ${command}`);
+
+    const availableCommands = Object.keys(commands);
+    const threshold = 0.6;
+    let suggestion = "";
+    let maxSimilarity = 0;
+
+    if (command) {
+      for (const cmdName of availableCommands) {
+        const sim = similarity(command, cmdName);
+        if (sim > maxSimilarity) {
+          maxSimilarity = sim;
+          suggestion = cmdName;
+        }
+      }
+
+      const similarityPercentage = Math.floor(maxSimilarity * 100);
+
+      if (maxSimilarity >= threshold && command !== suggestion) {
+        const response = `Did you mean:\n\n• ${prefix}${suggestion}`;
+        return m.reply(response);
+      }
+    }
+
+    if (commands[command]) {
+      await commands[command](context);
+    }
+
+  } catch (err) {
+    console.error("Error:", err);
+  }
+
+  process.on('uncaughtException', function (errr) {
+    let e = String(errr);
+    if (e.includes("conflict")) return;
+    if (e.includes("not-authorized")) return;
+    if (e.includes("Socket connection timeout")) return;
+    if (e.includes("rate-overlimit")) return;
+    if (e.includes("Connection Closed")) return;
+    if (e.includes("Timed Out")) return;
+    if (e.includes("Value not found")) return;
+    console.log('Caught exception: ', errr);
+  });
 };
-
-
