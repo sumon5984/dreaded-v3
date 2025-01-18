@@ -3,14 +3,15 @@ const fs = require("fs");
 const util = require("util");
 const chalk = require("chalk");
 const speed = require("performance-now");
-const similarity = require("similarity");
 const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJson, getBuffer, jsonformat, generateProfilePicture, parseMention, getRandom } = require('./Lib/Func.js');
 const { exec, spawn, execSync } = require("child_process");
 const uploadtoimgur = require('./Lib/Imgur');
 const path = require('path');
-const { commands, totalCommands } = require('./Handler/commandHandler');
+const { commands, totalCommands } = require('./Handlers/commandHandler');
 const status_saver = require('./Functions/status_saver');
 const mongoose = require("mongoose");
+
+const { findClosestCommand } = require('./Lib/similarityHandler');
 
 module.exports = dreaded = async (client, m, chatUpdate, store) => {
   try {
@@ -95,29 +96,11 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
 
     console.log(`Command received: ${command}`);
 
-    const availableCommands = Object.keys(commands);
-    const threshold = 0.6;
-    let suggestion = "";
-    let maxSimilarity = 0;
-
-    if (command) {
-      for (const cmdName of availableCommands) {
-        const sim = similarity(command, cmdName);
-        if (sim > maxSimilarity) {
-          maxSimilarity = sim;
-          suggestion = cmdName;
-        }
-      }
-
-      const similarityPercentage = Math.floor(maxSimilarity * 100);
-
-      if (maxSimilarity >= threshold && command !== suggestion) {
-        const response = `Did you mean:\n\n• ${prefix}${suggestion}`;
-        return m.reply(response);
-      }
-    }
-
-    if (commands[command]) {
+    
+    const suggestion = findClosestCommand(command, prefix);
+    if (suggestion) {
+      m.reply(`Did you mean: ${suggestion}`);
+    } else if (commands[command]) {
       await commands[command](context);
     }
 
