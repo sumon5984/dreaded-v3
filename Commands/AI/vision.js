@@ -12,7 +12,7 @@ if (!text) return m.reply("Provide some instruction");
     const Buffer = await m.quoted.download();
 
     
-    const base64 = imageBuffer.toString('base64');
+    const base64 = Buffer.toString('base64');
 
    
     try {
