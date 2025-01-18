@@ -47,13 +47,14 @@ const findClosestCommand = (inputCommand, threshold = 0.6) => {
 
     availableCommands.forEach(command => {
         const similarityScore = similarity(inputCommand.toLowerCase(), command.toLowerCase());
-        // Ensure the similarity is below 1 (to avoid exact matches)
+      
         if (similarityScore > maxSimilarity && similarityScore < 1) {
             maxSimilarity = similarityScore;
             closestCommand = command;
         }
     });
 
+    
     return maxSimilarity >= threshold ? closestCommand : null;
 };
 
