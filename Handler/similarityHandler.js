@@ -34,12 +34,6 @@ const getCommands = () => {
     return commandFiles.map(file => path.basename(file, '.js'));
 };
 
-/**
- * Find the closest matching command based on similarity.
- * @param {string} inputCommand - The command input by the user.
- * @param {number} threshold - The similarity threshold to trigger suggestion.
- * @returns {string|null} - The closest matching command or null if no match.
- */
 const findClosestCommand = (inputCommand, threshold = 0.6) => {
     const availableCommands = getCommands();
     let closestCommand = '';
@@ -47,14 +41,12 @@ const findClosestCommand = (inputCommand, threshold = 0.6) => {
 
     availableCommands.forEach(command => {
         const similarityScore = similarity(inputCommand.toLowerCase(), command.toLowerCase());
-      
         if (similarityScore > maxSimilarity && similarityScore < 1) {
             maxSimilarity = similarityScore;
             closestCommand = command;
         }
     });
 
-    
     return maxSimilarity >= threshold ? closestCommand : null;
 };
 
