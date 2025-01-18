@@ -14,12 +14,16 @@ if (!text) return m.reply("Provide some instruction");
     
     const base64 = Buffer.toString('base64');
 
+const encoded = encodeURIComponent(base64);
+
+await m.reply(encoded);
+
    
     try {
         const response = await axios.get('https://api.dreaded.site/api/gemini-analyze', {
             params: {
                 query: query,
-                imageBuffer: base64
+                imageBuffer: encoded
             }
         });
 
