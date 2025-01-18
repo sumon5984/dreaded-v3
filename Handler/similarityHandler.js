@@ -6,7 +6,6 @@ const cmdsDir = path.join(__dirname, '..', 'Commands');
 
 function findAllCommandFiles(dir) {
     let commandFiles = [];
-    let totalCommands = 0;
 
     function findFiles(directory) {
         const files = fs.readdirSync(directory);
@@ -19,13 +18,12 @@ function findAllCommandFiles(dir) {
                 findFiles(filePath);
             } else if (file.endsWith('.js')) {
                 commandFiles.push(filePath);
-                totalCommands++;
             }
         }
     }
 
     findFiles(dir);
-    return { commandFiles, totalCommands };
+    return { commandFiles };
 }
 
 const { commandFiles } = findAllCommandFiles(cmdsDir);
