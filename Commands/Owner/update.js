@@ -32,7 +32,7 @@ module.exports = async (context) => {
                 console.log("Build details:", response.data);
             } catch (error) {
                 const errorMessage = error.response?.data || error.message;
-                await m.reply(`Failed to update and redeploy. ${errorMessage} Please check if you have set the Heroku API key and Heroku app name correctly.`);
+                await m.reply(`Failed to update and redeploy. Please check if you have set the Heroku API key and Heroku app name correctly.`);
                 console.error("Error triggering redeploy:", errorMessage);
             }
         }
