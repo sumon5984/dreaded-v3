@@ -46,7 +46,7 @@ await m.reply("Failed to get a valid response from API endpoint");
 
 } catch (error) {
 
-m.reply("An error occured\n\n" + error)
+m.reply("Unable to fetch download link, try matching exact song name or with artist name.")
 
 }
 
