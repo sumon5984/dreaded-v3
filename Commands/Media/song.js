@@ -29,7 +29,7 @@ module.exports = async (context) => {
             {
                 audio: { url: audioUrl },
                 mimetype: "audio/mpeg",
-                fileName: filename,
+                fileName: `${filename}.mp3`,
             },
             { quoted: m }
         );
