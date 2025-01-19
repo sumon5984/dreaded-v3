@@ -34,7 +34,7 @@ module.exports = async (context) => {
             {
                 document: { url: audioUrl },
                 mimetype: "audio/mpeg",
-                fileName: filename,
+                fileName: ${filename}.mp3,
             },
             { quoted: m }
         );
