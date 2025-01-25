@@ -18,10 +18,8 @@ module.exports = async (context) => {
 
         
 
-        const {
-            metadata: { title, thumbnail, duration, author },
-            download: { url: audioUrl, quality, filename },
-        } = data.result;
+        const audioUrl = data.result.url;
+const title = data.result.title;
 
 
 
@@ -32,7 +30,7 @@ module.exports = async (context) => {
             {
                 document: { url: audioUrl },
                 mimetype: "audio/mpeg",
-                fileName: `${filename}.mp3`,
+                fileName: `${title}.mp3`,
             },
             { quoted: m }
         );
