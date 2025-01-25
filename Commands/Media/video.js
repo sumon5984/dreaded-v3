@@ -1,4 +1,5 @@
 const fs = require("fs");
+const fetch = require("node-fetch");
 
 module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
@@ -34,10 +35,13 @@ module.exports = async (context) => {
         const filePath = `/tmp/${name}.mp4`;
         const fileStream = fs.createWriteStream(filePath);
 
+        
+        response.body.pipe(fileStream);
+
+       
         await new Promise((resolve, reject) => {
-            response.body.pipe(fileStream);
-            response.body.on("error", reject);
             fileStream.on("finish", resolve);
+            fileStream.on("error", reject);
         });
 
         await client.sendMessage(
