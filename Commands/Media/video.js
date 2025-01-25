@@ -17,14 +17,13 @@ module.exports = async (context) => {
         try {
            
             const primaryData = await fetchJson(`https://api.dreaded.site/api/ytdl/video?url=${urlYt}`);
-            if (!primaryData.success || !primaryData.result || !primaryData.result.download) {
+            if (!primaryData.success || !primaryData.result || !primaryData.result.url) {
                 throw new Error("Invalid response from primary API");
             }
 
-            const {
-                metadata: { title: name },
-                download: { url: videoUrl, filename },
-            } = primaryData.result;
+            const videoUrl = data.result.url;
+const name = data.result.title;
+
 
             await m.reply(`_Downloading ${name}_. . .`);
             await client.sendMessage(
@@ -33,7 +32,7 @@ module.exports = async (context) => {
                     video: { url: videoUrl },
                     mimetype: "video/mp4",
                     caption: name,
-                    fileName: filename || `${name}.mp4`,
+                    fileName: `${name}.mp4`,
                 },
                 { quoted: m }
             );
@@ -44,7 +43,7 @@ await client.sendMessage(
                     document: { url: videoUrl },
                     mimetype: "video/mp4",
                     caption: name,
-                    fileName: filename || `${name}.mp4`,
+                    fileName: `${name}.mp4`,
                 },
                 { quoted: m }
             );
