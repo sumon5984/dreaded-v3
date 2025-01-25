@@ -54,6 +54,6 @@ module.exports = async (context) => {
         fs.unlinkSync(filePath);
     } catch (error) {
         console.error("Error:", error.message);
-        await m.reply("Failed to download or send the video.");
+        await m.reply("Failed to download or send the video." + error);
     }
 };
