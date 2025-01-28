@@ -81,24 +81,34 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
     const IsGroup = m.chat?.endsWith("@g.us");
 
     const context = {
-      client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants, mycode,
-      pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
-      packname, generateProfilePicture, groupMetadata, dreadedspeed,
-      fetchJson, exec, getRandom, prefix, cmd, botname, mode, gcpresence, getGroupAdmins, antionce, uploadtoimgur
-    };
+    client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants, mycode,
+    pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
+    packname, generateProfilePicture, groupMetadata, dreadedspeed,
+    fetchJson, exec, getRandom, prefix, cmd, botname, mode, gcpresence, getGroupAdmins, antionce, uploadtoimgur
+};
 
-    if (cmd && settings.mode === 'private' && !itsMe && !Owner) {
-      return;
+if (cmd && settings.mode === 'private' && !itsMe && !Owner) {
+    return;
+}
+
+await status_saver(client, m, Owner, prefix);
+
+const commandName = body.startsWith(prefix) 
+    ? body.slice(prefix.length).trim().split(/\s+/)[0].toLowerCase() 
+    : null;
+
+if (commandName) {
+    const resolvedCommandName = aliases[commandName] || commandName;
+
+    if (commands[resolvedCommandName]) {
+        await commands[resolvedCommandName](context);
+    } else {
+        console.log(`Command not found: ${commandName}`);
     }
+} else {
+    console.log("No command found in message.");
+}
 
-    await status_saver(client, m, Owner, prefix);
-
-            const commandName = body.startsWith(prefix) ? body.slice(prefix.length).trim().split(/\s+/)[0].toLowerCase() : null;
-        const resolvedCommandName = aliases[commandName] || commandName;
-
-        if (commands[resolvedCommandName]) {
-            await commands[resolvedCommandName](context);
-        }
 
   } catch (err) {
     console.error("Error:", err);
