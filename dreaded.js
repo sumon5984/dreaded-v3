@@ -38,7 +38,8 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
     const timestamp = speed();
     const dreadedspeed = speed() - timestamp;
 
-    const cmd = body.toLowerCase().startsWith(prefix);
+    const cmd = body.startsWith(prefix) ? body.slice(prefix.length).trim().split(/\s+/)[0].toLowerCase() : null;
+
     const args = body.trim().split(/ +/).slice(1);
     const pushname = m.pushName || "No Name";
     const botNumber = await client.decodeJid(client.user.id);
