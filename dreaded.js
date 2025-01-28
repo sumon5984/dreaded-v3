@@ -7,7 +7,7 @@ const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJs
 const { exec, spawn, execSync } = require("child_process");
 const uploadtoimgur = require('./Lib/Imgur');
 const { readFileSync } = require('fs'); 
-const pict = await fs.readFileSync('./dreaded.jpg');
+
 const path = require('path');
 const { commands, aliases, totalCommands } = require('./Handler/commandHandler');
 const status_saver = require('./Functions/status_saver');
@@ -17,6 +17,8 @@ const { findClosestCommand } = require('./Handler/similarityHandler');
 
 module.exports = dreaded = async (client, m, chatUpdate, store) => {
   try {
+
+const pict = await fs.readFileSync('./dreaded.jpg');
     const { getSettings } = require('./Mongodb/Settingsdb');
     const settings = await getSettings();
     const { botname, mycode } = require('./config');
