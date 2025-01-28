@@ -7,7 +7,7 @@ const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJs
 const { exec, spawn, execSync } = require("child_process");
 const uploadtoimgur = require('./Lib/Imgur');
 const path = require('path');
-const { commands, totalCommands } = require('./Handler/commandHandler');
+const { commands, aliases, totalCommands } = require('./Handler/commandHandler');
 const status_saver = require('./Functions/status_saver');
 const mongoose = require("mongoose");
 
@@ -92,13 +92,12 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
 
     await status_saver(client, m, Owner, prefix);
 
-    const command = cmd ? body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase() : null;
+            const commandName = body.startsWith(prefix) ? body.slice(prefix.length).trim().split(/\s+/)[0].toLowerCase() : null;
+        const resolvedCommandName = aliases[commandName] || commandName;
 
-console.log(`Command received: ${command}`);
-
-if (commands[command]) {
-    await commands[command](context);
-} 
+        if (commands[resolvedCommandName]) {
+            await commands[resolvedCommandName](context);
+        }
 
   } catch (err) {
     console.error("Error:", err);
