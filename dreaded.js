@@ -6,6 +6,8 @@ const speed = require("performance-now");
 const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJson, getBuffer, jsonformat, generateProfilePicture, parseMention, getRandom } = require('./Lib/Func.js');
 const { exec, spawn, execSync } = require("child_process");
 const uploadtoimgur = require('./Lib/Imgur');
+const { readFileSync } = require('fs'); 
+const pict = await fs.readFileSync('./dreaded.jpg');
 const path = require('path');
 const { commands, aliases, totalCommands } = require('./Handler/commandHandler');
 const status_saver = require('./Functions/status_saver');
@@ -84,7 +86,7 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
     client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants, mycode,
     pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
     packname, generateProfilePicture, groupMetadata, dreadedspeed,
-    fetchJson, exec, getRandom, prefix, cmd, botname, mode, gcpresence, getGroupAdmins, antionce, uploadtoimgur
+    fetchJson, exec, getRandom, prefix, cmd, botname, mode, gcpresence, getGroupAdmins, antionce, pict, uploadtoimgur
 };
 
 if (cmd && settings.mode === 'private' && !itsMe && !Owner) {
