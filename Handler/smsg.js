@@ -11,7 +11,7 @@ const {
 } = require("@whiskeysockets/baileys");
 
 const { readFileSync } = require('fs');
-const kali = readFileSync('./dreaded.jpg');
+const kali = readFileSync('./Handler/dreaded.jpg');
 
 function smsg(conn, m, store) {
   if (!m) return m;
